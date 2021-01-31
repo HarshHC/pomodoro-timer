@@ -8,7 +8,7 @@ import { Container } from '@chakra-ui/react';
 function App() {
   return (
     <div>
-      <Container bg="black"  w="100%" centerContent>
+      <Container bg="pink"   w="100%" centerContent>
         <Header />
         <Timer />
         <Tasks />
