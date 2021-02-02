@@ -2,18 +2,18 @@ import './App.css';
 import Header from './components/Header.js';
 import Timer from './components/Timer';
 import Tasks from './components/Tasks';
-import { Container } from '@chakra-ui/react';
+import { Box,Container } from '@chakra-ui/react';
 
 
 function App() {
   return (
-    <div>
-      <Container bg="pink"   w="100%" centerContent>
+    <Box width="100vw" height="100vh" bg="pink">
+      <Container centerContent>
         <Header />
         <Timer />
         <Tasks />
       </Container>
-    </div>
+    </Box>
   );
 }
 
