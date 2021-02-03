@@ -4,7 +4,7 @@ import { Heading } from '@chakra-ui/react'
 function Header() {
     return (
         <div>
-            <Heading m="20px" p="50px" marginTop="0">Pomodoro Timer HGNG</Heading>
+            <Heading mx="20px" p="50px">Pomodoro Timer</Heading>
         </div>
     )
 }
