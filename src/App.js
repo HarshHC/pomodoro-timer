@@ -1,8 +1,8 @@
-import './App.css';
-import Header from './components/Header';
-import Tasks from './components/Tasks';
-import { Box, Container } from '@chakra-ui/react';
-import Timer from './components/Timer';
+import "./App.css";
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
+import { Box, Container } from "@chakra-ui/react";
+import Timer from "./components/Timer";
 
 function App() {
   return (
