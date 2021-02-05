@@ -1,10 +1,16 @@
-import { Box, Button, Center, Flex } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import MinSetter from "./MinSetter";
+import { validateMins } from "./utilities";
 
 function Timer() {
   const [sessionMins, setSessionMins] = useState(25);
   const [breakMins, setBreakMins] = useState(10);
+
+  const toast = useToast();
+
+  validateMins(breakMins, setBreakMins, 60, toast);
+  validateMins(sessionMins, setSessionMins, 120, toast);
 
   return (
     <Box w="60vw" h="50vh" bg="blue.500" rounded="lg" boxShadow="md">

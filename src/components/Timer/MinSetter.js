@@ -13,12 +13,16 @@ import {
 import React from "react";
 
 function MinSetter(props) {
-  console.log(props.mins);
   return (
     <Container h="100%" flex="1" bg="transparent" centerContent>
       <Flex height="100%" direction="column" align="center" justify="center">
         <Spacer />
-        <Text my="10px" color="white" fontWeight="500">
+        <Text
+          my="10px"
+          color="white"
+          fontWeight="500"
+          textAlign="center"
+          m="10px">
           {props.title.toUpperCase()} (mins)
         </Text>
         <Spacer />
