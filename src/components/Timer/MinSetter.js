@@ -9,11 +9,14 @@ import {
   Spacer,
   Square,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import React from "react";
 import { isInputValid } from "./utilities";
 
 function MinSetter(props) {
+  const { colorMode } = useColorMode();
+
   return (
     <Container h="100%" flex="1" bg="transparent" centerContent>
       <Flex height="100%" direction="column" align="center" justify="center">
@@ -24,7 +27,11 @@ function MinSetter(props) {
         <Spacer />
         <Square
           size="40px"
-          bg="orange"
+          bgGradient={
+            colorMode === "light"
+              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
+              : "linear(to-bl, #5d0cff, #9b00fa)"
+          }
           rounded="md"
           fontSize="lg"
           as={Button}
@@ -54,7 +61,11 @@ function MinSetter(props) {
         <Spacer />
         <Square
           size="40px"
-          bg="orange"
+          bgGradient={
+            colorMode === "light"
+              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
+              : "linear(to-bl, #5d0cff, #9b00fa)"
+          }
           rounded="md"
           fontSize="lg"
           as={Button}

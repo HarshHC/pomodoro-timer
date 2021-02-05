@@ -37,7 +37,15 @@ function Timer() {
       </Flex>
 
       <Center m="10px">
-        <Button _hover={{ bg: "#ebedf0" }}>START</Button>
+        <Button
+          bgGradient={
+            colorMode === "light"
+              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
+              : "linear(to-bl, #5d0cff, #9b00fa)"
+          }
+          _hover={{ bg: "#ebedf0" }}>
+          START
+        </Button>
       </Center>
     </Box>
   );
