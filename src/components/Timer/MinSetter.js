@@ -11,6 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { isInputValid } from "./utilities";
 
 function MinSetter(props) {
   return (
@@ -41,7 +42,11 @@ function MinSetter(props) {
           <Editable
             defaultValue={props.mins}
             value={props.mins}
-            onChange={(val) => props.setMins(val)}>
+            onChange={(val) => {
+              if (isInputValid(val)) {
+                props.setMins(val);
+              }
+            }}>
             <EditablePreview />
             <EditableInput />
           </Editable>
