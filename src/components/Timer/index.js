@@ -1,11 +1,13 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { Box, Button, Center, Container, Editable, EditableInput, EditablePreview, Flex, Spacer, Square, Text } from '@chakra-ui/react';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Timer() {
+    const [sessionMins, setSessionMins] = useState(25);
+    const [breakMins, setBreakMins] = useState(10);
 
     return (
-        <Box w="100%" h="50vh" bg="blue.500" rounded="lg" boxShadow="md" centerContent>
+        <Box w="60vw" h="50vh" bg="blue.500" rounded="lg" boxShadow="md" centerContent>
             <Flex height="80%" color="white" justifyContent="center" alignItems="center">
                 <Container h="100%" flex="1" bg="transparent" centerContent>
 
@@ -15,18 +17,32 @@ function Timer() {
                             SESSION (mins)
                         </Text>
                         <Spacer />
-                        <Square size="40px" bg="orange" rounded="md" fontSize="lg" as={Button} _hover={{ bg: "#f09b00" }}>
+                        <Square 
+                            size="40px" 
+                            bg="orange" 
+                            rounded="md" 
+                            fontSize="lg" 
+                            as={Button} 
+                            _hover={{ bg: "#f09b00" }}
+                            onClick={() => setSessionMins(sessionMins+1)}>
                             <AddIcon />
                         </Square>
                         <Spacer />
                         <Square size="100px" bg="transparent" rounded="md" fontSize="6xl" textAlign="center">
-                            <Editable defaultValue="25" className="noSelect">
+                            <Editable defaultValue={sessionMins} className="noSelect" value={sessionMins}>
                                 <EditablePreview className="noSelect"/>
                                 <EditableInput className="noSelect" />
                             </Editable>
                         </Square>
                         <Spacer />
-                        <Square size="40px" bg="orange" rounded="md" fontSize="lg" as={Button} _hover={{ bg: "#f09b00" }}>
+                        <Square 
+                            size="40px"
+                            bg="orange"
+                            rounded="md"
+                            fontSize="lg"
+                            as={Button}
+                            _hover={{ bg: "#f09b00" }}
+                            onClick={() => setSessionMins(sessionMins-1)}>
                             <MinusIcon />
                         </Square>
                         <Spacer />
@@ -43,18 +59,36 @@ function Timer() {
                         BREAK (mins)
                     </Text>
                     <Spacer />
-                    <Square size="40px" bg="orange" rounded="md" fontSize="lg" as={Button} _hover={{ bg: "#f09b00" }}>
+                    <Square 
+                        size="40px" 
+                        bg="orange" 
+                        rounded="md" 
+                        fontSize="lg" 
+                        as={Button} 
+                        _hover={{ bg: "#f09b00" }}
+                        onClick={() => setBreakMins(parseInt(breakMins) + 1)}>
                         <AddIcon />
                     </Square>
                     <Spacer />
                     <Square size="100px" bg="transparent" rounded="md" fontSize="6xl" textAlign="center">
-                        <Editable defaultValue="10" className="noSelect">
+                        <Editable 
+                            defaultValue={breakMins} 
+                            className="noSelect" 
+                            value={breakMins} 
+                            onChange={(target) => setBreakMins(target.value)}>
                             <EditablePreview className="noSelect"/>
                             <EditableInput className="noSelect" />
                         </Editable>
                     </Square>
                     <Spacer />
-                    <Square size="40px" bg="orange" rounded="md" fontSize="lg" as={Button} _hover={{ bg: "#f09b00" }}>
+                    <Square 
+                        size="40px" 
+                        bg="orange" 
+                        rounded="md" 
+                        fontSize="lg" 
+                        as={Button} 
+                        _hover={{ bg: "#f09b00" }}
+                        onClick={() => setBreakMins(breakMins-1)}>
                         <MinusIcon />
                     </Square>
                     <Spacer />
