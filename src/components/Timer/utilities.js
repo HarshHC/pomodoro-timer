@@ -22,5 +22,7 @@ export const validateMins = (mins, setMins, max, toast) => {
       duration: 1000,
       isClosable: true,
     });
+  } else {
+    setMins(parseInt(mins));
   }
 };
