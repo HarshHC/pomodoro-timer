@@ -3,8 +3,8 @@ import React from "react";
 
 function RunningTimer(props) {
   const { colorMode } = useColorMode();
-  let mins = props.startingMins - 1;
-  let sec = 59;
+  let mins = props.startingMins;
+  let sec = "00";
 
   return (
     <Flex
