@@ -10,12 +10,14 @@ import {
   Square,
   Text,
   useColorMode,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
-import { isInputValid } from "./utilities";
+import { isInputValid, validateMins } from "./utilities";
 
 function MinSetter(props) {
   const { colorMode } = useColorMode();
+  const toast = useToast();
 
   return (
     <Container h="100%" flex="1" bg="transparent" centerContent>
@@ -36,7 +38,10 @@ function MinSetter(props) {
           fontSize="lg"
           as={Button}
           _hover={{ bg: "#f09b00" }}
-          onClick={() => props.setMins(props.mins + 1)}>
+          onClick={() => {
+            props.setMins(props.mins + 1);
+            validateMins(props.mins, props.setMins, props.maxVal, toast);
+          }}>
           <AddIcon />
         </Square>
         <Spacer />
@@ -47,12 +52,16 @@ function MinSetter(props) {
           fontSize="6xl"
           textAlign="center">
           <Editable
-            defaultValue={props.mins}
+            defaultValue={props.defaultMins}
             value={props.mins}
-            onChange={(val) => {
-              if (isInputValid(val)) {
-                props.setMins(val);
+            onSubmit={(val) => {
+              validateMins(props.mins, props.setMins, 60, toast);
+              if (!isInputValid(val)) {
+                props.setMins(props.defaultMins);
               }
+            }}
+            onChange={(val) => {
+              props.setMins(val);
             }}>
             <EditablePreview />
             <EditableInput />
@@ -70,7 +79,10 @@ function MinSetter(props) {
           fontSize="lg"
           as={Button}
           _hover={{ bg: "#f09b00" }}
-          onClick={() => props.setMins(props.mins - 1)}>
+          onClick={() => {
+            props.setMins(props.mins - 1);
+            validateMins(props.mins, props.setMins, props.maxVal, toast);
+          }}>
           <MinusIcon />
         </Square>
         <Spacer />
