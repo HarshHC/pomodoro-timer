@@ -1,10 +1,26 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { Box, Button, Center, Container, Editable, EditableInput, EditablePreview, Flex, Spacer, Square, Text } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 function Timer() {
     const [sessionMins, setSessionMins] = useState(25);
     const [breakMins, setBreakMins] = useState(10);
+    const [sessionSeconds, setSessionSeconds] = useState(10);
+    const [breakSeconds, setBreakSeconds] = useState(10);
+    const [start, setStart] = useState(false);
+    const [intervalId, setIntervalId] = useState(null);
+
+    useEffect(() => {
+        if(start) {
+            const id = window.setInterval(() => {
+                setSessionMins(sessionMins => sessionMins-1);
+            }, 1000)
+            setIntervalId(id);
+        } else {
+            window.clearInterval(intervalId);
+        }
+    }, [start]);
+
 
     return (
         <Box w="60vw" h="50vh" bg="blue.500" rounded="lg" boxShadow="md" centerContent>
@@ -42,7 +58,7 @@ function Timer() {
                             fontSize="lg"
                             as={Button}
                             _hover={{ bg: "#f09b00" }}
-                            onClick={() => setSessionMins(sessionMins-1)}>
+                            onClick={() => setSessionMins(parseInt(sessionMins-1))}>
                             <MinusIcon />
                         </Square>
                         <Spacer />
@@ -99,7 +115,13 @@ function Timer() {
             </Flex>
             
             <Center m="10px">
-                <Button _hover={{ bg: "#ebedf0" }} >START</Button>
+                <Button 
+                _hover={{ bg: "#ebedf0" }} 
+                onClick={() => setStart(!start)}
+                >
+                    
+                START
+                </Button>
             </Center>
         </Box>
     )
