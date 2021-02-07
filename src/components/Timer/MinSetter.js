@@ -12,10 +12,18 @@ import {
   useColorMode,
   useToast,
 } from "@chakra-ui/react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { validateMins, isInputValid } from "./utilities";
 
-function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionMins, time, setTime}) {
+function MinSetter({
+  title,
+  sessionMins,
+  defaultMins,
+  setSessionMins,
+  maxSessionMins,
+  time,
+  setTime,
+}) {
   const { colorMode } = useColorMode();
   const toast = useToast();
 
@@ -39,10 +47,9 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
           as={Button}
           _hover={{ bg: "#5d0cff" }}
           onClick={() => {
-          setSessionMins(sessionMins => sessionMins + 1);
-          setTime(sessionMins*60);
+            setSessionMins((sessionMins) => sessionMins + 1);
           }}>
-        <AddIcon />
+          <AddIcon />
         </Square>
         <Spacer />
         <Square
@@ -63,7 +70,6 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
             }}
             onChange={(val) => {
               setSessionMins(val);
-
             }}>
             <EditablePreview />
             <EditableInput />
@@ -82,8 +88,8 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
           as={Button}
           _hover={{ bg: "#5d0cff" }}
           onClick={() => {
-            setSessionMins(sessionMins => sessionMins - 1);
-            setTime(sessionMins*60);
+            setSessionMins((sessionMins) => sessionMins - 1);
+            setTime(sessionMins * 60);
             validateMins(sessionMins, setSessionMins, maxSessionMins, toast);
           }}>
           <MinusIcon />

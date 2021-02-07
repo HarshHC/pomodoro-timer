@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 export const isInputValid = (value) => {
-    console.log("val", value);
-    return !isNaN(value) && value !== "" && isNaN(value) != null;
+  console.log("val", value);
+  return !isNaN(value) && value !== "" && isNaN(value) != null;
 };
 
-export const validateMins = (sessionMins, setSessionMins, maxSessionMins, toast) => {
+export const validateMins = (
+  sessionMins,
+  setSessionMins,
+  maxSessionMins,
+  toast
+) => {
   if (sessionMins > maxSessionMins) {
     console.log(maxSessionMins);
     setSessionMins(maxSessionMins);
