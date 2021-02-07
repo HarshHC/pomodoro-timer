@@ -37,7 +37,7 @@ function MinSetter(props) {
           rounded="md"
           fontSize="lg"
           as={Button}
-          _hover={{ bg: "#f09b00" }}
+          _hover={{ bg: "#5d0cff" }}
           onClick={() => {
             props.setMins(props.mins + 1);
             validateMins(props.mins, props.setMins, props.maxVal, toast);
@@ -55,7 +55,8 @@ function MinSetter(props) {
             defaultValue={props.defaultMins}
             value={props.mins}
             onSubmit={(val) => {
-              validateMins(props.mins, props.setMins, 60, toast);
+              props.setMins(parseInt(val));
+              validateMins(props.mins, props.setMins, props.maxVal, toast);
               if (!isInputValid(val)) {
                 props.setMins(props.defaultMins);
               }
@@ -78,7 +79,7 @@ function MinSetter(props) {
           rounded="md"
           fontSize="lg"
           as={Button}
-          _hover={{ bg: "#f09b00" }}
+          _hover={{ bg: "#5d0cff" }}
           onClick={() => {
             props.setMins(props.mins - 1);
             validateMins(props.mins, props.setMins, props.maxVal, toast);

@@ -5,6 +5,7 @@ export const isInputValid = (value) => {
 
 export const validateMins = (mins, setMins, max, toast) => {
   if (mins > max) {
+    console.log(max);
     setMins(max);
     toast({
       title: "Error",
@@ -22,7 +23,5 @@ export const validateMins = (mins, setMins, max, toast) => {
       duration: 1000,
       isClosable: true,
     });
-  } else {
-    setMins(parseInt(mins));
   }
 };
