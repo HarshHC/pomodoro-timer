@@ -9,7 +9,8 @@ function App() {
   return (
     <Box
       width="100vw"
-      height="100vh"
+      height="maxContent"
+      minH="100vh"
       bgGradient={
         colorMode === "light"
           ? "linear(to-bl, #F5F5F5, #FFFFFF)"

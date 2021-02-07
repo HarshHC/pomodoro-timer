@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Box, Flex } from "@chakra-ui/react";
 
 function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
   const [edit, setEdit] = useState({
@@ -21,24 +22,31 @@ function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
   }
 
   return todos.map((todo, index) => (
-    <div
-      className={todo.isComplete ? "todo-row complete" : "todo-row"}
+    <Box
+      bgGradient="linear(to-r, #5d0cff, #9b00fa)"
+      w="100%"
+      borderRadius="4px"
+      p="16px"
+      my="10px"
       key={index}>
-      <div key={todo.id} onClick={() => completeTodo(todo.id)}>
-        {todo.text}
-      </div>
-
-      <div className="icons">
-        <DeleteIcon
-          onClick={() => removeTodo(todo.id)}
-          className="delete-icon"
-        />
-        <EditIcon
-          onClick={() => setEdit({ id: todo.id, value: todo.text })}
-          className="edit-icon"
-        />
-      </div>
-    </div>
+      <Flex>
+        <Box w="80%" flex="1" key={todo.id}>
+          {todo.text}
+        </Box>
+        <Box w="20%">
+          <DeleteIcon
+            boxSize="5"
+            mx="10px"
+            onClick={() => removeTodo(todo.id)}
+          />
+          <EditIcon
+            boxSize="5"
+            mx="10px"
+            onClick={() => setEdit({ id: todo.id, value: todo.text })}
+          />
+        </Box>
+      </Flex>
+    </Box>
   ));
 }
 

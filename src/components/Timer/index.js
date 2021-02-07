@@ -9,7 +9,6 @@ function Timer() {
   const [breakMins, setBreakMins] = useState(10);
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
-  const [intervalId, setIntervalId] = useState(null);
   const [sessionSeconds, setSessionSeconds] = useState(0);
   const [time, setTime] = useState(1500);
 
@@ -35,7 +34,7 @@ function Timer() {
       <TimerEditMode
         sessionMins={sessionMins}
         setSessionMins={setSessionMins}
-        maxSessionMins={120}
+        maxSessionMins={60}
         breakMins={breakMins}
         setBreakMins={setBreakMins}
         maxBreakMins={60}
@@ -55,7 +54,7 @@ function Timer() {
               ? "linear(to-bl, #F5F5F5, #FFFFFF)"
               : "linear(to-bl, #5d0cff, #9b00fa)"
           }
-          _hover={{ bg: "#9b00fa" }}
+          _hover={{ bg: "#5d0cff" }}
           onClick={() => setStarted(!started)}>
           {started ? "STOP" : "START"}
         </Button>

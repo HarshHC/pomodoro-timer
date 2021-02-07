@@ -7,10 +7,11 @@ function RunningTimer({setSessionMins, sessionMins, setMode,
   let ztime = sessionMins*60
   
   useEffect(() =>{
-    if(started){
+    if(started && time>0){
       const id = window.setInterval(()=> {
       setSessionSeconds(sessionSeconds => ztime % 60);
       setSessionMins(sessionMins => Math.floor(ztime/60));
+      setTime(time => time - 1);
       ztime--;
       }, 1000);
       return () => window.clearInterval(id);
@@ -38,7 +39,7 @@ function RunningTimer({setSessionMins, sessionMins, setMode,
         </Text>
 
         <Text fontSize="8xl">
-        {sessionSeconds<10 ? sessionMins + ":" + "0" + sessionSeconds : sessionMins + ":" + sessionSeconds}
+        {sessionMins<10? "0"+sessionMins: sessionMins} : {sessionSeconds<10? "0"+sessionSeconds: sessionSeconds}
         </Text>
       </Container>
     </Flex>

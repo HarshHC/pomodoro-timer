@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, {useState} from "react";
-import { isInputValid, validateMins } from "./utilities";
+import { validateMins, isInputValid } from "./utilities";
 
 function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionMins, time, setTime}) {
   const { colorMode } = useColorMode();
@@ -24,7 +24,7 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
       <Flex height="100%" direction="column" align="center" justify="center">
         <Spacer />
         <Text my="10px" fontWeight="500" textAlign="center" m="10px">
-          {title.toUpperCase()} (mins)
+          {title.toUpperCase()} (sessionMins)
         </Text>
         <Spacer />
         <Square
@@ -37,7 +37,7 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
           rounded="md"
           fontSize="lg"
           as={Button}
-          _hover={{ bg: "#f09b00" }}
+          _hover={{ bg: "#5d0cff" }}
           onClick={() => {
           setSessionMins(sessionMins => sessionMins + 1);
           setTime(sessionMins*60);
@@ -55,7 +55,8 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
             defaultValue={defaultMins}
             value={sessionMins}
             onSubmit={(val) => {
-              validateMins(sessionMins, setSessionMins, 60, toast);
+              setSessionMins(parseInt(val));
+              validateMins(sessionMins, setSessionMins, maxSessionMins, toast);
               if (!isInputValid(val)) {
                 setSessionMins(defaultMins);
               }
@@ -79,7 +80,7 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
           rounded="md"
           fontSize="lg"
           as={Button}
-          _hover={{ bg: "#f09b00" }}
+          _hover={{ bg: "#5d0cff" }}
           onClick={() => {
             setSessionMins(sessionMins => sessionMins - 1);
             setTime(sessionMins*60);
