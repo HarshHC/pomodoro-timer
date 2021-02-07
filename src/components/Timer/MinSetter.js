@@ -15,7 +15,7 @@ import {
 import React, {useState} from "react";
 import { isInputValid, validateMins } from "./utilities";
 
-function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionMins}) {
+function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionMins, time, setTime}) {
   const { colorMode } = useColorMode();
   const toast = useToast();
 
@@ -40,6 +40,7 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
           _hover={{ bg: "#f09b00" }}
           onClick={() => {
           setSessionMins(sessionMins => sessionMins + 1);
+          setTime(sessionMins*60);
           }}>
         <AddIcon />
         </Square>
@@ -61,6 +62,7 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
             }}
             onChange={(val) => {
               setSessionMins(val);
+
             }}>
             <EditablePreview />
             <EditableInput />
@@ -80,6 +82,7 @@ function MinSetter({title, sessionMins, defaultMins, setSessionMins, maxSessionM
           _hover={{ bg: "#f09b00" }}
           onClick={() => {
             setSessionMins(sessionMins => sessionMins - 1);
+            setTime(sessionMins*60);
             validateMins(sessionMins, setSessionMins, maxSessionMins, toast);
           }}>
           <MinusIcon />

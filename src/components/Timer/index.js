@@ -9,6 +9,9 @@ function Timer() {
   const [breakMins, setBreakMins] = useState(10);
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
+  const [intervalId, setIntervalId] = useState(null);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [time, setTime] = useState(1500);
 
   const { colorMode } = useColorMode();
 
@@ -22,6 +25,10 @@ function Timer() {
      mode={mode}
      started={started}
      setStarted={setStarted}
+     sessionSeconds={sessionSeconds}
+     setSessionSeconds={setSessionSeconds}
+     setTime={setTime}
+     time={time}
       />;
   } else {
     displayedTimer = (
@@ -32,6 +39,8 @@ function Timer() {
         breakMins={breakMins}
         setBreakMins={setBreakMins}
         maxBreakMins={60}
+        setTime={setTime}
+        time={time}
       />
     );
   }
