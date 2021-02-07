@@ -9,13 +9,26 @@ function Timer() {
   const [breakMins, setBreakMins] = useState(10);
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [time, setTime] = useState(1500);
 
   const { colorMode } = useColorMode();
 
   let displayedTimer;
 
   if (started) {
-    displayedTimer = <RunningTimer mode={mode} startingMins={sessionMins} />;
+    displayedTimer = <RunningTimer mode={mode}
+     sessionMins={sessionMins}
+     setSessionMins={setSessionMins}
+     setMode={setMode}
+     mode={mode}
+     started={started}
+     setStarted={setStarted}
+     sessionSeconds={sessionSeconds}
+     setSessionSeconds={setSessionSeconds}
+     setTime={setTime}
+     time={time}
+      />;
   } else {
     displayedTimer = (
       <TimerEditMode
@@ -25,6 +38,8 @@ function Timer() {
         breakMins={breakMins}
         setBreakMins={setBreakMins}
         maxBreakMins={60}
+        setTime={setTime}
+        time={time}
       />
     );
   }

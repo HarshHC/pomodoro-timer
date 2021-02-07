@@ -1,10 +1,22 @@
 import { Container, Flex, Text, useColorMode } from "@chakra-ui/react";
-import React from "react";
+import React, {useState, useEffect} from "react";
 
-function RunningTimer(props) {
+function RunningTimer({setSessionMins, sessionMins, setMode,
+  started, setStarted, mode, setSessionSeconds, sessionSeconds, setTime, time}) {
   const { colorMode } = useColorMode();
-  let mins = props.startingMins;
-  let sec = "00";
+  let ztime = sessionMins*60
+  
+  useEffect(() =>{
+    if(started && time>0){
+      const id = window.setInterval(()=> {
+      setSessionSeconds(sessionSeconds => ztime % 60);
+      setSessionMins(sessionMins => Math.floor(ztime/60));
+      setTime(time => time - 1);
+      ztime--;
+      }, 1000);
+      return () => window.clearInterval(id);
+    }
+  },[started])
 
   return (
     <Flex
@@ -23,11 +35,11 @@ function RunningTimer(props) {
           }
           bgClip="text"
           fontWeight="extrabold">
-          - {props.mode.toUpperCase()} -
+          - {mode.toUpperCase()} -
         </Text>
 
         <Text fontSize="8xl">
-          {mins} : {sec}
+        {sessionMins<10? "0"+sessionMins: sessionMins} : {sessionSeconds<10? "0"+sessionSeconds: sessionSeconds}
         </Text>
       </Container>
     </Flex>
