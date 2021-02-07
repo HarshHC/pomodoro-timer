@@ -2,16 +2,7 @@ import { Flex, useColorMode } from "@chakra-ui/react";
 import React from "react";
 import MinSetter from "./MinSetter";
 
-function TimerEditMode({
-  setSessionMins,
-  setBreakMins,
-  sessionMins,
-  breakMins,
-  maxBreakMins,
-  maxSessionMins,
-  setTime,
-  time,
-}) {
+function TimerEditMode(props) {
   const { colorMode } = useColorMode();
 
   return (
@@ -23,19 +14,17 @@ function TimerEditMode({
       <MinSetter
         title="Session"
         defaultMins={25}
-        sessionMins={sessionMins}
-        setSessionMins={setSessionMins}
-        maxSessionMins={maxSessionMins}
-        setTime={setTime}
-        time={time}
+        mins={props.sessionMins}
+        maxVal={props.maxSessionMins}
+        setMins={props.setSessionMins}
       />
 
       <MinSetter
         title="Break"
         defaultMins={10}
-        mins={breakMins}
-        maxVal={maxBreakMins}
-        setMins={setBreakMins}
+        mins={props.breakMins}
+        maxVal={props.maxBreakMins}
+        setMins={props.setBreakMins}
       />
     </Flex>
   );

@@ -1,22 +1,15 @@
 import { Container, Flex, Text, useColorMode } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
-function RunningTimer({
-  setSessionMins,
-  sessionMins,
-  setMode,
-  started,
-  setStarted,
-  mode,
-}) {
+function RunningTimer(props) {
   const { colorMode } = useColorMode();
   const [sessionSeconds, setSessionSeconds] = useState(0);
-  const [mins, setMins] = useState(sessionMins);
-  const [time, setTime] = useState(sessionMins * 60);
-  let ztime = sessionMins * 60;
+  const [mins, setMins] = useState(props.sessionMins);
+  const [time, setTime] = useState(props.sessionMins * 60);
+  let ztime = props.sessionMins * 60;
 
   useEffect(() => {
-    if (started && time > 0) {
+    if (props.started && time > 0) {
       const id = window.setInterval(() => {
         setSessionSeconds((sessionSeconds) => ztime % 60);
         setMins((mins) => Math.floor(ztime / 60));
@@ -25,7 +18,7 @@ function RunningTimer({
       }, 1000);
       return () => window.clearInterval(id);
     }
-  }, [started]);
+  }, [props.started]);
 
   return (
     <Flex
@@ -44,11 +37,11 @@ function RunningTimer({
           }
           bgClip="text"
           fontWeight="extrabold">
-          - {mode.toUpperCase()} -
+          - {props.mode.toUpperCase()} -
         </Text>
 
         <Text fontSize="8xl">
-          {sessionMins < 10 ? "0" + mins : mins} :{" "}
+          {props.sessionMins < 10 ? "0" + mins : mins} :{" "}
           {sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
         </Text>
       </Container>

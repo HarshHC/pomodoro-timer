@@ -12,18 +12,10 @@ import {
   useColorMode,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { validateMins, isInputValid } from "./utilities";
+import React from "react";
+import { isInputValid, validateMins } from "./utilities";
 
-function MinSetter({
-  title,
-  sessionMins,
-  defaultMins,
-  setSessionMins,
-  maxSessionMins,
-  time,
-  setTime,
-}) {
+function MinSetter(props) {
   const { colorMode } = useColorMode();
   const toast = useToast();
 
@@ -32,7 +24,7 @@ function MinSetter({
       <Flex height="100%" direction="column" align="center" justify="center">
         <Spacer />
         <Text my="10px" fontWeight="500" textAlign="center" m="10px">
-          {title.toUpperCase()} (sessionMins)
+          {props.title.toUpperCase()} (mins)
         </Text>
         <Spacer />
         <Square
@@ -47,7 +39,8 @@ function MinSetter({
           as={Button}
           _hover={{ bg: "#5d0cff" }}
           onClick={() => {
-            setSessionMins((sessionMins) => sessionMins + 1);
+            props.setMins(props.mins + 1);
+            validateMins(props.mins, props.setMins, props.maxVal, toast);
           }}>
           <AddIcon />
         </Square>
@@ -59,17 +52,17 @@ function MinSetter({
           fontSize="6xl"
           textAlign="center">
           <Editable
-            defaultValue={defaultMins}
-            value={sessionMins}
+            defaultValue={props.defaultMins}
+            value={props.mins}
             onSubmit={(val) => {
-              setSessionMins(parseInt(val));
-              validateMins(sessionMins, setSessionMins, maxSessionMins, toast);
+              props.setMins(parseInt(val));
+              validateMins(props.mins, props.setMins, props.maxVal, toast);
               if (!isInputValid(val)) {
-                setSessionMins(defaultMins);
+                props.setMins(props.defaultMins);
               }
             }}
             onChange={(val) => {
-              setSessionMins(val);
+              props.setMins(val);
             }}>
             <EditablePreview />
             <EditableInput />
@@ -88,9 +81,8 @@ function MinSetter({
           as={Button}
           _hover={{ bg: "#5d0cff" }}
           onClick={() => {
-            setSessionMins((sessionMins) => sessionMins - 1);
-            setTime(sessionMins * 60);
-            validateMins(sessionMins, setSessionMins, maxSessionMins, toast);
+            props.setMins(props.mins - 1);
+            validateMins(props.mins, props.setMins, props.maxVal, toast);
           }}>
           <MinusIcon />
         </Square>
