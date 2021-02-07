@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 export const isInputValid = (value) => {
   console.log("val", value);
   return !isNaN(value) && value !== "" && isNaN(value) != null;

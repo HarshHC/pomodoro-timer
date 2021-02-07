@@ -13,10 +13,11 @@ function RunningTimer({
   const [sessionSeconds, setSessionSeconds] = useState(0);
   const [mins, setMins] = useState(sessionMins);
   const [time, setTime] = useState(sessionMins * 60);
+  const [isRunning, setIsRunning] = useState(true);
   let ztime = sessionMins * 60;
 
   useEffect(() => {
-    if (started && time > 0) {
+    if (started) {
       const id = window.setInterval(() => {
         setSessionSeconds((sessionSeconds) => ztime % 60);
         setMins((mins) => Math.floor(ztime / 60));
