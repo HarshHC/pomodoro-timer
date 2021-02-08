@@ -12,6 +12,7 @@ function RunningTimer(props) {
   useEffect(() => {
     if (isRunning) {
       const id = window.setInterval(() => {
+        countdownHandler();
         setSessionSeconds((sessionSeconds) => ztime % 60);
         setMins(Math.floor(ztime / 60));
         setTime(time - 1);
@@ -20,6 +21,11 @@ function RunningTimer(props) {
       return () => window.clearInterval(id);
     }
   }, [isRunning]);
+  const countdownHandler = () => {
+    if (ztime <= 0) {
+      setIsRunning(false);
+    }
+  };
 
   return (
     <Flex
