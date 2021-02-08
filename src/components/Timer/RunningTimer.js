@@ -6,11 +6,10 @@ function RunningTimer(props) {
   const [sessionSeconds, setSessionSeconds] = useState(0);
   const [mins, setMins] = useState(props.sessionMins);
   const [time, setTime] = useState(props.sessionMins * 60);
-  const [isRunning, setIsRunning] = useState(true);
   let ztime = props.sessionMins * 60;
 
   useEffect(() => {
-    if (isRunning) {
+    if (props.isRunning) {
       const id = window.setInterval(() => {
         countdownHandler();
         setSessionSeconds((sessionSeconds) => ztime % 60);
@@ -20,10 +19,10 @@ function RunningTimer(props) {
       }, 1000);
       return () => window.clearInterval(id);
     }
-  }, [isRunning]);
+  }, [props.isRunning]);
   const countdownHandler = () => {
     if (ztime <= 0) {
-      setIsRunning(false);
+      props.setIsRunning(false);
     }
   };
 
