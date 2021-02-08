@@ -10,14 +10,12 @@ function RunningTimer(props) {
   let ztime = props.sessionMins * 60;
 
   useEffect(() => {
-    let id;
     if (isRunning) {
-      id = window.setInterval(() => {
-        const secondCounter = time % 60;
-        const minuteCounter = Math.floor(time / 60);
-        setSessionSeconds(secondCounter);
-        setMins(minuteCounter);
-        setTime((time) => time - 1);
+      const id = window.setInterval(() => {
+        setSessionSeconds((sessionSeconds) => ztime % 60);
+        setMins(Math.floor(ztime / 60));
+        setTime(time - 1);
+        ztime--;
       }, 1000);
       return () => window.clearInterval(id);
     }
@@ -46,7 +44,7 @@ function RunningTimer(props) {
         <Text fontSize="8xl">
           {mins} :{sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
         </Text>
-        <Button
+        {/* <Button
           bgGradient={
             colorMode === "light"
               ? "linear(to-bl, #F5F5F5, #FFFFFF)"
@@ -55,7 +53,7 @@ function RunningTimer(props) {
           _hover={{ bg: "#5d0cff" }}
           onClick={() => setIsRunning(!isRunning)}>
           {"Pause"}
-        </Button>
+        </Button> */}
       </Container>
     </Flex>
   );
