@@ -1,32 +1,27 @@
-import { Container, Flex, Text, useColorMode } from "@chakra-ui/react";
+import { Container, Flex, Text, useColorMode, Button } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
-function RunningTimer({
-  setSessionMins,
-  sessionMins,
-  setMode,
-  started,
-  setStarted,
-  mode,
-}) {
+function RunningTimer(props) {
   const { colorMode } = useColorMode();
   const [sessionSeconds, setSessionSeconds] = useState(0);
-  const [mins, setMins] = useState(sessionMins);
-  const [time, setTime] = useState(sessionMins * 60);
+  const [mins, setMins] = useState(props.sessionMins);
+  const [time, setTime] = useState(props.sessionMins * 60);
   const [isRunning, setIsRunning] = useState(true);
-  let ztime = sessionMins * 60;
+  let ztime = props.sessionMins * 60;
 
   useEffect(() => {
-    if (started) {
-      const id = window.setInterval(() => {
-        setSessionSeconds((sessionSeconds) => ztime % 60);
-        setMins((mins) => Math.floor(ztime / 60));
+    let id;
+    if (isRunning) {
+      id = window.setInterval(() => {
+        const secondCounter = time % 60;
+        const minuteCounter = Math.floor(time / 60);
+        setSessionSeconds(secondCounter);
+        setMins(minuteCounter);
         setTime((time) => time - 1);
-        ztime--;
       }, 1000);
       return () => window.clearInterval(id);
     }
-  }, [started]);
+  }, [isRunning]);
 
   return (
     <Flex
@@ -45,13 +40,22 @@ function RunningTimer({
           }
           bgClip="text"
           fontWeight="extrabold">
-          - {mode.toUpperCase()} -
+          - {props.mode.toUpperCase()} -
         </Text>
 
         <Text fontSize="8xl">
-          {sessionMins < 10 ? "0" + mins : mins} :{" "}
-          {sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
+          {mins} :{sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
         </Text>
+        <Button
+          bgGradient={
+            colorMode === "light"
+              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
+              : "linear(to-bl, #5d0cff, #9b00fa)"
+          }
+          _hover={{ bg: "#5d0cff" }}
+          onClick={() => setIsRunning(!isRunning)}>
+          {"Pause"}
+        </Button>
       </Container>
     </Flex>
   );
