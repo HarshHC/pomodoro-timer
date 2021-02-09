@@ -7,7 +7,7 @@ function TimerEditMode(props) {
 
   return (
     <Flex
-      height="80%"
+      height="100%"
       color={colorMode === "light" ? "black" : "white"}
       justifyContent="center"
       alignItems="center">

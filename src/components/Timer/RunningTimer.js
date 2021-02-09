@@ -29,7 +29,7 @@ function RunningTimer(props) {
 
   return (
     <Flex
-      height="80%"
+      height="100%"
       color={colorMode === "light" ? "black" : "white"}
       justifyContent="center"
       alignItems="center">
@@ -48,7 +48,7 @@ function RunningTimer(props) {
         </Text>
 
         <Text fontSize="8xl">
-          {mins} :{sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
+          {mins}:{sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
         </Text>
         {/* <Button
           bgGradient={
