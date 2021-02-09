@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import { Box, Container, useColorMode } from "@chakra-ui/react";
 import Timer from "./components/Timer";
+import "focus-visible/dist/focus-visible";
 
 function App() {
   const { colorMode } = useColorMode();

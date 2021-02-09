@@ -23,7 +23,7 @@ function MinSetter(props) {
     <Container h="100%" flex="1" bg="transparent" centerContent>
       <Flex height="100%" direction="column" align="center" justify="center">
         <Spacer />
-        <Text my="10px" fontWeight="500" textAlign="center" m="10px">
+        <Text my="10px" w="100%" fontWeight="500" textAlign="center" m="8">
           {props.title.toUpperCase()} (mins)
         </Text>
         <Spacer />

@@ -41,24 +41,16 @@ function Timer() {
   }
 
   return (
-    <Box w="80%" minH="50vh" rounded="lg" boxShadow="dark-lg" p="2">
-      {displayedTimer}
-      <Flex m="4" justify="center" align="center">
-        <Center m="10px">
-          <Button
-            bgGradient={
-              colorMode === "light"
-                ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-                : "linear(to-bl, #5d0cff, #9b00fa)"
-            }
-            _hover={{ bg: "#5d0cff" }}
-            onClick={() => setStarted(!started)}>
-            {started ? "STOP" : "START"}
-          </Button>
-        </Center>
-
-        {started ? (
-          <Center m="10px">
+    <Box w="90%" minH="40vh" rounded="xl" boxShadow="dark-lg" p="2">
+      <Flex
+        minH="40vh"
+        h="100%"
+        justify="center"
+        align="center"
+        flexDir="column">
+        <Center>{displayedTimer}</Center>
+        <Flex m="4" justify="center" align="center">
+          <Center m="20px">
             <Button
               bgGradient={
                 colorMode === "light"
@@ -66,13 +58,28 @@ function Timer() {
                   : "linear(to-bl, #5d0cff, #9b00fa)"
               }
               _hover={{ bg: "#5d0cff" }}
-              onClick={() => setIsRunning(!isRunning)}>
-              {isRunning ? "PAUSE" : "RESUME"}
+              onClick={() => setStarted(!started)}>
+              {started ? "STOP" : "START"}
             </Button>
           </Center>
-        ) : (
-          <div></div>
-        )}
+
+          {started ? (
+            <Center>
+              <Button
+                bgGradient={
+                  colorMode === "light"
+                    ? "linear(to-bl, #F5F5F5, #FFFFFF)"
+                    : "linear(to-bl, #5d0cff, #9b00fa)"
+                }
+                _hover={{ bg: "#5d0cff" }}
+                onClick={() => setIsRunning(!isRunning)}>
+                {isRunning ? "PAUSE" : "RESUME"}
+              </Button>
+            </Center>
+          ) : (
+            <div></div>
+          )}
+        </Flex>
       </Flex>
     </Box>
   );
