@@ -1,18 +1,24 @@
-import { Container, Flex, Text, useColorMode, Button } from "@chakra-ui/react";
+import { Container, Flex, Text, useColorMode } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
 function RunningTimer(props) {
   const { colorMode } = useColorMode();
-  const [sessionSeconds, setSessionSeconds] = useState(0);
-  const [mins, setMins] = useState(props.sessionMins);
+  const [sessionSeconds, setSessionSeconds] = useState(59);
+  const [mins, setMins] = useState(props.sessionMins - 1);
   const [time, setTime] = useState(props.sessionMins * 60);
-  let ztime = props.sessionMins * 60;
+  let ztime = props.sessionMins * 60 - 2;
+
+  const countdownHandler = () => {
+    if (ztime <= 0) {
+      props.setIsRunning(false);
+    }
+  };
 
   useEffect(() => {
     if (props.isRunning) {
       const id = window.setInterval(() => {
         countdownHandler();
-        setSessionSeconds((sessionSeconds) => ztime % 60);
+        setSessionSeconds(ztime % 60);
         setMins(Math.floor(ztime / 60));
         setTime(time - 1);
         ztime--;
@@ -20,11 +26,6 @@ function RunningTimer(props) {
       return () => window.clearInterval(id);
     }
   }, [props.isRunning]);
-  const countdownHandler = () => {
-    if (ztime <= 0) {
-      props.setIsRunning(false);
-    }
-  };
 
   return (
     <Flex
