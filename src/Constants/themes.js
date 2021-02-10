@@ -101,7 +101,7 @@ export const YELLOW = {
   lightColor2: "#FDA714",
   darkColor1: "#FECE52",
   darkColor2: "#FDA714",
-  hover: "#222222",
+  hover: "#FFCC30",
   textColor: "black",
 };
 
