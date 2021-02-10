@@ -1,23 +1,22 @@
-import { Box, Button, Center, Flex, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Center, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SESSION } from "../../Constants/modes";
 import RunningTimer from "./RunningTimer";
 import TimerEditMode from "./TimerEditMode";
 
-function Timer() {
+function Timer(props) {
   const [sessionMins, setSessionMins] = useState(25);
   const [breakMins, setBreakMins] = useState(10);
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
 
-  const { colorMode } = useColorMode();
-
   let displayedTimer;
 
   if (started) {
     displayedTimer = (
       <RunningTimer
+        theme={props.theme}
         mode={mode}
         sessionMins={sessionMins}
         setMode={setMode}
@@ -30,6 +29,7 @@ function Timer() {
   } else {
     displayedTimer = (
       <TimerEditMode
+        theme={props.theme}
         sessionMins={sessionMins}
         setSessionMins={setSessionMins}
         maxSessionMins={60}
@@ -39,7 +39,6 @@ function Timer() {
       />
     );
   }
-
   return (
     <Box w="90%" minH="40vh" rounded="xl" boxShadow="dark-lg" p="2">
       <Flex
@@ -52,12 +51,7 @@ function Timer() {
         <Flex m="4" justify="center" align="center">
           <Center m="20px">
             <Button
-              bgGradient={
-                colorMode === "light"
-                  ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-                  : "linear(to-bl, #5d0cff, #9b00fa)"
-              }
-              _hover={{ bg: "#5d0cff" }}
+              {...props.theme.styles.bg}
               onClick={() => setStarted(!started)}>
               {started ? "STOP" : "START"}
             </Button>
@@ -66,12 +60,7 @@ function Timer() {
           {started ? (
             <Center>
               <Button
-                bgGradient={
-                  colorMode === "light"
-                    ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-                    : "linear(to-bl, #5d0cff, #9b00fa)"
-                }
-                _hover={{ bg: "#5d0cff" }}
+                {...props.theme.styles.bg}
                 onClick={() => setIsRunning(!isRunning)}>
                 {isRunning ? "PAUSE" : "RESUME"}
               </Button>

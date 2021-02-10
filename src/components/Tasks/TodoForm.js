@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Input, Button, HStack, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { HStack, Box } from "@chakra-ui/react";
 
 function TodoForm(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : "");
@@ -53,13 +53,16 @@ function TodoForm(props) {
   const taskOption = (
     <HStack spacing="0px" w="100%">
       <Box
+        {...props.theme.styles.bgNoHover}
         bg="transparent"
         border="2px"
         borderRadius="4px 0 0 4px"
         p="14px 16px 14px 16px"
-        borderColor="#5d0cff"
-        color="white"
-        _placeholder={{ color: "white" }}
+        borderColor={props.theme.startColor}
+        color={props.theme.colorMode === "light" ? "black" : "white"}
+        _placeholder={{
+          color: props.theme.colorMode === "light" ? "black" : "white",
+        }}
         w="70%"
         as="Input"
         my="10px"
@@ -75,8 +78,8 @@ function TodoForm(props) {
         py="14px"
         borderRadius="0 4px 4px 0"
         textAlign="center"
-        bgGradient="linear(to-r, #5d0cff, #9b00fa)"
-        borderColor="#5d0cff">
+        {...props.theme.styles.bg.reverse}
+        borderColor={props.theme.startColor}>
         Add Task
       </Box>
     </HStack>

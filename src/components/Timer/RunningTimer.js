@@ -28,26 +28,18 @@ function RunningTimer(props) {
   }, [props.isRunning]);
 
   return (
-    <Flex
-      height="100%"
-      color={colorMode === "light" ? "black" : "white"}
-      justifyContent="center"
-      alignItems="center">
+    <Flex height="100%" justifyContent="center" alignItems="center">
       <Container h="100%" bg="transparent" centerContent>
         <Text
           m="5"
           fontSize="2xl"
-          bgGradient={
-            colorMode === "light"
-              ? "linear(to-bl, #000, #000)"
-              : "linear(to-bl, #5d0cff, #9b00fa)"
-          }
+          {...props.theme.styles.bgNoHover}
           bgClip="text"
           fontWeight="extrabold">
           - {props.mode.toUpperCase()} -
         </Text>
 
-        <Text fontSize="8xl">
+        <Text color={colorMode === "light" ? "black" : "white"} fontSize="8xl">
           {mins}:{sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
         </Text>
         {/* <Button
