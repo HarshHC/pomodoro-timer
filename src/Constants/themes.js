@@ -50,6 +50,17 @@ export const generateGradientTheme = (color, colorMode, name = "") => {
   return theme;
 };
 
+export const BLUE = {
+  name: "blue",
+  baseColor: "blue.500",
+  lightColor1: "#149fff",
+  lightColor2: "#117aff",
+  darkColor1: "#149fff",
+  darkColor2: "#117aff",
+  hover: "blue.600",
+  textColor: "white",
+};
+
 export const PURPLE = {
   name: "purple",
   baseColor: "#9b00fa",
@@ -105,4 +116,4 @@ export const YELLOW = {
   textColor: "black",
 };
 
-export const themesList = [PURPLE, ORANGE, RED, GREEN, YELLOW];
+export const themesList = [BLUE, PURPLE, ORANGE, RED, GREEN, YELLOW];
