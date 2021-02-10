@@ -83,4 +83,26 @@ export const RED = {
   textColor: "white",
 };
 
-export const themesList = [PURPLE, ORANGE, RED];
+export const GREEN = {
+  name: "green",
+  baseColor: "lime",
+  lightColor1: "#9AF945",
+  lightColor2: "#65F883",
+  darkColor1: "#9AF945",
+  darkColor2: "#65F883",
+  hover: "#0AC371",
+  textColor: "black",
+};
+
+export const YELLOW = {
+  name: "green",
+  baseColor: "yellow",
+  lightColor1: "#FECE52",
+  lightColor2: "#FDA714",
+  darkColor1: "#FECE52",
+  darkColor2: "#FDA714",
+  hover: "#222222",
+  textColor: "black",
+};
+
+export const themesList = [PURPLE, ORANGE, RED, GREEN, YELLOW];
