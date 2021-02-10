@@ -101,7 +101,7 @@ export const GREEN = {
   lightColor2: "#65F883",
   darkColor1: "#9AF945",
   darkColor2: "#65F883",
-  hover: "#0AC371",
+  hover: "lime",
   textColor: "black",
 };
 
