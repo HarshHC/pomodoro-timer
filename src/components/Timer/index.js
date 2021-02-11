@@ -10,6 +10,7 @@ function Timer(props) {
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
+  const [breakIsRunning, setBreakIsRunning] = useState(false);
 
   let displayedTimer;
 
@@ -24,6 +25,9 @@ function Timer(props) {
         setStarted={setStarted}
         isRunning={isRunning}
         setIsRunning={setIsRunning}
+        breakIsRunning={breakIsRunning}
+        setBreakIsRunning={setBreakIsRunning}
+        breakMins={breakMins}
       />
     );
   } else {
@@ -62,7 +66,7 @@ function Timer(props) {
               <Button
                 {...props.theme.styles.bg}
                 onClick={() => setIsRunning(!isRunning)}>
-                {isRunning ? "PAUSE" : "RESUME"}
+                {isRunning || breakIsRunning ? "PAUSE" : "RESUME"}
               </Button>
             </Center>
           ) : (

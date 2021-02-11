@@ -1,32 +1,62 @@
 import { Container, Flex, Text, useColorMode } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
+import { SESSION, BREAK } from "../../Constants/modes";
 
 function RunningTimer(props) {
+  //useStates defined here
   const { colorMode } = useColorMode();
   const [sessionSeconds, setSessionSeconds] = useState(59);
   const [mins, setMins] = useState(props.sessionMins - 1);
   const [time, setTime] = useState(props.sessionMins * 60);
-  let ztime = props.sessionMins * 60 - 2;
+  const [bSeconds, setBSeconds] = useState(59);
+  const [bMins, setBMins] = useState(props.breakMins - 1);
 
-  const countdownHandler = () => {
-    if (ztime <= 0) {
+  //variables defined here
+  let sTime = props.sessionMins * 60 - 2;
+  let bTime = props.breakMins * 60 - 2;
+
+  //javascript functions defined here
+  const sessionCountdownHandler = () => {
+    if (sTime <= 0) {
       props.setIsRunning(false);
+      props.setMode(BREAK);
+      props.setBreakIsRunning(true);
+    }
+  };
+  const breakCountdownHandler = () => {
+    if (bTime <= 0) {
+      props.setBreakIsRunning(false);
+      props.setMode(SESSION);
+      props.setIsRunning(true);
     }
   };
 
+  //useEffects defined here
   useEffect(() => {
     if (props.isRunning) {
       const id = window.setInterval(() => {
-        countdownHandler();
-        setSessionSeconds(ztime % 60);
-        setMins(Math.floor(ztime / 60));
-        setTime(time - 1);
-        ztime--;
+        sessionCountdownHandler();
+        setSessionSeconds(sTime % 60);
+        setMins(Math.floor(sTime / 60));
+        sTime--;
       }, 1000);
 
       return () => window.clearInterval(id);
     }
   }, [props.isRunning]);
+
+  useEffect(() => {
+    if (props.breakIsRunning) {
+      const id2 = window.setInterval(() => {
+        breakCountdownHandler();
+        setBSeconds(bTime % 60);
+        setBMins(Math.floor(bTime / 60));
+        bTime--;
+      }, 1000);
+
+      return () => window.clearInterval(id2);
+    }
+  }, [props.breakIsRunning]);
 
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
@@ -41,18 +71,14 @@ function RunningTimer(props) {
         </Text>
 
         <Text color={colorMode === "light" ? "black" : "white"} fontSize="8xl">
-          {mins}:{sessionSeconds < 10 ? "0" + sessionSeconds : sessionSeconds}
+          {props.mode === SESSION
+            ? sessionSeconds < 10
+              ? mins + ":" + "0" + sessionSeconds
+              : mins + ":" + sessionSeconds
+            : bSeconds < 10
+            ? bMins + ":" + "0" + bSeconds
+            : bMins + ":" + bSeconds}
         </Text>
-        {/* <Button
-          bgGradient={
-            colorMode === "light"
-              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-              : "linear(to-bl, #5d0cff, #9b00fa)"
-          }
-          _hover={{ bg: "#5d0cff" }}
-          onClick={() => setIsRunning(!isRunning)}>
-          {"Pause"}
-        </Button> */}
       </Container>
     </Flex>
   );
