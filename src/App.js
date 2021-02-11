@@ -4,9 +4,20 @@ import Tasks from "./components/Tasks";
 import { Box, Container, useColorMode } from "@chakra-ui/react";
 import Timer from "./components/Timer";
 import "focus-visible/dist/focus-visible";
+import { useEffect, useState } from "react";
+import { generateGradientTheme, PURPLE } from "./Constants/themes";
 
 function App() {
   const { colorMode } = useColorMode();
+  const [timerTheme, setTimerTheme] = useState(
+    generateGradientTheme(PURPLE),
+    colorMode
+  );
+
+  useEffect(() => {
+    setTimerTheme(generateGradientTheme(timerTheme.color, colorMode));
+  }, [colorMode, timerTheme.color]);
+
   return (
     <Box
       width="100vw"
@@ -18,9 +29,9 @@ function App() {
           : "linear(to-bl, #121417, #2B2E36)"
       }>
       <Container centerContent>
-        <Header />
-        <Timer />
-        <Tasks />
+        <Header theme={timerTheme} setTheme={setTimerTheme} />
+        <Timer theme={timerTheme} />
+        <Tasks theme={timerTheme} />
       </Container>
     </Box>
   );

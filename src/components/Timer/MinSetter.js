@@ -29,15 +29,10 @@ function MinSetter(props) {
         <Spacer />
         <Square
           size="40px"
-          bgGradient={
-            colorMode === "light"
-              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-              : "linear(to-bl, #5d0cff, #9b00fa)"
-          }
+          {...props.theme.styles.bg}
           rounded="md"
           fontSize="lg"
           as={Button}
-          _hover={{ bg: "#5d0cff" }}
           onClick={() => {
             props.setMins(props.mins + 1);
             validateMins(props.mins, props.setMins, props.maxVal, toast);
@@ -71,15 +66,10 @@ function MinSetter(props) {
         <Spacer />
         <Square
           size="40px"
-          bgGradient={
-            colorMode === "light"
-              ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-              : "linear(to-bl, #5d0cff, #9b00fa)"
-          }
+          {...props.theme.styles.bg}
           rounded="md"
           fontSize="lg"
           as={Button}
-          _hover={{ bg: "#5d0cff" }}
           onClick={() => {
             props.setMins(props.mins - 1);
             validateMins(props.mins, props.setMins, props.maxVal, toast);

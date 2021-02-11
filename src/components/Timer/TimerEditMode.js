@@ -12,6 +12,7 @@ function TimerEditMode(props) {
       justifyContent="center"
       alignItems="center">
       <MinSetter
+        theme={props.theme}
         title="Session"
         defaultMins={25}
         mins={props.sessionMins}
@@ -20,6 +21,7 @@ function TimerEditMode(props) {
       />
 
       <MinSetter
+        theme={props.theme}
         title="Break"
         defaultMins={10}
         mins={props.breakMins}

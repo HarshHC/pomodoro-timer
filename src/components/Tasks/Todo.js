@@ -3,14 +3,14 @@ import TodoForm from "./TodoForm";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/react";
 
-function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
+function Todo(props) {
   const [edit, setEdit] = useState({
     id: null,
     value: "",
   });
 
   const submitUpdate = (value) => {
-    updateTodo(edit.id, value);
+    props.updateTodo(edit.id, value);
     setEdit({
       id: null,
       value: "",
@@ -21,9 +21,9 @@ function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
     return <TodoForm edit={edit} onSubmit={submitUpdate} />;
   }
 
-  return todos.map((todo, index) => (
+  return props.todos.map((todo, index) => (
     <Box
-      bgGradient="linear(to-r, #5d0cff, #9b00fa)"
+      {...props.theme.styles.bgNoHover}
       w="100%"
       borderRadius="4px"
       p="16px"
@@ -37,7 +37,7 @@ function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
           <DeleteIcon
             boxSize="5"
             mx="10px"
-            onClick={() => removeTodo(todo.id)}
+            onClick={() => props.removeTodo(todo.id)}
           />
           <EditIcon
             boxSize="5"

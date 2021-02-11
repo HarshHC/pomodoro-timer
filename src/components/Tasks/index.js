@@ -3,7 +3,7 @@ import TodoForm from "./TodoForm";
 import Todo from "./Todo";
 import { Heading, Box } from "@chakra-ui/react";
 
-function Tasks() {
+function Tasks(props) {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
@@ -46,8 +46,9 @@ function Tasks() {
       <Heading textAlign="center" m="30px">
         Task List
       </Heading>
-      <TodoForm onSubmit={addTodo} />
+      <TodoForm theme={props.theme} onSubmit={addTodo} />
       <Todo
+        theme={props.theme}
         todos={todos}
         completeTodo={completeTodo}
         removeTodo={removeTodo}

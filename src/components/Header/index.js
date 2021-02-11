@@ -16,8 +16,9 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IoMdBrush } from "react-icons/io";
+import ThemeDrawer from "./ThemeDrawer";
 
-function Header() {
+function Header(props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -43,26 +44,13 @@ function Header() {
           fill="red"
         />
       </Flex>
-      <Drawer
+      <ThemeDrawer
         isOpen={isOpen}
-        placement="top"
         onClose={onClose}
-        finalFocusRef={btnRef}>
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Customize Theme</DrawerHeader>
-
-            <DrawerBody>type here</DrawerBody>
-
-            <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
+        btnRef={btnRef}
+        theme={props.theme}
+        setTheme={props.setTheme}
+      />
     </>
   );
 }
