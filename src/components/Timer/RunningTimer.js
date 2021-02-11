@@ -16,6 +16,8 @@ function RunningTimer(props) {
   let bTime = props.breakMins * 60 - 2;
 
   //javascript functions defined here
+
+  //This checks if the time for session is complete
   const sessionCountdownHandler = () => {
     if (sTime <= 0) {
       props.setIsRunning(false);
@@ -23,6 +25,8 @@ function RunningTimer(props) {
       props.setBreakIsRunning(true);
     }
   };
+
+  //This checks if the time for the break is complete
   const breakCountdownHandler = () => {
     if (bTime <= 0) {
       props.setBreakIsRunning(false);
@@ -32,6 +36,9 @@ function RunningTimer(props) {
   };
 
   //useEffects defined here
+
+  //This use effect uses set interval to count the session time we set down to 0, all calcs done inside
+  //re-renders every time the value in isRunning changes
   useEffect(() => {
     if (props.isRunning) {
       const id = window.setInterval(() => {
@@ -45,6 +52,8 @@ function RunningTimer(props) {
     }
   }, [props.isRunning]);
 
+  //This use effect uses set interval to count the break time we set down to 0, all calcs done inside
+  //re-renders every time the value in breakIsRunning changes
   useEffect(() => {
     if (props.breakIsRunning) {
       const id2 = window.setInterval(() => {
