@@ -23,6 +23,7 @@ function RunningTimer(props) {
         setTime(time - 1);
         ztime--;
       }, 1000);
+
       return () => window.clearInterval(id);
     }
   }, [props.isRunning]);
