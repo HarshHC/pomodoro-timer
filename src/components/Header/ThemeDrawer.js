@@ -35,6 +35,7 @@ function ThemeDrawer(props) {
               {themesList.map((item, i) => {
                 return (
                   <Square
+                    key={i}
                     mx="2"
                     size="10"
                     bg={item.baseColor}

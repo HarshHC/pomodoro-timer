@@ -1,5 +1,4 @@
 export const isInputValid = (value) => {
-  console.log("val", value);
   return !isNaN(value) && value !== "" && isNaN(value) != null;
 };
 
@@ -10,7 +9,6 @@ export const validateMins = (
   toast
 ) => {
   if (sessionMins > maxSessionMins) {
-    console.log(maxSessionMins);
     setSessionMins(maxSessionMins);
     toast({
       title: "Error",

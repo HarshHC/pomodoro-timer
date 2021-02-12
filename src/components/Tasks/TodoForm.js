@@ -21,7 +21,7 @@ function TodoForm(props) {
   const updateOption = (
     <HStack spacing="0" w="100%">
       <Box
-        as="Input"
+        as="input"
         border="2px"
         borderRadius="4px 0 0 4px"
         bg="transparent"
@@ -35,7 +35,7 @@ function TodoForm(props) {
         onChange={handleChange}
       />
       <Box
-        as="Button"
+        as="button"
         type="submit"
         ml="0px"
         border="2px"
@@ -64,13 +64,13 @@ function TodoForm(props) {
           color: props.theme.colorMode === "light" ? "black" : "white",
         }}
         w="70%"
-        as="Input"
+        as="input"
         my="10px"
         placeholder="Add Task"
         value={input}
         onChange={handleChange}></Box>
       <Box
-        as="Button"
+        as="button"
         type="submit"
         ml="0px"
         w="30%"

@@ -9,14 +9,12 @@ import {
   Spacer,
   Square,
   Text,
-  useColorMode,
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { isInputValid, validateMins } from "./utilities";
 
 function MinSetter(props) {
-  const { colorMode } = useColorMode();
   const toast = useToast();
 
   return (
@@ -34,8 +32,18 @@ function MinSetter(props) {
           fontSize="lg"
           as={Button}
           onClick={() => {
-            props.setMins(props.mins + 1);
             validateMins(props.mins, props.setMins, props.maxVal, toast);
+            if (props.mins < props.maxVal) {
+              props.setMins(props.mins + 1);
+            } else {
+              toast({
+                title: "Error",
+                description: "Minutes cannot exceed max limit " + props.maxVal,
+                status: "error",
+                duration: 1000,
+                isClosable: true,
+              });
+            }
           }}>
           <AddIcon />
         </Square>
@@ -71,8 +79,18 @@ function MinSetter(props) {
           fontSize="lg"
           as={Button}
           onClick={() => {
-            props.setMins(props.mins - 1);
             validateMins(props.mins, props.setMins, props.maxVal, toast);
+            if (props.mins > 1) {
+              props.setMins(props.mins - 1);
+            } else {
+              toast({
+                title: "Error",
+                description: "Minutes cannot be less than 1",
+                status: "error",
+                duration: 1000,
+                isClosable: true,
+              });
+            }
           }}>
           <MinusIcon />
         </Square>
