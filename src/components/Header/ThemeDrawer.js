@@ -44,6 +44,12 @@ function ThemeDrawer(props) {
                       props.setTheme(
                         generateGradientTheme(themesList[i], colorMode)
                       );
+                      localStorage.setItem(
+                        "timer-theme",
+                        JSON.stringify(
+                          generateGradientTheme(themesList[i], colorMode)
+                        )
+                      );
                     }}></Square>
                 );
               })}

@@ -10,8 +10,9 @@ import { generateGradientTheme, PURPLE } from "./Constants/themes";
 function App() {
   const { colorMode } = useColorMode();
   const [timerTheme, setTimerTheme] = useState(
-    generateGradientTheme(PURPLE),
-    colorMode
+    localStorage.getItem("timer-theme")
+      ? JSON.parse(localStorage.getItem("timer-theme"))
+      : generateGradientTheme(PURPLE, colorMode)
   );
 
   useEffect(() => {
