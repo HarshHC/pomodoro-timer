@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
-import { Heading, Box } from "@chakra-ui/react";
+import { Heading, Box, Spacer, Flex } from "@chakra-ui/react";
 
 function Tasks(props) {
   const [todos, setTodos] = useState([]);
@@ -42,18 +42,34 @@ function Tasks(props) {
     setTodos(updateTodos);
   };
   return (
-    <Box w="80%">
-      <Heading textAlign="center" m="30px">
-        Task List
-      </Heading>
-      <TodoForm theme={props.theme} onSubmit={addTodo} />
-      <Todo
-        theme={props.theme}
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
+    <Box w="100vw">
+      <Flex>
+        <Box w="33%">
+          <Heading textAlign="Center" m="30px">
+            New Tasks
+          </Heading>
+        </Box>
+        <Spacer />
+        <Box w="33%">
+          <Heading textAlign="center" m="30px">
+            Tasks in Process
+          </Heading>
+          <TodoForm theme={props.theme} onSubmit={addTodo} />
+          <Todo
+            theme={props.theme}
+            todos={todos}
+            completeTodo={completeTodo}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
+        </Box>
+        <Spacer />
+        <Box w="33%">
+          <Heading textAlign="center" m="30px">
+            Tasks Done
+          </Heading>
+        </Box>
+      </Flex>
     </Box>
   );
 }
