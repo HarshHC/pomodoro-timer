@@ -19,7 +19,7 @@ function TodoForm(props) {
     setInput(" ");
   };
   const updateOption = (
-    <HStack spacing="0" w="100%">
+    <HStack spacing="0" w="32vw">
       <Box
         as="input"
         border="2px"
@@ -51,7 +51,7 @@ function TodoForm(props) {
   );
 
   const taskOption = (
-    <HStack spacing="0px" w="100%">
+    <HStack spacing="0px" w="32vw">
       <Box
         {...props.theme.styles.bgNoHover}
         bg="transparent"

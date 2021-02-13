@@ -40,7 +40,7 @@ function Todo(props) {
         >
           {todo.text}
         </Box>
-        <Box w="20%">
+        <Box w="100%">
           <DeleteIcon
             boxSize="5"
             mx="9px"

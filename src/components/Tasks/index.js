@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
-import { Heading, Box, Spacer, Flex } from "@chakra-ui/react";
+import {
+  Heading,
+  Wrap,
+  Flex,
+  WrapItem,
+  useMediaQuery,
+  Box,
+} from "@chakra-ui/react";
 
 function Tasks(props) {
   const [todos, setTodos] = useState([]);
-
+  const [isOnmobile] = useMediaQuery("(max-width: 768px)");
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
@@ -42,19 +49,22 @@ function Tasks(props) {
     setTodos(updateTodos);
   };
   return (
-    <Box w="100vw">
-      <Flex>
-        <Box w="33%">
-          <Heading textAlign="Center" m="30px">
+    <Flex w="100vw" flexDir="column" align="center">
+      <Heading fontSize="2xl" textAlign="center" m="30px">
+        Tasks
+      </Heading>
+      <TodoForm theme={props.theme} onSubmit={addTodo} />
+      <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
+        <Flex
+          mx="10px"
+          flex="1"
+          w="1/3"
+          justifyContent="center"
+          h="100%"
+          flexDirection="column">
+          <Heading fontSize="xl" m="30px" textAlign="center">
             New Tasks
           </Heading>
-        </Box>
-        <Spacer />
-        <Box w="33%">
-          <Heading textAlign="center" m="30px">
-            Tasks in Process
-          </Heading>
-          <TodoForm theme={props.theme} onSubmit={addTodo} />
           <Todo
             theme={props.theme}
             todos={todos}
@@ -62,15 +72,31 @@ function Tasks(props) {
             removeTodo={removeTodo}
             updateTodo={updateTodo}
           />
-        </Box>
-        <Spacer />
-        <Box w="33%">
-          <Heading textAlign="center" m="30px">
+        </Flex>
+        <Flex
+          mx="10px"
+          flex="1"
+          w="1/3"
+          justifyContent="center"
+          h="100%"
+          flexDirection="column">
+          <Heading fontSize="xl" textAlign="center" m="30px">
+            Tasks in Process
+          </Heading>
+        </Flex>
+        <Flex
+          mx="10px"
+          flex="1"
+          w="1/3"
+          justifyContent="center"
+          h="100%"
+          flexDirection="column">
+          <Heading fontSize="xl" textAlign="center" m="30px">
             Tasks Done
           </Heading>
-        </Box>
+        </Flex>
       </Flex>
-    </Box>
+    </Flex>
   );
 }
 
