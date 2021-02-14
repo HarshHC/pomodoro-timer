@@ -106,7 +106,7 @@ export const GREEN = {
 };
 
 export const YELLOW = {
-  name: "green",
+  name: "yellow",
   baseColor: "yellow",
   lightColor1: "#FECE52",
   lightColor2: "#FDA714",
