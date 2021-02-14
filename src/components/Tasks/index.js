@@ -11,11 +11,13 @@ function Tasks(props) {
 
   function onEnd(result) {
     console.log(result);
-    const items = Array.from(myTasks);
-    const [reorder] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorder);
+    if (result.destination) {
+      const items = Array.from(todos);
+      const [reorder] = items.splice(result.source.index, 1);
+      items.splice(result.destination.index, 0, reorder);
 
-    updateTasks(items);
+      setTodos(items);
+    }
   }
 
   const addTodo = (todo) => {
