@@ -66,7 +66,7 @@ function Timer(props) {
               <Button
                 {...props.theme.styles.bg}
                 onClick={() => setIsRunning(!isRunning)}>
-                {isRunning || breakIsRunning ? "PAUSE" : "RESUME"}
+                {isRunning ? "PAUSE" : "RESUME"}
               </Button>
             </Center>
           ) : (
