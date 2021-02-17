@@ -5,17 +5,40 @@ import { Heading, Flex, useMediaQuery, Box } from "@chakra-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function Tasks(props) {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState({
+    newTasks: [],
+    tasksInProgress: [],
+    completedTasks: [],
+  });
   const [isOnmobile] = useMediaQuery("(max-width: 768px)");
 
   function onEnd(result) {
     console.log(result);
     if (result.destination) {
-      const items = Array.from(todos);
-      const [reorder] = items.splice(result.source.index, 1);
-      items.splice(result.destination.index, 0, reorder);
-
-      setTodos(items);
+      if (result.destination.droppableId === "New") {
+        const items = Array.from(todos.newTasks);
+        const [reorder] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorder);
+        const newTodos = { ...todos };
+        newTodos.newTasks = items;
+        setTodos(newTodos);
+      }
+      if (result.destination.droppableId === "Progress") {
+        const items = Array.from(todos.tasksInProgress);
+        const [reorder] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorder);
+        const newTodos = { ...todos };
+        newTodos.tasksInProgress = items;
+        setTodos(newTodos);
+      }
+      if (result.destination.droppableId === "Done") {
+        const items = Array.from(todos.completedTasks);
+        const [reorder] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorder);
+        const newTodos = { ...todos };
+        newTodos.completedTasks = items;
+        setTodos(newTodos);
+      }
     }
   }
 
@@ -24,7 +47,8 @@ function Tasks(props) {
       return;
     }
 
-    const newTodos = [todo, ...todos];
+    const newTodos = { ...todos };
+    newTodos.newTasks = [todo, ...todos.newTasks];
 
     setTodos(newTodos);
   };
@@ -40,7 +64,7 @@ function Tasks(props) {
   };
 
   const removeTodo = (id) => {
-    const removeArr = [...todos].filter((todo) => todo.id !== id);
+    const removeArr = [...todos.newTasks].filter((todo) => todo.id !== id);
 
     setTodos(removeArr);
   };
@@ -76,7 +100,7 @@ function Tasks(props) {
                 h="100%">
                 <TodoItems
                   theme={props.theme}
-                  todos={todos}
+                  todos={todos.newTasks}
                   completeTodo={completeTodo}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
@@ -97,7 +121,7 @@ function Tasks(props) {
             Tasks in Progress
           </Heading>
           <Droppable droppableId="Progress">
-            {(provided) => (
+            {(provided, snapshot) => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -105,11 +129,12 @@ function Tasks(props) {
                 h="100%">
                 <TodoItems
                   theme={props.theme}
-                  todos={todos}
+                  todos={todos.tasksInProgress}
                   completeTodo={completeTodo}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
                 />
+                {provided.placeholder}
               </Box>
             )}
           </Droppable>
@@ -125,7 +150,7 @@ function Tasks(props) {
             Tasks Done
           </Heading>
           <Droppable droppableId="Done">
-            {(provided) => (
+            {(provided, snapshot) => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -133,11 +158,12 @@ function Tasks(props) {
                 h="100%">
                 <TodoItems
                   theme={props.theme}
-                  todos={todos}
+                  todos={todos.completedTasks}
                   completeTodo={completeTodo}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
                 />
+                {provided.placeholder}
               </Box>
             )}
           </Droppable>
