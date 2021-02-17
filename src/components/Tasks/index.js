@@ -7,7 +7,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 function Tasks(props) {
   const [todos, setTodos] = useState([]);
   const [isOnmobile] = useMediaQuery("(max-width: 768px)");
-  const [myTasks, updateTasks] = useState(todos);
 
   function onEnd(result) {
     console.log(result);
@@ -60,10 +59,10 @@ function Tasks(props) {
       <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
         <Flex
           mx="10px"
-          flex="1"
           w="1/3"
-          justifyContent="center"
           h="100%"
+          flex="1"
+          justifyContent="center"
           flexDirection="column">
           <Heading fontSize="xl" m="30px" textAlign="center">
             New Tasks
@@ -89,15 +88,15 @@ function Tasks(props) {
         </Flex>
         <Flex
           mx="10px"
-          flex="1"
           w="1/3"
-          justifyContent="center"
           h="100%"
+          flex="1"
+          justifyContent="center"
           flexDirection="column">
           <Heading fontSize="xl" textAlign="center" m="30px">
             Tasks in Progress
           </Heading>
-          {/* <Droppable droppableId="Progress">
+          <Droppable droppableId="Progress">
             {(provided) => (
               <Box
                 {...provided.droppableProps}
@@ -113,19 +112,19 @@ function Tasks(props) {
                 />
               </Box>
             )}
-          </Droppable> */}
+          </Droppable>
         </Flex>
         <Flex
           mx="10px"
-          flex="1"
           w="1/3"
-          justifyContent="center"
           h="100%"
+          flex="1"
+          justifyContent="center"
           flexDirection="column">
           <Heading fontSize="xl" textAlign="center" m="30px">
             Tasks Done
           </Heading>
-          {/* <Droppable droppableId="Done">
+          <Droppable droppableId="Done">
             {(provided) => (
               <Box
                 {...provided.droppableProps}
@@ -141,7 +140,7 @@ function Tasks(props) {
                 />
               </Box>
             )}
-          </Droppable> */}
+          </Droppable>
         </Flex>
       </Flex>
     </DragDropContext>
@@ -150,10 +149,10 @@ function Tasks(props) {
     <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
       <Flex
         mx="10px"
-        flex="1"
         w="1/3"
-        justifyContent="center"
         h="100%"
+        flex="1"
+        justifyContent="center"
         flexDirection="column">
         <Heading fontSize="xl" m="30px" textAlign="center">
           New Tasks
@@ -168,10 +167,10 @@ function Tasks(props) {
       </Flex>
       <Flex
         mx="10px"
-        flex="1"
         w="1/3"
-        justifyContent="center"
         h="100%"
+        flex="1"
+        justifyContent="center"
         flexDirection="column">
         <Heading fontSize="xl" textAlign="center" m="30px">
           Tasks in Process
@@ -179,10 +178,10 @@ function Tasks(props) {
       </Flex>
       <Flex
         mx="10px"
-        flex="1"
         w="1/3"
-        justifyContent="center"
         h="100%"
+        flex="1"
+        justifyContent="center"
         flexDirection="column">
         <Heading fontSize="xl" textAlign="center" m="30px">
           Tasks Done
