@@ -56,7 +56,10 @@ function Timer(props) {
           <Center m="20px">
             <Button
               {...props.theme.styles.bg}
-              onClick={() => setStarted(!started)}>
+              onClick={() => {
+                setStarted(!started);
+                setIsRunning(true);
+              }}>
               {started ? "STOP" : "START"}
             </Button>
           </Center>
