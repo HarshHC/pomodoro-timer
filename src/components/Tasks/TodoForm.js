@@ -63,6 +63,7 @@ function TodoForm(props) {
         _placeholder={{
           color: props.theme.colorMode === "light" ? "black" : "white",
         }}
+        borderRight="0px"
         w="70%"
         as="input"
         my="10px"
@@ -78,8 +79,9 @@ function TodoForm(props) {
         py="14px"
         borderRadius="0 4px 4px 0"
         textAlign="center"
-        {...props.theme.styles.bg.reverse}
-        borderColor={props.theme.startColor}>
+        {...props.theme.styles.bg}
+        borderColor={props.theme.startColor}
+        borderLeft="0px">
         Add Task
       </Box>
     </HStack>

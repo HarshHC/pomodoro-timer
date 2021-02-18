@@ -36,21 +36,22 @@ function TodoItems(props) {
           my="10px"
           key={index}>
           <Flex>
-            <Box w="80%" flex="1" key={todo.id}>
+            <Box w="25vw" overflow="hidden" key={todo.id}>
               {todo.text}
             </Box>
-            <Box w="100%">
+
+            <Flex align="center" justify="center" w="20%">
               <DeleteIcon
                 boxSize="5"
-                mx="9px"
+                m="8px"
                 onClick={() => props.removeTodo(todo.id)}
               />
               <EditIcon
                 boxSize="5"
-                mx="9px"
+                m="8px"
                 onClick={() => setEdit({ id: todo.id, value: todo.text })}
               />
-            </Box>
+            </Flex>
           </Flex>
         </Box>
       )}
