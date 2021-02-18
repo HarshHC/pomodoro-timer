@@ -21,11 +21,11 @@ function RunningTimer(props) {
       clearInterval(interval);
     }
     if (time < 0) {
-      props.setMode(props.mode === SESSION ? BREAK : SESSION);
-      setMins(props.mode === SESSION ? props.sessionMins : props.breakMins);
+      setMins(props.mode === !SESSION ? props.sessionMins : props.breakMins);
       setUpdatedTime(
-        props.mode === SESSION ? props.sessionMinns * 60 : props.breakMins * 60
+        props.mode === !SESSION ? props.sessionMinns * 60 : props.breakMins * 60
       );
+      props.setMode(props.mode === SESSION ? BREAK : SESSION);
     }
   };
 
