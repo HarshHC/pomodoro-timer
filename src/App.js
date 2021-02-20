@@ -4,7 +4,7 @@ import Tasks from "./components/Tasks";
 import { Box, Container, useColorMode } from "@chakra-ui/react";
 import Timer from "./components/Timer";
 import "focus-visible/dist/focus-visible";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { generateGradientTheme, PURPLE } from "./Constants/themes";
 
 function App() {
@@ -15,11 +15,15 @@ function App() {
       : generateGradientTheme(PURPLE, colorMode)
   );
 
-  useEffect(() => {
-    setTimerTheme(generateGradientTheme(timerTheme.color, colorMode));
-  }, [colorMode, timerTheme.color]);
+  const content = (
+    <Container centerContent>
+      <Header theme={timerTheme} setTheme={setTimerTheme} />
+      <Timer theme={timerTheme} />
+      <Tasks theme={timerTheme} />
+    </Container>
+  );
 
-  return (
+  const noBgImage = (
     <Box
       width="100vw"
       height="maxContent"
@@ -29,13 +33,21 @@ function App() {
           ? "linear(to-bl, #F5F5F5, #FFFFFF)"
           : "linear(to-bl, #121417, #2B2E36)"
       }>
-      <Container centerContent>
-        <Header theme={timerTheme} setTheme={setTimerTheme} />
-        <Timer theme={timerTheme} />
-        <Tasks theme={timerTheme} />
-      </Container>
+      {content}
     </Box>
   );
+  console.log(timerTheme.bgInfo);
+  const withBgImage = (
+    <Box
+      width="100vw"
+      height="maxContent"
+      minH="100vh"
+      bgImage={"url(" + timerTheme.bgInfo.random_url + ")"}>
+      {content}
+    </Box>
+  );
+
+  return timerTheme.bgImage ? withBgImage : noBgImage;
 }
 
 export default App;

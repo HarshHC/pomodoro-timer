@@ -1,10 +1,23 @@
-export const generateGradientTheme = (color, colorMode, name = "") => {
+export const generateGradientTheme = (
+  color,
+  colorMode,
+  bg = { image: false, random: true },
+  name = ""
+) => {
   const theme = {
     color,
     colorMode,
     name: name === "" ? color.name : name,
     startColor: color.darkColor1,
     endColor: color.darkColor2,
+    bgImage: bg.image != null ? bg.image : false,
+    bgInfo: {
+      location: "online",
+      random_url:
+        "https://source.unsplash.com/1600x900/?background," + color.name,
+      custom_url: "",
+      random: bg.random != null ? bg.random : true,
+    },
     styles: {
       bg: {
         color: color.textColor,
@@ -45,9 +58,48 @@ export const generateGradientTheme = (color, colorMode, name = "") => {
               ")"
             : "linear(to-bl," + color.darkColor1 + "," + color.darkColor2 + ")",
       },
+      darkTransparentBg: {
+        bg: "rgba(0, 0, 0, 0.5);",
+        "text-shadow": "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
+      },
+      lightTransparentBg: {
+        bg: "rgba(255, 255, 255, 0.2)",
+        "text-shadow": "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
+      },
     },
   };
   return theme;
+};
+
+export const changeGradientThemeColorTo = (oldTheme, color) => {
+  const newTheme = generateGradientTheme(color, oldTheme.colorMode, {
+    image: oldTheme.bgImage,
+    random: oldTheme.bgInfo.random,
+  });
+  saveThemeToStorage(newTheme);
+  return newTheme;
+};
+
+export const toggleBackgroundImageInGradientTheme = (oldTheme) => {
+  const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
+    image: !oldTheme.bgImage,
+    random: oldTheme.bgInfo.random,
+  });
+  saveThemeToStorage(newTheme);
+  return newTheme;
+};
+
+export const toggleRandomImageInGradientTheme = (oldTheme) => {
+  const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
+    image: oldTheme.bgImage,
+    random: !oldTheme.bgInfo.random,
+  });
+  saveThemeToStorage(newTheme);
+  return newTheme;
+};
+
+export const saveThemeToStorage = (newTheme) => {
+  window.localStorage.setItem("timer-theme", JSON.stringify(newTheme));
 };
 
 export const BLUE = {

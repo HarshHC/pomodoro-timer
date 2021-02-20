@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, useColorMode } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SESSION } from "../../Constants/modes";
 import RunningTimer from "./RunningTimer";
@@ -11,6 +11,7 @@ function Timer(props) {
   const [mode, setMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
   const [breakIsRunning, setBreakIsRunning] = useState(false);
+  const { colorMode } = useColorMode();
 
   let displayedTimer;
 
@@ -43,8 +44,26 @@ function Timer(props) {
       />
     );
   }
+
+  let bgProps = {};
+  if (props.theme.bgImage) {
+    if (colorMode === "dark") {
+      bgProps = { ...props.theme.styles.darkTransparentBg };
+    } else {
+      bgProps = { ...props.theme.styles.lightTransparentBg };
+    }
+  } else {
+    bgProps = {};
+  }
+
   return (
-    <Box w="90%" minH="40vh" rounded="xl" boxShadow="dark-lg" p="2">
+    <Box
+      w="90%"
+      minH="40vh"
+      rounded="xl"
+      boxShadow="dark-lg"
+      p="2"
+      {...bgProps}>
       <Flex
         minH="40vh"
         h="100%"
