@@ -14,7 +14,7 @@ export const generateGradientTheme = (
     bgInfo: {
       location: "online",
       random_url:
-        "https://source.unsplash.com/1600x900/?background," + color.name,
+        "https://source.unsplash.com/1600x900/?background,nature," + color.name,
       custom_url: "",
       random: bg.random != null ? bg.random : true,
     },

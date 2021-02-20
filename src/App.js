@@ -42,7 +42,10 @@ function App() {
       width="100vw"
       height="maxContent"
       minH="100vh"
-      bgImage={"url(" + timerTheme.bgInfo.random_url + ")"}>
+      bgImage={"url(" + timerTheme.bgInfo.random_url + ")"}
+      bgAttachment="fixed"
+      bgSize="cover"
+      bgRepeat="no-repeat">
       {content}
     </Box>
   );
