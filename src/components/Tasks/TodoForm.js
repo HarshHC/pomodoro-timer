@@ -62,8 +62,10 @@ function TodoForm(props) {
         color={props.theme.colorMode === "light" ? "black" : "white"}
         _placeholder={{
           color: props.theme.colorMode === "light" ? "black" : "white",
+          ...(props.theme.bgImage
+            ? props.theme.styles.imageModeContrastText
+            : {}),
         }}
-        borderRight="0px"
         w="70%"
         as="input"
         my="10px"

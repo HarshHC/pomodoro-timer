@@ -58,14 +58,24 @@ export const generateGradientTheme = (
               ")"
             : "linear(to-bl," + color.darkColor1 + "," + color.darkColor2 + ")",
       },
-      darkTransparentBg: {
-        bg: "rgba(0, 0, 0, 0.5);",
-        "text-shadow": "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-      },
-      lightTransparentBg: {
-        bg: "rgba(255, 255, 255, 0.2)",
-        "text-shadow": "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-      },
+      imageModeContrastText:
+        colorMode === "dark"
+          ? {
+              textShadow:
+                "5px 5px 20px black, -5px -5px 20px black,-5px 5px 50px black",
+            }
+          : {
+              textShadow:
+                "5px 5px 20px white, -5px -5px 20px white,-5px 5px 50px white",
+            },
+      imageModeContrastBg:
+        colorMode === "dark"
+          ? {
+              bg: "rgba(0, 0, 0, 0.5)",
+            }
+          : {
+              bg: "rgba(255, 255, 255, 0.2)",
+            },
     },
   };
   return theme;

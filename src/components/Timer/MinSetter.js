@@ -18,10 +18,17 @@ function MinSetter(props) {
   const toast = useToast();
 
   return (
-    <Container h="100%" flex="1" bg="transparent" centerContent>
+    <Container
+      h="100%"
+      flex="1"
+      bg="transparent"
+      centerContent
+      {...(props.theme.bgImage
+        ? props.theme.styles.imageModeContrastText
+        : {})}>
       <Flex height="100%" direction="column" align="center" justify="center">
         <Spacer />
-        <Text my="10px" w="100%" fontWeight="500" textAlign="center" m="8">
+        <Text my="10px" w="100%" fontWeight="bold" textAlign="center" m="8">
           {props.title.toUpperCase()} (mins)
         </Text>
         <Spacer />

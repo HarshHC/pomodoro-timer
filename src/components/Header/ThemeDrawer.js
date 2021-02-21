@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Drawer,
   DrawerBody,
@@ -13,7 +12,6 @@ import {
   Switch,
   Text,
   Tooltip,
-  useColorMode,
 } from "@chakra-ui/react";
 import {
   changeGradientThemeColorTo,
@@ -23,8 +21,6 @@ import {
 } from "../../Constants/themes";
 
 function ThemeDrawer(props) {
-  const { colorMode } = useColorMode();
-
   return (
     <Drawer
       isOpen={props.isOpen}

@@ -45,17 +45,6 @@ function Timer(props) {
     );
   }
 
-  let bgProps = {};
-  if (props.theme.bgImage) {
-    if (colorMode === "dark") {
-      bgProps = { ...props.theme.styles.darkTransparentBg };
-    } else {
-      bgProps = { ...props.theme.styles.lightTransparentBg };
-    }
-  } else {
-    bgProps = {};
-  }
-
   return (
     <Box
       w="90%"
@@ -63,7 +52,7 @@ function Timer(props) {
       rounded="xl"
       boxShadow="dark-lg"
       p="2"
-      {...bgProps}>
+      {...(props.theme.bgImage ? props.theme.styles.imageModeContrastBg : {})}>
       <Flex
         minH="40vh"
         h="100%"

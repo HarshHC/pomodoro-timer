@@ -65,12 +65,28 @@ function RunningTimer(props) {
           m="5"
           fontSize="2xl"
           {...props.theme.styles.bgNoHover}
+          textShadow={
+            props.theme.colorMode === "dark" && props.theme.bgImage
+              ? "1px 1px 50px black, -1px -1px 40px " +
+                props.theme.color.baseColor
+              : "1px 1px 50px " +
+                props.theme.color.baseColor +
+                ", -1px -1px 40px " +
+                props.theme.color.baseColor +
+                ", -4px 4px 30px black" +
+                props.theme.color.baseColor
+          }
           bgClip="text"
           fontWeight="extrabold">
           - {props.mode.toUpperCase()} -
         </Text>
 
-        <Text color={colorMode === "light" ? "black" : "white"} fontSize="8xl">
+        <Text
+          color={colorMode === "light" ? "black" : "white"}
+          {...(props.theme.bgImage
+            ? props.theme.styles.imageModeContrastText
+            : {})}
+          fontSize="8xl">
           {seconds < 10 ? mins + ":" + "0" + seconds : mins + ":" + seconds}
         </Text>
       </Container>

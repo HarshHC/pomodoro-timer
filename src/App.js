@@ -4,7 +4,7 @@ import Tasks from "./components/Tasks";
 import { Box, Container, useColorMode } from "@chakra-ui/react";
 import Timer from "./components/Timer";
 import "focus-visible/dist/focus-visible";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { generateGradientTheme, PURPLE } from "./Constants/themes";
 
 function App() {
@@ -14,6 +14,16 @@ function App() {
       ? JSON.parse(localStorage.getItem("timer-theme"))
       : generateGradientTheme(PURPLE, colorMode)
   );
+
+  useEffect(() => {
+    const storedTheme = JSON.parse(localStorage.getItem("timer-theme"));
+    setTimerTheme(
+      generateGradientTheme(timerTheme.color, colorMode, {
+        image: storedTheme.bgImage,
+        random: storedTheme.bgInfo.random,
+      })
+    );
+  }, [colorMode, timerTheme.color]);
 
   const content = (
     <Container centerContent>

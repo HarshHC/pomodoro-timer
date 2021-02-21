@@ -15,15 +15,42 @@ function Header(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+  let bgProps = {};
+  if (props.theme.bgImage) {
+    if (colorMode === "dark") {
+      bgProps = {
+        ...props.theme.styles.darkTransparentBg,
+        rounded: "xl",
+        boxShadow: "dark-lg",
+      };
+    } else {
+      bgProps = {
+        ...props.theme.styles.lightTransparentBg,
+        rounded: "xl",
+        boxShadow: "dark-lg",
+      };
+    }
+  } else {
+    bgProps = {};
+  }
+
   return (
     <>
-      <Flex justify="center" align="center" p="10">
-        <Heading color={colorMode === "light" ? "black" : "white"} mx="20px">
+      <Flex justify="center" align="center" p="10" m="4">
+        <Heading
+          color={colorMode === "light" ? "black" : "white"}
+          {...(props.theme.bgImage
+            ? props.theme.styles.imageModeContrastText
+            : {})}
+          mx="20px">
           Pomodoro Timer
         </Heading>
         <IconButton
           color={colorMode === "light" ? "black" : "white"}
           icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+          {...(props.theme.bgImage
+            ? props.theme.styles.imageModeContrastBg
+            : {})}
           onClick={toggleColorMode}
           mx="10px"
           fill="red"
@@ -31,6 +58,9 @@ function Header(props) {
         <IconButton
           color={colorMode === "light" ? "black" : "white"}
           icon={<IoMdBrush />}
+          {...(props.theme.bgImage
+            ? props.theme.styles.imageModeContrastBg
+            : {})}
           onClick={onOpen}
           mx="10px"
           fill="red"

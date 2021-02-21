@@ -88,7 +88,13 @@ function Tasks(props) {
           flex="1"
           justifyContent="center"
           flexDirection="column">
-          <Heading fontSize="xl" m="30px" textAlign="center">
+          <Heading
+            fontSize="xl"
+            m="30px"
+            textAlign="center"
+            {...(props.theme.bgImage
+              ? props.theme.styles.imageModeContrastText
+              : {})}>
             New Tasks
           </Heading>
           <Droppable droppableId="New">
@@ -117,7 +123,13 @@ function Tasks(props) {
           flex="1"
           justifyContent="center"
           flexDirection="column">
-          <Heading fontSize="xl" textAlign="center" m="30px">
+          <Heading
+            fontSize="xl"
+            textAlign="center"
+            m="30px"
+            {...(props.theme.bgImage
+              ? props.theme.styles.imageModeContrastText
+              : {})}>
             Tasks in Progress
           </Heading>
           <Droppable droppableId="Progress">
@@ -146,7 +158,13 @@ function Tasks(props) {
           flex="1"
           justifyContent="center"
           flexDirection="column">
-          <Heading fontSize="xl" textAlign="center" m="30px">
+          <Heading
+            fontSize="xl"
+            textAlign="center"
+            m="30px"
+            {...(props.theme.bgImage
+              ? props.theme.styles.imageModeContrastText
+              : {})}>
             Tasks Done
           </Heading>
           <Droppable droppableId="Done">
@@ -217,7 +235,13 @@ function Tasks(props) {
   );
   return (
     <Flex w="100vw" flexDir="column" align="center">
-      <Heading fontSize="2xl" textAlign="center" m="30px">
+      <Heading
+        fontSize="2xl"
+        textAlign="center"
+        m="30px"
+        {...(props.theme.bgImage
+          ? props.theme.styles.imageModeContrastText
+          : {})}>
         Tasks
       </Heading>
       <TodoForm theme={props.theme} onSubmit={addTodo} />
