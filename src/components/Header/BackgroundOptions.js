@@ -1,12 +1,15 @@
 import { Search2Icon } from "@chakra-ui/icons";
-import { Button, Flex, Switch, Text } from "@chakra-ui/react";
+import { Button, Flex, Switch, Text, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import {
   toggleBackgroundImageInGradientTheme,
   toggleRandomImageInGradientTheme,
 } from "../../Constants/themes";
+import ImageSearchDrawer from "./ImageSearchDrawer";
 
 function BackgroundOptions(props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex flexDir="column" flex="1">
       <Text ml="4" fontWeight="800">
@@ -47,14 +50,25 @@ function BackgroundOptions(props) {
         ) : (
           <div></div>
         )}
-        {props.theme.bgInfo.random && props.theme.bgImage ? (
-          <Button my="4" minW="max-content" w="40%" leftIcon={<Search2Icon />}>
+        {!props.theme.bgInfo.random && props.theme.bgImage ? (
+          <Button
+            my="4"
+            minW="max-content"
+            w="40%"
+            leftIcon={<Search2Icon />}
+            onClick={() => onOpen()}>
             Find image
           </Button>
         ) : (
           <div></div>
         )}
       </Flex>
+      <ImageSearchDrawer
+        isOpen={isOpen}
+        onClose={onClose}
+        theme={props.theme}
+        setTheme={props.setTheme}
+      />
     </Flex>
   );
 }

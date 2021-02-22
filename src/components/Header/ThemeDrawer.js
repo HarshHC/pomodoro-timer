@@ -8,17 +8,8 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Square,
-  Switch,
   Text,
-  Tooltip,
 } from "@chakra-ui/react";
-import {
-  changeGradientThemeColorTo,
-  themesList,
-  toggleRandomImageInGradientTheme,
-  toggleBackgroundImageInGradientTheme,
-} from "../../Constants/themes";
 import BackgroundOptions from "./BackgroundOptions";
 import ColourSelector from "./ColourSelector";
 

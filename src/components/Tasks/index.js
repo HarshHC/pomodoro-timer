@@ -245,7 +245,7 @@ function Tasks(props) {
         Tasks
       </Heading>
       <TodoForm theme={props.theme} onSubmit={addTodo} />
-      {isOnmobile ? desktopTodos : desktopTodos}
+      {isOnmobile ? mobileTodos : desktopTodos}
     </Flex>
   );
 }

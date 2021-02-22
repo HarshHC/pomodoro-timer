@@ -21,6 +21,7 @@ function App() {
       generateGradientTheme(timerTheme.color, colorMode, {
         image: storedTheme.bgImage,
         random: storedTheme.bgInfo.random,
+        custom_url: storedTheme.bgInfo.custom_url,
       })
     );
   }, [colorMode, timerTheme.color]);
@@ -46,8 +47,7 @@ function App() {
       {content}
     </Box>
   );
-  console.log(timerTheme.bgInfo);
-  const withBgImage = (
+  const withBgRandomImage = (
     <Box
       width="100vw"
       height="maxContent"
@@ -60,7 +60,24 @@ function App() {
     </Box>
   );
 
-  return timerTheme.bgImage ? withBgImage : noBgImage;
+  const withBgCustomImage = (
+    <Box
+      width="100vw"
+      height="maxContent"
+      minH="100vh"
+      bgImage={"url(" + timerTheme.bgInfo.custom_url + ")"}
+      bgAttachment="fixed"
+      bgSize="cover"
+      bgRepeat="no-repeat">
+      {content}
+    </Box>
+  );
+
+  return timerTheme.bgImage
+    ? timerTheme.bgInfo.random
+      ? withBgRandomImage
+      : withBgCustomImage
+    : noBgImage;
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Center, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SESSION } from "../../Constants/modes";
 import RunningTimer from "./RunningTimer";
@@ -11,7 +11,6 @@ function Timer(props) {
   const [mode, setMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
   const [breakIsRunning, setBreakIsRunning] = useState(false);
-  const { colorMode } = useColorMode();
 
   let displayedTimer;
 

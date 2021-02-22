@@ -1,7 +1,7 @@
 export const generateGradientTheme = (
   color,
   colorMode,
-  bg = { image: false, random: true },
+  bg = { image: false, random: true, custom_url: "" },
   name = ""
 ) => {
   const theme = {
@@ -15,7 +15,7 @@ export const generateGradientTheme = (
       location: "online",
       random_url:
         "https://source.unsplash.com/1600x900/?background,nature," + color.name,
-      custom_url: "",
+      custom_url: bg.custom_url,
       random: bg.random != null ? bg.random : true,
     },
     styles: {
@@ -85,6 +85,7 @@ export const changeGradientThemeColorTo = (oldTheme, color) => {
   const newTheme = generateGradientTheme(color, oldTheme.colorMode, {
     image: oldTheme.bgImage,
     random: oldTheme.bgInfo.random,
+    custom_url: oldTheme.bgInfo.custom_url,
   });
   saveThemeToStorage(newTheme);
   return newTheme;
@@ -94,6 +95,7 @@ export const toggleBackgroundImageInGradientTheme = (oldTheme) => {
   const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
     image: !oldTheme.bgImage,
     random: oldTheme.bgInfo.random,
+    custom_url: oldTheme.bgInfo.custom_url,
   });
   saveThemeToStorage(newTheme);
   return newTheme;
@@ -103,6 +105,17 @@ export const toggleRandomImageInGradientTheme = (oldTheme) => {
   const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
     image: oldTheme.bgImage,
     random: !oldTheme.bgInfo.random,
+    custom_url: oldTheme.bgInfo.custom_url,
+  });
+  saveThemeToStorage(newTheme);
+  return newTheme;
+};
+
+export const setGradientThemeImageCustomUrl = (oldTheme, url) => {
+  const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
+    image: oldTheme.bgImage,
+    random: oldTheme.bgInfo.random,
+    custom_url: url,
   });
   saveThemeToStorage(newTheme);
   return newTheme;
