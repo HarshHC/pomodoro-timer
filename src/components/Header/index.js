@@ -15,28 +15,9 @@ function Header(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  let bgProps = {};
-  if (props.theme.bgImage) {
-    if (colorMode === "dark") {
-      bgProps = {
-        ...props.theme.styles.darkTransparentBg,
-        rounded: "xl",
-        boxShadow: "dark-lg",
-      };
-    } else {
-      bgProps = {
-        ...props.theme.styles.lightTransparentBg,
-        rounded: "xl",
-        boxShadow: "dark-lg",
-      };
-    }
-  } else {
-    bgProps = {};
-  }
-
   return (
     <>
-      <Flex justify="center" align="center" p="10" m="4">
+      <Flex justify="center" align="center" p="5" m="4">
         <Heading
           color={colorMode === "light" ? "black" : "white"}
           {...(props.theme.bgImage

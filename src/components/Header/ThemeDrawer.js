@@ -19,6 +19,8 @@ import {
   toggleRandomImageInGradientTheme,
   toggleBackgroundImageInGradientTheme,
 } from "../../Constants/themes";
+import BackgroundOptions from "./BackgroundOptions";
+import ColourSelector from "./ColourSelector";
 
 function ThemeDrawer(props) {
   return (
@@ -37,72 +39,12 @@ function ThemeDrawer(props) {
           </DrawerHeader>
 
           <DrawerBody>
-            <Flex w="100%">
-              <Flex flexDir="column" w="50%">
-                <Text ml="3" fontWeight="800">
-                  Colours
-                </Text>
-                <Flex mt="4">
-                  {themesList.map((item, i) => {
-                    return (
-                      <Tooltip label={item.name.toUpperCase()} key={i}>
-                        <Square
-                          mx="2"
-                          size="10"
-                          bg={item.baseColor}
-                          rounded="md"
-                          onClick={() => {
-                            props.setTheme(
-                              changeGradientThemeColorTo(
-                                props.theme,
-                                themesList[i]
-                              )
-                            );
-                          }}></Square>
-                      </Tooltip>
-                    );
-                  })}
-                </Flex>
-              </Flex>
-              <Flex flexDir="column" w="50%">
-                <Text ml="4" fontWeight="800">
-                  Background
-                </Text>
-                <Flex m="4" flexDir="column">
-                  <Flex m="2" w="40%" justify="space-between">
-                    <Text>Background Image</Text>
-                    <Switch
-                      colorScheme={props.theme.name}
-                      size="lg"
-                      isChecked={props.theme.bgImage}
-                      onChange={() => {
-                        const newTheme = toggleBackgroundImageInGradientTheme(
-                          props.theme
-                        );
-                        props.setTheme(newTheme);
-                      }}
-                    />
-                  </Flex>
-                  {props.theme.bgImage ? (
-                    <Flex m="2" w="40%" justify="space-between">
-                      <Text>Random Image</Text>
-                      <Switch
-                        colorScheme={props.theme.name}
-                        size="lg"
-                        isChecked={props.theme.bgInfo.random}
-                        onChange={() => {
-                          const newTheme = toggleRandomImageInGradientTheme(
-                            props.theme
-                          );
-                          props.setTheme(newTheme);
-                        }}
-                      />
-                    </Flex>
-                  ) : (
-                    <div></div>
-                  )}
-                </Flex>
-              </Flex>
+            <Flex w="90vw">
+              <ColourSelector theme={props.theme} setTheme={props.setTheme} />
+              <BackgroundOptions
+                theme={props.theme}
+                setTheme={props.setTheme}
+              />
             </Flex>
           </DrawerBody>
 
