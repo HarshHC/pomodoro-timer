@@ -17,13 +17,15 @@ function App() {
 
   useEffect(() => {
     const storedTheme = JSON.parse(localStorage.getItem("timer-theme"));
-    setTimerTheme(
-      generateGradientTheme(timerTheme.color, colorMode, {
-        image: storedTheme.bgImage,
-        random: storedTheme.bgInfo.random,
-        custom_url: storedTheme.bgInfo.custom_url,
-      })
-    );
+    if (storedTheme) {
+      setTimerTheme(
+        generateGradientTheme(timerTheme.color, colorMode, {
+          image: storedTheme.bgImage,
+          random: storedTheme.bgInfo.random,
+          custom_url: storedTheme.bgInfo.custom_url,
+        })
+      );
+    }
   }, [colorMode, timerTheme.color]);
 
   const content = (
