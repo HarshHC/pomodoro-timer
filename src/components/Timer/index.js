@@ -1,5 +1,5 @@
 import { Box, Button, Center, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SESSION } from "../../Constants/modes";
 import RunningTimer from "./RunningTimer";
 import TimerEditMode from "./TimerEditMode";
@@ -10,9 +10,27 @@ function Timer(props) {
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
-  const [breakIsRunning, setBreakIsRunning] = useState(false);
 
   let displayedTimer;
+
+  //useEffect to parse local storage and load started value on refresh
+  useEffect(() => {
+    const timerProp = JSON.parse(localStorage.getItem("timerProps"));
+    if (timerProp) {
+      setStarted(timerProp.started);
+      setIsRunning(false);
+      setMode(timerProp.mode);
+    }
+  }, []);
+
+  //useEffect to save Mode to local storage
+  useEffect(() => {
+    const timerProp = JSON.parse(localStorage.getItem("timerProps"));
+    if (timerProp) {
+      timerProp.started = started;
+      window.localStorage.setItem("timerProps", JSON.stringify(timerProp));
+    }
+  }, [started]);
 
   if (started) {
     displayedTimer = (
@@ -25,8 +43,6 @@ function Timer(props) {
         setStarted={setStarted}
         isRunning={isRunning}
         setIsRunning={setIsRunning}
-        breakIsRunning={breakIsRunning}
-        setBreakIsRunning={setBreakIsRunning}
         breakMins={breakMins}
       />
     );

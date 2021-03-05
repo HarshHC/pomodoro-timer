@@ -17,7 +17,7 @@ function ThemeDrawer(props) {
   return (
     <Drawer
       isOpen={props.isOpen}
-      placement="top"
+      placement="right"
       onClose={props.onClose}
       finalFocusRef={props.btnRef}>
       <DrawerOverlay>
@@ -30,7 +30,7 @@ function ThemeDrawer(props) {
           </DrawerHeader>
 
           <DrawerBody>
-            <Flex w="90vw">
+            <Flex flexDir="column">
               <ColourSelector theme={props.theme} setTheme={props.setTheme} />
               <BackgroundOptions
                 theme={props.theme}
