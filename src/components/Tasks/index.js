@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
-import TodoItems from "./TodoItems";
+import TodoList from "./TodoList";
 import { Heading, Flex, useMediaQuery, Box } from "@chakra-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
@@ -60,14 +60,22 @@ function Tasks(props) {
     setTodos(newTodos);
   };
 
-  const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+  const updateTodo = (index, columnID, newValue) => {
+    if (!newValue || /^\s*$/.test(newValue)) {
       return;
     }
+    const newTodos = { ...todos };
 
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
+    if (columnID == "NEW") {
+      const items = [...todos.newTasks];
+      items[index].text = newValue;
+      newTodos.newTasks = items;
+    } else {
+      const items = [...todos.completedTasks];
+      items[index].text = newValue;
+      newTodos.completedTasks = items;
+    }
+    setTodos(newTodos);
   };
 
   const removeTodo = (index, columnID) => {
@@ -114,14 +122,14 @@ function Tasks(props) {
             New Tasks
           </Heading>
           <Droppable droppableId="NEW">
-            {(provided, snapshot) => (
+            {(provided) => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 w="100%"
                 h="100%"
                 minH="200px">
-                <TodoItems
+                <TodoList
                   theme={props.theme}
                   todos={todos.newTasks}
                   completeTodo={completeTodo}
@@ -150,14 +158,14 @@ function Tasks(props) {
             Tasks Done
           </Heading>
           <Droppable droppableId="DONE">
-            {(provided, snapshot) => (
+            {(provided) => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 w="100%"
                 h="100%"
                 minH="200px">
-                <TodoItems
+                <TodoList
                   theme={props.theme}
                   todos={todos.completedTasks}
                   completeTodo={completeTodo}
@@ -184,7 +192,7 @@ function Tasks(props) {
         <Heading fontSize="xl" m="30px" textAlign="center">
           New Tasks
         </Heading>
-        <TodoItems
+        <TodoList
           theme={props.theme}
           todos={todos}
           completeTodo={completeTodo}
