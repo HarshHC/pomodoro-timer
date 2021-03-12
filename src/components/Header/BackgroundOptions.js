@@ -11,12 +11,12 @@ function BackgroundOptions(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Flex flexDir="column" flex="1">
-      <Text ml="4" fontWeight="800">
+    <Flex flexDir="column" flex="1" my="8">
+      <Text ml="2" fontWeight="800">
         Background
       </Text>
-      <Flex m="4" flexDir="column">
-        <Flex m="2" w="70%" justify="space-between">
+      <Flex m="2" flexDir="column">
+        <Flex m="2" w="90%" justify="space-between">
           <Text width="70%" mr="4">
             Background Image
           </Text>
@@ -33,7 +33,7 @@ function BackgroundOptions(props) {
           />
         </Flex>
         {props.theme.bgImage ? (
-          <Flex m="2" w="70%" justify="space-between">
+          <Flex m="2" w="90%" justify="space-between">
             <Text width="70%" mr="4">
               Random Image
             </Text>

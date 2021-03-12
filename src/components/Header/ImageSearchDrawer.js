@@ -14,6 +14,8 @@ import {
   Link,
   Skeleton,
   Text,
+  useMediaQuery,
+  useToast,
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 import { setGradientThemeImageCustomUrl } from "../../Constants/themes";
@@ -23,6 +25,9 @@ function ImageSearchDrawer(props) {
   const [searchInput, setSearchInput] = useState("nature background");
   const [photosResponse, setPhotosResponse] = useState(null);
   const [searchClicked, setSearchClicked] = useState(false);
+  const [isOnmobile] = useMediaQuery("(max-width: 768px)");
+  const toast = useToast();
+
   config();
 
   const unsplash = createApi({
@@ -40,7 +45,7 @@ function ImageSearchDrawer(props) {
     unsplash.search
       .getPhotos({
         query: searchFor,
-        orientation: "landscape",
+        orientation: isOnmobile ? "portrait" : "landscape",
         per_page: 30,
       })
       .then((result) => {
@@ -61,21 +66,20 @@ function ImageSearchDrawer(props) {
   let images = (
     <Flex>
       {searchClicked ? (
-        <Skeleton m="4" w="100%" h="240px"></Skeleton>
+        <Skeleton m="4" w="100%" h="100%"></Skeleton>
       ) : (
-        <Flex m="4" w="100%" h="240px"></Flex>
+        <Flex m="4" w="100%" h="100%"></Flex>
       )}
     </Flex>
   );
   if (photosResponse != null && photosResponse.response != null) {
     images = (
-      <Flex m="4" w="100%" h="220px" flexWrap="wrap" overflow="scroll">
+      <Flex m="4" w="100%" h="90%" flexWrap="wrap" flexDir="row">
         {photosResponse.response.results.map((photo) => (
-          <Box key={photo.id} m="2">
-            {console.log()}
+          <Box key={photo.id} m="2" w={isOnmobile ? "28%" : "25%"}>
             <Image
-              h="100%"
-              w="25vw"
+              w="100%"
+              h={isOnmobile ? "200px" : "100px"}
               borderRadius="4px"
               src={photo.urls.regular}
               alt={photo.alt_description}
@@ -85,6 +89,13 @@ function ImageSearchDrawer(props) {
                   photo.urls.regular
                 );
                 props.setTheme(newTheme);
+                toast({
+                  title: "Background changed!",
+                  description:
+                    "Close the image search drawer to see your changes",
+                  status: "success",
+                  duration: 500,
+                });
               }}
             />
           </Box>
@@ -97,20 +108,30 @@ function ImageSearchDrawer(props) {
     <Drawer
       onClose={props.onClose}
       isOpen={props.isOpen}
-      size="lg"
-      placement="top">
+      size={isOnmobile ? "sm" : "lg"}
+      placement="right">
       <DrawerOverlay>
         <DrawerContent>
           <DrawerHeader>
-            <Text ml="4" fontWeight="bold">
-              Choose Background Image
-            </Text>
-            <Text ml="4" fontSize="sm">
-              Images from{" "}
-              <Link color="teal.500" href="https://www.unsplash.com" isExternal>
-                Unsplash.com
-              </Link>
-            </Text>
+            <Flex justify="space-between" w="100%" align="center">
+              <Flex flexDir="column">
+                <Text ml="4" fontWeight="bold">
+                  Choose Background Image
+                </Text>
+                <Text ml="4" fontSize="sm">
+                  Images from{" "}
+                  <Link
+                    color="teal.500"
+                    href="https://www.unsplash.com"
+                    isExternal>
+                    Unsplash.com
+                  </Link>
+                </Text>
+              </Flex>
+              <Button variant="outline" mr="1" onClick={props.onClose}>
+                Done
+              </Button>
+            </Flex>
           </DrawerHeader>
           <DrawerBody>
             <form
@@ -118,10 +139,10 @@ function ImageSearchDrawer(props) {
                 e.preventDefault();
                 handleSearch();
               }}>
-              <Flex ml="4" w="50%" minW="max-content">
+              <Flex mx="2" w="98%">
                 <Input
-                  w="50vw"
-                  pr="2vw"
+                  w="100%"
+                  pr="1vw"
                   value={searchInput}
                   onChange={(e) => {
                     setSearchInput(e.target.value);
