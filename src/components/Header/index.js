@@ -12,7 +12,7 @@ import ThemeDrawer from "./ThemeDrawer";
 
 function Header(props) {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure(); 
   const btnRef = React.useRef();
 
   return (

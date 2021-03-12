@@ -26,18 +26,33 @@ function RunningTimer(props) {
 
   useEffect(() => {
     const timerProps = JSON.parse(localStorage.getItem("timerProps"));
-    timerProps.mode = props.mode;
-    timerProps.updatedTime = updatedTime;
-    window.localStorage.setItem("timerProps", JSON.stringify(timerProps));
+    if(timerProps)
+    {
+      timerProps.mode = props.mode;
+      timerProps.updatedTime = updatedTime;
+      window.localStorage.setItem("timerProps", JSON.stringify(timerProps));
+    }
   }, [props.mode, updatedTime]);
 
   useEffect(() => {
-    const timerProps = JSON.parse(localStorage.getItem("timerProps"));
-    if (timerProps) {
+    let timerProps = JSON.parse(localStorage.getItem("timerProps"));
+    if (timerProps) 
+    {
       setUpdatedTime(timerProps.updatedTime);
       props.setMode(timerProps.mode);
       setMins(Math.floor(timerProps.updatedTime / 60));
       setSeconds(timerProps.updatedTime % 60);
+    }
+    else
+    {
+      timerProps = {};
+
+      timerProps.started = true;
+      timerProps.isRunning = false;
+      timerProps.mode = props.mode;
+      timerProps.updatedTime = updatedTime;
+      window.localStorage.setItem("timerProps", JSON.stringify(timerProps));
+
     }
   }, []);
 
