@@ -7,7 +7,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 function Tasks(props) {
   const [todos, setTodos] = useState({
     newTasks: [],
-    tasksInProgress: [],
     completedTasks: [],
   });
   const [isOnmobile] = useMediaQuery("(max-width: 768px)");
@@ -23,14 +22,7 @@ function Tasks(props) {
         newTodos.newTasks = items;
         setTodos(newTodos);
       }
-      if (result.destination.droppableId === "Progress") {
-        const items = Array.from(todos.tasksInProgress);
-        const [reorder] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorder);
-        const newTodos = { ...todos };
-        newTodos.tasksInProgress = items;
-        setTodos(newTodos);
-      }
+
       if (result.destination.droppableId === "Done") {
         const items = Array.from(todos.completedTasks);
         const [reorder] = items.splice(result.source.index, 1);
@@ -130,41 +122,6 @@ function Tasks(props) {
             {...(props.theme.bgImage
               ? props.theme.styles.imageModeContrastText
               : {})}>
-            Tasks in Progress
-          </Heading>
-          <Droppable droppableId="Progress">
-            {(provided, snapshot) => (
-              <Box
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                w="100%"
-                h="100%">
-                <TodoItems
-                  theme={props.theme}
-                  todos={todos.tasksInProgress}
-                  completeTodo={completeTodo}
-                  removeTodo={removeTodo}
-                  updateTodo={updateTodo}
-                />
-                {provided.placeholder}
-              </Box>
-            )}
-          </Droppable>
-        </Flex>
-        <Flex
-          mx="10px"
-          w="1/3"
-          h="100%"
-          flex="1"
-          justifyContent="center"
-          flexDirection="column">
-          <Heading
-            fontSize="xl"
-            textAlign="center"
-            m="30px"
-            {...(props.theme.bgImage
-              ? props.theme.styles.imageModeContrastText
-              : {})}>
             Tasks Done
           </Heading>
           <Droppable droppableId="Done">
@@ -208,17 +165,6 @@ function Tasks(props) {
           removeTodo={removeTodo}
           updateTodo={updateTodo}
         />
-      </Flex>
-      <Flex
-        mx="10px"
-        w="1/3"
-        h="100%"
-        flex="1"
-        justifyContent="center"
-        flexDirection="column">
-        <Heading fontSize="xl" textAlign="center" m="30px">
-          Tasks in Process
-        </Heading>
       </Flex>
       <Flex
         mx="10px"
