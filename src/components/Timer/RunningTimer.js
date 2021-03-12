@@ -18,7 +18,11 @@ function RunningTimer(props) {
   const [mins, setMins] = useState(
     props.mode == SESSION ? props.sessionMins : props.breakMins
   );
-  const [updatedTime, setUpdatedTime] = useState(props.sessionMins);
+  const timeProps = localStorage.getItem("timerProps");
+  const [updatedTime, setUpdatedTime] = 
+  useState(timeProps? 
+    JSON.parse(localStorage.getItem("timerProps")).updatedTime:
+    props.sessionMins);
 
   //variables defined here
   const time = useRef(null);
@@ -66,7 +70,7 @@ function RunningTimer(props) {
     if (time.current < 0) {
       setMins(props.mode === !SESSION ? props.sessionMins : props.breakMins);
       setUpdatedTime(
-        props.mode === !SESSION ? props.sessionMinns * 60 : props.breakMins * 60
+        props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
     }
