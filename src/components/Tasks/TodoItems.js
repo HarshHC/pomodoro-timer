@@ -44,7 +44,7 @@ function TodoItems(props) {
               <DeleteIcon
                 boxSize="5"
                 m="8px"
-                onClick={() => props.removeTodo(todo.id)}
+                onClick={() => props.removeTodo(index, todo.columnID)}
               />
               <EditIcon
                 boxSize="5"

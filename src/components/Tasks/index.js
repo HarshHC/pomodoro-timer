@@ -9,26 +9,41 @@ function Tasks(props) {
     newTasks: [],
     completedTasks: [],
   });
+
   const [isOnmobile] = useMediaQuery("(max-width: 768px)");
 
   function onEnd(result) {
     console.log(result);
     if (result.destination) {
-      if (result.destination.droppableId === "New") {
-        const items = Array.from(todos.newTasks);
+      const start = result.source.droppableId;
+      const finish = result.destination.droppableId;
+      if (start === finish) {
+        const items = start == "NEW" ? todos.newTasks : todos.completedTasks;
         const [reorder] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorder);
         const newTodos = { ...todos };
-        newTodos.newTasks = items;
+        start == "NEW"
+          ? (newTodos.newTasks = items)
+          : (newTodos.completedTasks = items);
         setTodos(newTodos);
-      }
-
-      if (result.destination.droppableId === "Done") {
-        const items = Array.from(todos.completedTasks);
-        const [reorder] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorder);
+      } else {
+        const sourceList =
+          start == "DONE" ? todos.completedTasks : todos.newTasks;
+        const [removed] = sourceList.splice(result.source.index, 1);
+        removed.columnID == "DONE"
+          ? (removed.columnID = "NEW")
+          : (removed.columnID = "DONE");
+        const destinationList =
+          finish == "DONE" ? todos.completedTasks : todos.newTasks;
+        destinationList.splice(result.destination.index, 0, removed);
         const newTodos = { ...todos };
-        newTodos.completedTasks = items;
+        if (start == "DONE") {
+          newTodos.completedTasks = sourceList;
+          newTodos.newTasks = destinationList;
+        } else {
+          newTodos.completedTasks = destinationList;
+          newTodos.newTasks = sourceList;
+        }
         setTodos(newTodos);
       }
     }
@@ -55,10 +70,19 @@ function Tasks(props) {
     );
   };
 
-  const removeTodo = (id) => {
-    const removeArr = [...todos.newTasks].filter((todo) => todo.id !== id);
+  const removeTodo = (index, columnID) => {
+    const newTodos = { ...todos };
 
-    setTodos(removeArr);
+    if (columnID == "NEW") {
+      const items = [...todos.newTasks];
+      items.splice(index, 1);
+      newTodos.newTasks = items;
+    } else {
+      const items = [...todos.completedTasks];
+      items.splice(index, 1);
+      newTodos.completedTasks = items;
+    }
+    setTodos(newTodos);
   };
 
   const completeTodo = (id) => {
@@ -89,13 +113,14 @@ function Tasks(props) {
               : {})}>
             New Tasks
           </Heading>
-          <Droppable droppableId="New">
+          <Droppable droppableId="NEW">
             {(provided, snapshot) => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 w="100%"
-                h="100%">
+                h="100%"
+                minH="200px">
                 <TodoItems
                   theme={props.theme}
                   todos={todos.newTasks}
@@ -124,13 +149,14 @@ function Tasks(props) {
               : {})}>
             Tasks Done
           </Heading>
-          <Droppable droppableId="Done">
+          <Droppable droppableId="DONE">
             {(provided, snapshot) => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 w="100%"
-                h="100%">
+                h="100%"
+                minH="200px">
                 <TodoItems
                   theme={props.theme}
                   todos={todos.completedTasks}
