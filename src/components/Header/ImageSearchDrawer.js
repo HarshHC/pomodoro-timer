@@ -35,11 +35,11 @@ function ImageSearchDrawer(props) {
   });
 
   useEffect(() => {
-    if (!props.theme.bgInfo.random && props.theme.bgImage && searchClicked) {
+    if (!props.theme.bgInfo.random && props.theme.bgImage && props.isOpen) {
       searchUnsplash("nature background");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.theme.bgInfo.random, props.theme.bgImage, searchClicked]);
+  }, [props.theme.bgInfo.random, props.theme.bgImage, props.isOpen]);
 
   const searchUnsplash = (searchFor) => {
     unsplash.search
