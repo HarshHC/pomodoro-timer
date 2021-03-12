@@ -36,11 +36,11 @@ function TodoItems(props) {
           my="10px"
           key={index}>
           <Flex>
-            <Box w="25vw" overflow="hidden" key={todo.id}>
+            <Box w="40vw" overflow="hidden" key={todo.id}>
               {todo.text}
             </Box>
 
-            <Flex align="center" justify="center" w="20%">
+            <Flex align="center" justify="center" w="10%">
               <DeleteIcon
                 boxSize="5"
                 m="8px"
