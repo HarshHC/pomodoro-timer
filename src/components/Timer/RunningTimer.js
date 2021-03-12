@@ -3,12 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { SESSION, BREAK } from "../../Constants/modes";
 import {
   Modal,
+  Button,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 function RunningTimer(props) {
@@ -18,11 +20,13 @@ function RunningTimer(props) {
   const [mins, setMins] = useState(
     props.mode == SESSION ? props.sessionMins : props.breakMins
   );
+  const [notifications, setNotifications] = useState(false);
   const timeProps = localStorage.getItem("timerProps");
   const [updatedTime, setUpdatedTime] = 
   useState(timeProps? 
     JSON.parse(localStorage.getItem("timerProps")).updatedTime:
     props.sessionMins);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
   //variables defined here
   const time = useRef(null);
@@ -73,6 +77,11 @@ function RunningTimer(props) {
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
+      if(notifications == true)
+      {
+        //give toast notification that we are switching mode
+
+      }
     }
   };
 
