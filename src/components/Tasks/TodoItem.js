@@ -31,9 +31,9 @@ function TodoItem(props) {
       {...props.provided.dragHandleProps}
       ref={props.provided.innerRef}
       {...props.theme.styles.bgNoHover}
-      w="100%"
+      w={isOnmobile ? "42vw" : "100%"}
       borderRadius="4px"
-      p="16px"
+      p={isOnmobile ? "2" : "4"}
       my="10px"
       key={props.index}>
       <Flex>
@@ -53,7 +53,7 @@ function TodoItem(props) {
                   ? props.theme.styles.imageModeContrastText
                   : {}),
               }}
-              w="100%"
+              w={isOnmobile ? "30vw" : "100%"}
               as="input"
               placeholder="Edit Text"
               value={input}
@@ -81,14 +81,14 @@ function TodoItem(props) {
       {...props.provided.dragHandleProps}
       ref={props.provided.innerRef}
       {...props.theme.styles.bgNoHover}
-      w="100%"
+      w={isOnmobile ? "42vw" : "100%"}
       borderRadius="4px"
-      p={isOnmobile ? "2" : "16"}
+      p={isOnmobile ? "2" : "4"}
       my="10px"
       key={props.index}>
       <Flex justify="space-between">
         <Box
-          w={isOnmobile ? "10vw" : "40vw"}
+          w={isOnmobile ? "20vw" : "200%"}
           overflow="hidden"
           key={props.todo.id}>
           {props.todo.text}
@@ -97,7 +97,7 @@ function TodoItem(props) {
         <Flex
           align="center"
           justify="center"
-          w="10vw"
+          w={isOnmobile ? "10vw" : "40%"}
           pr={isOnmobile ? "2" : "0px"}>
           <DeleteIcon
             boxSize={isOnmobile ? "4" : "5"}
