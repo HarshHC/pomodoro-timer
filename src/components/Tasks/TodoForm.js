@@ -4,13 +4,14 @@ import { HStack, Box, useMediaQuery } from '@chakra-ui/react';
 function TodoForm(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
+
   const handleChange = (e) => {
     setInput(e.target.value);
   };
-
+  //function to check when in the correct mode( update/default) to change the element if needed when pressed the check button in the updateModo
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    //function to create a random id and get the text input, used to give value to the Todo Item
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       text: input,
@@ -19,7 +20,7 @@ function TodoForm(props) {
 
     setInput(' ');
   };
-
+  //function: Bon to insert the elements into the TodoList
   const taskOption = (
     <HStack spacing="0px" w={isOnmobile ? '70vw' : '32vw'}>
       <Box

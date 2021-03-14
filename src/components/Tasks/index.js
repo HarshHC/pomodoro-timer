@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
-import { Heading, Flex, Box } from "@chakra-ui/react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import React, { useState } from 'react';
+import TodoForm from './TodoForm';
+import TodoList from './TodoList';
+import { Heading, Flex, Box } from '@chakra-ui/react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 function Tasks(props) {
   //useState to create the todo items and use the object elements to store the values of each column
@@ -16,26 +16,26 @@ function Tasks(props) {
       const start = result.source.droppableId;
       const finish = result.destination.droppableId;
       if (start === finish) {
-        const items = start === "NEW" ? todos.newTasks : todos.completedTasks;
+        const items = start === 'NEW' ? todos.newTasks : todos.completedTasks;
         const [reorder] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorder);
         const newTodos = { ...todos };
-        start === "NEW"
+        start === 'NEW'
           ? (newTodos.newTasks = items)
           : (newTodos.completedTasks = items);
         setTodos(newTodos);
       } else {
         const sourceList =
-          start === "DONE" ? todos.completedTasks : todos.newTasks;
+          start === 'DONE' ? todos.completedTasks : todos.newTasks;
         const [removed] = sourceList.splice(result.source.index, 1);
-        removed.columnID === "DONE"
-          ? (removed.columnID = "NEW")
-          : (removed.columnID = "DONE");
+        removed.columnID === 'DONE'
+          ? (removed.columnID = 'NEW')
+          : (removed.columnID = 'DONE');
         const destinationList =
-          finish === "DONE" ? todos.completedTasks : todos.newTasks;
+          finish === 'DONE' ? todos.completedTasks : todos.newTasks;
         destinationList.splice(result.destination.index, 0, removed);
         const newTodos = { ...todos };
-        if (start === "DONE") {
+        if (start === 'DONE') {
           newTodos.completedTasks = sourceList;
           newTodos.newTasks = destinationList;
         } else {
@@ -64,7 +64,7 @@ function Tasks(props) {
     }
     const newTodos = { ...todos };
 
-    if (columnID === "NEW") {
+    if (columnID === 'NEW') {
       const items = [...todos.newTasks];
       items[index].text = newValue;
       newTodos.newTasks = items;
@@ -75,11 +75,11 @@ function Tasks(props) {
     }
     setTodos(newTodos);
   };
-
+  //remove function to Remove the Todo Item when pressed the button delete
   const removeTodo = (index, columnID) => {
     const newTodos = { ...todos };
 
-    if (columnID === "NEW") {
+    if (columnID === 'NEW') {
       const items = [...todos.newTasks];
       items.splice(index, 1);
       newTodos.newTasks = items;
@@ -90,16 +90,7 @@ function Tasks(props) {
     }
     setTodos(newTodos);
   };
-
-  const completeTodo = (id) => {
-    let updateTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
-    });
-    setTodos(updateTodos);
-  };
+  //function to run the Tasks
   const desktopTodos = (
     <DragDropContext onDragEnd={onEnd}>
       <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
@@ -130,7 +121,6 @@ function Tasks(props) {
                 <TodoList
                   theme={props.theme}
                   todos={todos.newTasks}
-                  completeTodo={completeTodo}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
                 />
@@ -166,7 +156,6 @@ function Tasks(props) {
                 <TodoList
                   theme={props.theme}
                   todos={todos.completedTasks}
-                  completeTodo={completeTodo}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
                 />

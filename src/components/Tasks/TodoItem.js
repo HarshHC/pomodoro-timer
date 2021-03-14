@@ -8,23 +8,23 @@ function TodoItem(props) {
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
 
   const inputRef = useRef(null);
-
+  //function to make focus when updating the Todo element
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, [updateMode]);
-
+  //funcito nto handle the text element of the todo Item
   const handleChange = (e) => {
     setInput(e.target.value);
   };
-
+  //function to check when in the correct mode( update/default) to change the element if needed when pressed the check button in the updateModo
   const handleSubmit = (e) => {
     e.preventDefault();
     setUpdateMode(false);
     props.updateTodo(props.index, props.todo.columnID, input);
   };
-
+  //function for when in the update mode to change the Todo element being updated to a different visual mode
   const updateTodoMode = (
     <Box
       {...props.provided.draggableProps}
@@ -74,7 +74,7 @@ function TodoItem(props) {
       </Flex>
     </Box>
   );
-
+  //function to define when in default page in the file
   const defaultTodoMode = (
     <Box
       {...props.provided.draggableProps}
@@ -116,7 +116,7 @@ function TodoItem(props) {
       </Flex>
     </Box>
   );
-
+  //return to check when in the correct mode
   return updateMode ? updateTodoMode : defaultTodoMode;
 }
 
