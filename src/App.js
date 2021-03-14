@@ -1,22 +1,22 @@
-import "./App.css";
-import Header from "./components/Header";
-import Tasks from "./components/Tasks";
-import { Box, Container, useColorMode } from "@chakra-ui/react";
-import Timer from "./components/Timer";
-import "focus-visible/dist/focus-visible";
-import { useEffect, useState } from "react";
-import { generateGradientTheme, PURPLE } from "./Constants/themes";
+import './App.css';
+import Header from './components/Header';
+import Tasks from './components/Tasks';
+import { Box, Container, useColorMode } from '@chakra-ui/react';
+import Timer from './components/Timer';
+import 'focus-visible/dist/focus-visible';
+import { useEffect, useState } from 'react';
+import { generateGradientTheme, PURPLE } from './Constants/themes';
 
 function App() {
   const { colorMode } = useColorMode();
   const [timerTheme, setTimerTheme] = useState(
-    localStorage.getItem("timer-theme")
-      ? JSON.parse(localStorage.getItem("timer-theme"))
+    localStorage.getItem('timer-theme')
+      ? JSON.parse(localStorage.getItem('timer-theme'))
       : generateGradientTheme(PURPLE, colorMode)
   );
 
   useEffect(() => {
-    const storedTheme = JSON.parse(localStorage.getItem("timer-theme"));
+    const storedTheme = JSON.parse(localStorage.getItem('timer-theme'));
     if (storedTheme) {
       setTimerTheme(
         generateGradientTheme(timerTheme.color, colorMode, {
@@ -44,9 +44,9 @@ function App() {
       overflow="hidden"
       minH="100vh"
       bgGradient={
-        colorMode === "light"
-          ? "linear(to-bl, #F5F5F5, #FFFFFF)"
-          : "linear(to-bl, #121417, #2B2E36)"
+        colorMode === 'light'
+          ? 'linear(to-bl, #F5F5F5, #FFFFFF)'
+          : 'linear(to-bl, #121417, #2B2E36)'
       }>
       {content}
     </Box>
@@ -58,15 +58,15 @@ function App() {
       minH="100vh"
       _before={{
         bgImage: `url('${timerTheme.bgInfo.random_url}')`,
-        bgAttachment: "fixed",
-        bgSize: "cover",
-        bgRepeat: "no-repeat",
-        height: "100%",
+        bgAttachment: 'fixed',
+        bgSize: 'cover',
+        bgRepeat: 'no-repeat',
+        height: '100%',
         left: 0,
-        position: "fixed",
+        position: 'fixed',
         top: 0,
-        width: "100%",
-        willChange: "transform",
+        width: '100%',
+        willChange: 'transform',
         content: "''",
         zIndex: -1,
       }}>
@@ -81,15 +81,15 @@ function App() {
       minH="100vh"
       _before={{
         bgImage: `url('${timerTheme.bgInfo.custom_url}')`,
-        bgAttachment: "fixed",
-        bgSize: "cover",
-        bgRepeat: "no-repeat",
-        height: "100%",
+        bgAttachment: 'fixed',
+        bgSize: 'cover',
+        bgRepeat: 'no-repeat',
+        height: '100%',
         left: 0,
-        position: "fixed",
+        position: 'fixed',
         top: 0,
-        width: "100%",
-        willChange: "transform",
+        width: '100%',
+        willChange: 'transform',
         content: "''",
         zIndex: -1,
       }}>

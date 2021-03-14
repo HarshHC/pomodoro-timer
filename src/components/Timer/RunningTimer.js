@@ -1,6 +1,6 @@
-import { Container, Flex, Text, useColorMode } from "@chakra-ui/react";
-import React, { useState, useEffect, useRef } from "react";
-import { SESSION, BREAK } from "../../Constants/modes";
+import { Container, Flex, Text, useColorMode } from '@chakra-ui/react';
+import React, { useState, useEffect, useRef } from 'react';
+import { SESSION, BREAK } from '../../Constants/modes';
 import {
   Modal,
   Button,
@@ -11,7 +11,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 function RunningTimer(props) {
   //useStates defined here
@@ -21,46 +21,42 @@ function RunningTimer(props) {
     props.mode == SESSION ? props.sessionMins : props.breakMins
   );
   const [notifications, setNotifications] = useState(false);
-  const timeProps = localStorage.getItem("timerProps");
-  const [updatedTime, setUpdatedTime] = 
-  useState(timeProps? 
-    JSON.parse(localStorage.getItem("timerProps")).updatedTime:
-    props.sessionMins);
-    const { isOpen, onOpen, onClose } = useDisclosure();
+  const timeProps = localStorage.getItem('timerProps');
+  const [updatedTime, setUpdatedTime] = useState(
+    timeProps
+      ? JSON.parse(localStorage.getItem('timerProps')).updatedTime
+      : props.sessionMins
+  );
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //variables defined here
   const time = useRef(null);
   let interval;
 
   useEffect(() => {
-    const timerProps = JSON.parse(localStorage.getItem("timerProps"));
-    if(timerProps)
-    {
+    const timerProps = JSON.parse(localStorage.getItem('timerProps'));
+    if (timerProps) {
       timerProps.mode = props.mode;
       timerProps.updatedTime = updatedTime;
-      window.localStorage.setItem("timerProps", JSON.stringify(timerProps));
+      window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, [props.mode, updatedTime]);
 
   useEffect(() => {
-    let timerProps = JSON.parse(localStorage.getItem("timerProps"));
-    if (timerProps) 
-    {
+    let timerProps = JSON.parse(localStorage.getItem('timerProps'));
+    if (timerProps) {
       setUpdatedTime(timerProps.updatedTime);
       props.setMode(timerProps.mode);
       setMins(Math.floor(timerProps.updatedTime / 60));
       setSeconds(timerProps.updatedTime % 60);
-    }
-    else
-    {
+    } else {
       timerProps = {};
 
       timerProps.started = true;
       timerProps.isRunning = false;
       timerProps.mode = props.mode;
       timerProps.updatedTime = updatedTime;
-      window.localStorage.setItem("timerProps", JSON.stringify(timerProps));
-
+      window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, []);
 
@@ -77,10 +73,8 @@ function RunningTimer(props) {
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
-      if(notifications == true)
-      {
+      if (notifications == true) {
         //give toast notification that we are switching mode
-
       }
     }
   };
@@ -127,14 +121,14 @@ function RunningTimer(props) {
           fontSize="2xl"
           {...props.theme.styles.bgNoHover}
           textShadow={
-            props.theme.colorMode === "dark" && props.theme.bgImage
-              ? "1px 1px 50px black, -1px -1px 40px " +
+            props.theme.colorMode === 'dark' && props.theme.bgImage
+              ? '1px 1px 50px black, -1px -1px 40px ' +
                 props.theme.color.baseColor
-              : "1px 1px 50px " +
+              : '1px 1px 50px ' +
                 props.theme.color.baseColor +
-                ", -1px -1px 40px " +
+                ', -1px -1px 40px ' +
                 props.theme.color.baseColor +
-                ", -4px 4px 30px black" +
+                ', -4px 4px 30px black' +
                 props.theme.color.baseColor
           }
           bgClip="text"
@@ -143,12 +137,12 @@ function RunningTimer(props) {
         </Text>
 
         <Text
-          color={colorMode === "light" ? "black" : "white"}
+          color={colorMode === 'light' ? 'black' : 'white'}
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastText
             : {})}
           fontSize="8xl">
-          {seconds < 10 ? mins + ":" + "0" + seconds : mins + ":" + seconds}
+          {seconds < 10 ? mins + ':' + '0' + seconds : mins + ':' + seconds}
         </Text>
       </Container>
     </Flex>

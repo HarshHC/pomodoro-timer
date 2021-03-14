@@ -5,11 +5,12 @@ import { Heading, Flex, Box } from "@chakra-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function Tasks(props) {
+  //useState to create the todo items and use the object elements to store the values of each column
   const [todos, setTodos] = useState({
     newTasks: [],
     completedTasks: [],
   });
-
+  //function to check the location in the DND feature and save the values for the respective location
   function onEnd(result) {
     if (result.destination) {
       const start = result.source.droppableId;
@@ -45,7 +46,7 @@ function Tasks(props) {
       }
     }
   }
-
+  //function to check create the elements of the todo list ( Todo Item ).
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
@@ -56,7 +57,7 @@ function Tasks(props) {
 
     setTodos(newTodos);
   };
-
+  //function to update the elements in the todo List
   const updateTodo = (index, columnID, newValue) => {
     if (!newValue || /^\s*$/.test(newValue)) {
       return;

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { HStack, Box, useMediaQuery } from "@chakra-ui/react";
+import React, { useState } from 'react';
+import { HStack, Box, useMediaQuery } from '@chakra-ui/react';
 
 function TodoForm(props) {
-  const [input, setInput] = useState(props.edit ? props.edit.value : "");
-  const [isOnmobile] = useMediaQuery("(max-width: 768px)");
+  const [input, setInput] = useState(props.edit ? props.edit.value : '');
+  const [isOnmobile] = useMediaQuery('(max-width: 768px)');
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -14,14 +14,14 @@ function TodoForm(props) {
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       text: input,
-      columnID: "NEW",
+      columnID: 'NEW',
     });
 
-    setInput(" ");
+    setInput(' ');
   };
 
   const taskOption = (
-    <HStack spacing="0px" w={isOnmobile ? "70vw" : "32vw"}>
+    <HStack spacing="0px" w={isOnmobile ? '70vw' : '32vw'}>
       <Box
         {...props.theme.styles.bgNoHover}
         bg="transparent"
@@ -29,9 +29,9 @@ function TodoForm(props) {
         borderRadius="4px 0 0 4px"
         p="14px 16px 14px 16px"
         borderColor={props.theme.startColor}
-        color={props.theme.colorMode === "light" ? "black" : "white"}
+        color={props.theme.colorMode === 'light' ? 'black' : 'white'}
         _placeholder={{
-          color: props.theme.colorMode === "light" ? "black" : "white",
+          color: props.theme.colorMode === 'light' ? 'black' : 'white',
           ...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastText
             : {}),

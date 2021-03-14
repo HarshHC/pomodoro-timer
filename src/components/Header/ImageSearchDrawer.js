@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { createApi } from "unsplash-js";
+import React, { useEffect, useState } from 'react';
+import { createApi } from 'unsplash-js';
 import {
   Box,
   Button,
@@ -16,16 +16,16 @@ import {
   Text,
   useMediaQuery,
   useToast,
-} from "@chakra-ui/react";
-import { Search2Icon } from "@chakra-ui/icons";
-import { setGradientThemeImageCustomUrl } from "../../Constants/themes";
-import { config } from "dotenv";
+} from '@chakra-ui/react';
+import { Search2Icon } from '@chakra-ui/icons';
+import { setGradientThemeImageCustomUrl } from '../../Constants/themes';
+import { config } from 'dotenv';
 
 function ImageSearchDrawer(props) {
-  const [searchInput, setSearchInput] = useState("nature background");
+  const [searchInput, setSearchInput] = useState('nature background');
   const [photosResponse, setPhotosResponse] = useState(null);
   const [searchClicked, setSearchClicked] = useState(false);
-  const [isOnmobile] = useMediaQuery("(max-width: 768px)");
+  const [isOnmobile] = useMediaQuery('(max-width: 768px)');
   const toast = useToast();
 
   config();
@@ -36,7 +36,7 @@ function ImageSearchDrawer(props) {
 
   useEffect(() => {
     if (!props.theme.bgInfo.random && props.theme.bgImage && props.isOpen) {
-      searchUnsplash("nature background");
+      searchUnsplash('nature background');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.theme.bgInfo.random, props.theme.bgImage, props.isOpen]);
@@ -45,7 +45,7 @@ function ImageSearchDrawer(props) {
     unsplash.search
       .getPhotos({
         query: searchFor,
-        orientation: isOnmobile ? "portrait" : "landscape",
+        orientation: isOnmobile ? 'portrait' : 'landscape',
         per_page: 30,
       })
       .then((result) => {
@@ -55,7 +55,7 @@ function ImageSearchDrawer(props) {
         console.log(result);
       })
       .catch(() => {
-        console.log("something went wrong!");
+        console.log('something went wrong!');
       });
   };
 
@@ -76,10 +76,10 @@ function ImageSearchDrawer(props) {
     images = (
       <Flex m="4" w="100%" h="90%" flexWrap="wrap" flexDir="row">
         {photosResponse.response.results.map((photo) => (
-          <Box key={photo.id} m="2" w={isOnmobile ? "28%" : "25%"}>
+          <Box key={photo.id} m="2" w={isOnmobile ? '28%' : '25%'}>
             <Image
               w="100%"
-              h={isOnmobile ? "200px" : "100px"}
+              h={isOnmobile ? '200px' : '100px'}
               borderRadius="4px"
               src={photo.urls.regular}
               alt={photo.alt_description}
@@ -90,10 +90,10 @@ function ImageSearchDrawer(props) {
                 );
                 props.setTheme(newTheme);
                 toast({
-                  title: "Background changed!",
+                  title: 'Background changed!',
                   description:
-                    "Close the image search drawer to see your changes",
-                  status: "success",
+                    'Close the image search drawer to see your changes',
+                  status: 'success',
                   duration: 500,
                 });
               }}
@@ -108,7 +108,7 @@ function ImageSearchDrawer(props) {
     <Drawer
       onClose={props.onClose}
       isOpen={props.isOpen}
-      size={isOnmobile ? "sm" : "lg"}
+      size={isOnmobile ? 'sm' : 'lg'}
       placement="right">
       <DrawerOverlay>
         <DrawerContent>
@@ -119,7 +119,7 @@ function ImageSearchDrawer(props) {
                   Choose Background Image
                 </Text>
                 <Text ml="4" fontSize="sm">
-                  Images from{" "}
+                  Images from{' '}
                   <Link
                     color="teal.500"
                     href="https://www.unsplash.com"
