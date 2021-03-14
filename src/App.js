@@ -1,10 +1,10 @@
+import { React, useEffect, useState } from 'react';
 import './App.css';
+import { Box, Container, useColorMode } from '@chakra-ui/react';
+import 'focus-visible/dist/focus-visible';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
-import { Box, Container, useColorMode } from '@chakra-ui/react';
 import Timer from './components/Timer';
-import 'focus-visible/dist/focus-visible';
-import { useEffect, useState } from 'react';
 import { generateGradientTheme, PURPLE } from './Constants/themes';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         generateGradientTheme(timerTheme.color, colorMode, {
           image: storedTheme.bgImage,
           random: storedTheme.bgInfo.random,
-          custom_url: storedTheme.bgInfo.custom_url,
+          custom_url: storedTheme.bgInfo.custom_url
         })
       );
     }
@@ -68,7 +68,7 @@ function App() {
         width: '100%',
         willChange: 'transform',
         content: "''",
-        zIndex: -1,
+        zIndex: -1
       }}>
       {content}
     </Box>
@@ -91,17 +91,23 @@ function App() {
         width: '100%',
         willChange: 'transform',
         content: "''",
-        zIndex: -1,
+        zIndex: -1
       }}>
       {content}
     </Box>
   );
+  let displayedTimer = <div />;
 
-  return timerTheme.bgImage
-    ? timerTheme.bgInfo.random
-      ? withBgRandomImage
-      : withBgCustomImage
-    : noBgImage;
+  if (timerTheme.bgImage) {
+    if (timerTheme.bgInfo.random) {
+      displayedTimer = withBgRandomImage;
+    } else {
+      displayedTimer = withBgCustomImage;
+    }
+  } else {
+    displayedTimer = noBgImage;
+  }
+  return displayedTimer;
 }
 
 export default App;

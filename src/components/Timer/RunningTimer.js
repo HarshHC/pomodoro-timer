@@ -4,7 +4,7 @@ import { SESSION, BREAK } from '../../Constants/modes';
 // import { useDisclosure } from '@chakra-ui/react';
 
 function RunningTimer(props) {
-  //useStates defined here
+  // useStates defined here
   const { colorMode } = useColorMode();
   const [seconds, setSeconds] = useState(0);
   const [mins, setMins] = useState(
@@ -19,7 +19,7 @@ function RunningTimer(props) {
   );
   // const { isOpen, onOpen, onClose } = useDisclosure();
 
-  //variables defined here
+  // variables defined here
   const time = useRef(null);
 
   useEffect(() => {
@@ -49,8 +49,8 @@ function RunningTimer(props) {
     }
   }, []);
 
-  //javascript functions defined here
-  //function to handle the countdown. will be called every second.
+  // javascript functions defined here
+  // function to handle the countdown. will be called every second.
   const countdownHandler = () => {
     setUpdatedTime(time.current);
     // if (!props.isRunning) {
@@ -68,35 +68,35 @@ function RunningTimer(props) {
     }
   };
 
-  //function that takes anammout of minutes as a parameter and starts the timer
+  // function that takes anammout of minutes as a parameter and starts the timer
   const startTimer = startingMins => {
     time.current = startingMins * 60 - 1;
     const runningInterval = window.setInterval(() => {
       setSeconds(time.current % 60);
       setMins(Math.floor(time.current / 60));
-      time.current--;
+      time.current -= 1;
       countdownHandler();
     }, 1000);
     return runningInterval;
   };
 
-  //useEffects defined here
+  // useEffects defined here
   useEffect(() => {
     let interval;
     if (props.isRunning) {
-      //when start is clicked state is changed
+      // when start is clicked state is changed
       if (mins === props.sessionMins || mins === props.breakMins) {
-        //checking if timer is starting again or just starting
+        // checking if timer is starting again or just starting
         if (props.mode === SESSION) {
-          //check the mode
+          // check the mode
           interval = startTimer(props.sessionMins);
         } else if (props.mode === BREAK) {
-          //check the mode
+          // check the mode
           interval = startTimer(props.breakMins);
         }
       } else {
-        //if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
-        console.log(updatedTime);
+        // if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
+        // console.log(updatedTime);
         interval = startTimer((updatedTime + 1) / 60);
       }
     }
@@ -112,14 +112,8 @@ function RunningTimer(props) {
           {...props.theme.styles.bgNoHover}
           textShadow={
             props.theme.colorMode === 'dark' && props.theme.bgImage
-              ? '1px 1px 50px black, -1px -1px 40px ' +
-                props.theme.color.baseColor
-              : '1px 1px 50px ' +
-                props.theme.color.baseColor +
-                ', -1px -1px 40px ' +
-                props.theme.color.baseColor +
-                ', -4px 4px 30px black' +
-                props.theme.color.baseColor
+              ? `1px 1px 50px black, -1px -1px 40px ${props.theme.color.baseColor}`
+              : `1px 1px 50px ${props.theme.color.baseColor}, -1px -1px 40px ${props.theme.color.baseColor}, -4px 4px 30px black${props.theme.color.baseColor}`
           }
           bgClip="text"
           fontWeight="extrabold">
@@ -132,7 +126,7 @@ function RunningTimer(props) {
             ? props.theme.styles.imageModeContrastText
             : {})}
           fontSize="8xl">
-          {seconds < 10 ? `${mins}:0${seconds}` : mins + ':' + seconds}
+          {seconds < 10 ? `${mins}:0${seconds}` : `${mins}:${seconds}`}
         </Text>
       </Container>
     </Flex>

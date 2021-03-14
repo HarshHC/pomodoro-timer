@@ -1,16 +1,17 @@
+/* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
-import TodoForm from './TodoForm';
-import TodoList from './TodoList';
 import { Heading, Flex, Box } from '@chakra-ui/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 
 function Tasks(props) {
-  //useState to create the todo items and use the object elements to store the values of each column
+  // useState to create the todo items and use the object elements to store the values of each column
   const [todos, setTodos] = useState({
     newTasks: [],
-    completedTasks: [],
+    completedTasks: []
   });
-  //function to check the location in the DND feature and save the values for the respective location
+  // function to check the location in the DND feature and save the values for the respective location
   function onEnd(result) {
     if (result.destination) {
       const start = result.source.droppableId;
@@ -46,8 +47,8 @@ function Tasks(props) {
       }
     }
   }
-  //function to check create the elements of the todo list ( Todo Item ).
-  const addTodo = (todo) => {
+  // function to check create the elements of the todo list ( Todo Item ).
+  const addTodo = todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
     }
@@ -57,7 +58,7 @@ function Tasks(props) {
 
     setTodos(newTodos);
   };
-  //function to update the elements in the todo List
+  // function to update the elements in the todo List
   const updateTodo = (index, columnID, newValue) => {
     if (!newValue || /^\s*$/.test(newValue)) {
       return;
@@ -75,7 +76,7 @@ function Tasks(props) {
     }
     setTodos(newTodos);
   };
-  //remove function to Remove the Todo Item when pressed the button delete
+  // remove function to Remove the Todo Item when pressed the button delete
   const removeTodo = (index, columnID) => {
     const newTodos = { ...todos };
 
@@ -90,7 +91,7 @@ function Tasks(props) {
     }
     setTodos(newTodos);
   };
-  //function to run the Tasks
+  // function to run the Tasks
   const desktopTodos = (
     <DragDropContext onDragEnd={onEnd}>
       <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
@@ -111,7 +112,7 @@ function Tasks(props) {
             New Tasks
           </Heading>
           <Droppable droppableId="NEW">
-            {(provided) => (
+            {provided => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -146,7 +147,7 @@ function Tasks(props) {
             Tasks Done
           </Heading>
           <Droppable droppableId="DONE">
-            {(provided) => (
+            {provided => (
               <Box
                 {...provided.droppableProps}
                 ref={provided.innerRef}

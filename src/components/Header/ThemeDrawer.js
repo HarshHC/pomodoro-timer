@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Button,
   Drawer,
@@ -8,7 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Text,
+  Text
 } from '@chakra-ui/react';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';

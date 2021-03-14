@@ -1,5 +1,5 @@
-export const isInputValid = (value) => {
-  return !isNaN(value) && value !== '' && isNaN(value) != null;
+export const isInputValid = value => {
+  return !Number.isNaN(value) && value !== '' && Number.isNaN(value) != null;
 };
 
 export const validateMins = (
@@ -15,7 +15,7 @@ export const validateMins = (
       description: 'Minutes are exceeding max limit',
       status: 'error',
       duration: 1000,
-      isClosable: true,
+      isClosable: true
     });
   } else if (sessionMins < 1) {
     setSessionMins(1);
@@ -24,7 +24,7 @@ export const validateMins = (
       description: 'Minutes cannot be less than 1',
       status: 'error',
       duration: 1000,
-      isClosable: true,
+      isClosable: true
     });
   }
 };

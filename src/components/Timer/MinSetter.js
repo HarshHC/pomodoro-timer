@@ -9,7 +9,7 @@ import {
   Spacer,
   Square,
   Text,
-  useToast,
+  useToast
 } from '@chakra-ui/react';
 import React from 'react';
 import { isInputValid, validateMins } from './utilities';
@@ -45,10 +45,10 @@ function MinSetter(props) {
             } else {
               toast({
                 title: 'Error',
-                description: 'Minutes cannot exceed max limit ' + props.maxVal,
+                description: `Minutes cannot exceed max limit ${props.maxVal}`,
                 status: 'error',
                 duration: 1000,
-                isClosable: true,
+                isClosable: true
               });
             }
           }}>
@@ -64,14 +64,14 @@ function MinSetter(props) {
           <Editable
             defaultValue={props.defaultMins}
             value={props.mins}
-            onSubmit={(val) => {
-              props.setMins(parseInt(val));
+            onSubmit={val => {
+              props.setMins(parseInt(val, 10));
               validateMins(props.mins, props.setMins, props.maxVal, toast);
               if (!isInputValid(val)) {
                 props.setMins(props.defaultMins);
               }
             }}
-            onChange={(val) => {
+            onChange={val => {
               props.setMins(val);
             }}>
             <EditablePreview />
@@ -95,7 +95,7 @@ function MinSetter(props) {
                 description: 'Minutes cannot be less than 1',
                 status: 'error',
                 duration: 1000,
-                isClosable: true,
+                isClosable: true
               });
             }
           }}>

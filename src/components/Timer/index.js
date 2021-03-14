@@ -13,7 +13,7 @@ function Timer(props) {
 
   let displayedTimer;
 
-  //useEffect to parse local storage and load started value on refresh
+  // useEffect to parse local storage and load started value on refresh
   useEffect(() => {
     const timerProp = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProp) {
@@ -23,7 +23,7 @@ function Timer(props) {
     }
   }, []);
 
-  //useEffect to save Mode to local storage
+  // useEffect to save Mode to local storage
   useEffect(() => {
     const timerProp = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProp) {
@@ -96,7 +96,7 @@ function Timer(props) {
               </Button>
             </Center>
           ) : (
-            <div></div>
+            <div />
           )}
         </Flex>
       </Flex>

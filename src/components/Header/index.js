@@ -4,7 +4,7 @@ import {
   Heading,
   IconButton,
   useColorMode,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 import { MoonIcon, SettingsIcon, SunIcon } from '@chakra-ui/icons';
 import { IoMdBrush } from 'react-icons/io';

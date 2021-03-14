@@ -3,7 +3,7 @@ import { Button, Flex, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import {
   toggleBackgroundImageInGradientTheme,
-  toggleRandomImageInGradientTheme,
+  toggleRandomImageInGradientTheme
 } from '../../Constants/themes';
 import ImageSearchDrawer from './ImageSearchDrawer';
 
@@ -48,7 +48,7 @@ function BackgroundOptions(props) {
             />
           </Flex>
         ) : (
-          <div></div>
+          <div />
         )}
         {!props.theme.bgInfo.random && props.theme.bgImage ? (
           <Button
@@ -60,7 +60,7 @@ function BackgroundOptions(props) {
             Find image
           </Button>
         ) : (
-          <div></div>
+          <div />
         )}
       </Flex>
       <ImageSearchDrawer
