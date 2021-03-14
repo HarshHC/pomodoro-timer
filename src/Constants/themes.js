@@ -8,13 +8,14 @@ export const generateGradientTheme = (
     color,
     colorMode,
     name: name === "" ? color.name : name,
-    startColor: color.darkColor1,
-    endColor: color.darkColor2,
-    bgImage: bg.image != null ? bg.image : false,
+    startColor: colorMode === "dark" ? color.darkColor1 : color.lightColor1,
+    endColor: colorMode === "dark" ? color.darkColor2 : color.lightColor2,
+    bgImage: bg.image,
     bgInfo: {
       location: "online",
       random_url:
-        "https://source.unsplash.com/1600x900/?background,nature," + color.name,
+        "https://source.unsplash.com/1600x900/?background,scenery," +
+        color.name,
       custom_url: bg.custom_url,
       random: bg.random != null ? bg.random : true,
     },
