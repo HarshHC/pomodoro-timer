@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
-import { Heading, Flex, useMediaQuery, Box } from "@chakra-ui/react";
+import { Heading, Flex, Box } from "@chakra-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function Tasks(props) {
@@ -10,34 +10,31 @@ function Tasks(props) {
     completedTasks: [],
   });
 
-  const [isOnmobile] = useMediaQuery("(max-width: 768px)");
-
   function onEnd(result) {
-    console.log(result);
     if (result.destination) {
       const start = result.source.droppableId;
       const finish = result.destination.droppableId;
       if (start === finish) {
-        const items = start == "NEW" ? todos.newTasks : todos.completedTasks;
+        const items = start === "NEW" ? todos.newTasks : todos.completedTasks;
         const [reorder] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorder);
         const newTodos = { ...todos };
-        start == "NEW"
+        start === "NEW"
           ? (newTodos.newTasks = items)
           : (newTodos.completedTasks = items);
         setTodos(newTodos);
       } else {
         const sourceList =
-          start == "DONE" ? todos.completedTasks : todos.newTasks;
+          start === "DONE" ? todos.completedTasks : todos.newTasks;
         const [removed] = sourceList.splice(result.source.index, 1);
-        removed.columnID == "DONE"
+        removed.columnID === "DONE"
           ? (removed.columnID = "NEW")
           : (removed.columnID = "DONE");
         const destinationList =
-          finish == "DONE" ? todos.completedTasks : todos.newTasks;
+          finish === "DONE" ? todos.completedTasks : todos.newTasks;
         destinationList.splice(result.destination.index, 0, removed);
         const newTodos = { ...todos };
-        if (start == "DONE") {
+        if (start === "DONE") {
           newTodos.completedTasks = sourceList;
           newTodos.newTasks = destinationList;
         } else {
@@ -66,7 +63,7 @@ function Tasks(props) {
     }
     const newTodos = { ...todos };
 
-    if (columnID == "NEW") {
+    if (columnID === "NEW") {
       const items = [...todos.newTasks];
       items[index].text = newValue;
       newTodos.newTasks = items;
@@ -81,7 +78,7 @@ function Tasks(props) {
   const removeTodo = (index, columnID) => {
     const newTodos = { ...todos };
 
-    if (columnID == "NEW") {
+    if (columnID === "NEW") {
       const items = [...todos.newTasks];
       items.splice(index, 1);
       newTodos.newTasks = items;
@@ -180,39 +177,6 @@ function Tasks(props) {
       </Flex>
     </DragDropContext>
   );
-  const mobileTodos = (
-    <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
-      <Flex
-        mx="10px"
-        w="1/3"
-        h="100%"
-        flex="1"
-        justifyContent="center"
-        flexDirection="column">
-        <Heading fontSize="xl" m="30px" textAlign="center">
-          New Tasks
-        </Heading>
-        <TodoList
-          theme={props.theme}
-          todos={todos}
-          completeTodo={completeTodo}
-          removeTodo={removeTodo}
-          updateTodo={updateTodo}
-        />
-      </Flex>
-      <Flex
-        mx="10px"
-        w="1/3"
-        h="100%"
-        flex="1"
-        justifyContent="center"
-        flexDirection="column">
-        <Heading fontSize="xl" textAlign="center" m="30px">
-          Tasks Done
-        </Heading>
-      </Flex>
-    </Flex>
-  );
   return (
     <Flex w="100vw" flexDir="column" align="center">
       <Heading
@@ -225,7 +189,7 @@ function Tasks(props) {
         Tasks
       </Heading>
       <TodoForm theme={props.theme} onSubmit={addTodo} />
-      {isOnmobile ? desktopTodos : desktopTodos}
+      {desktopTodos}
     </Flex>
   );
 }
