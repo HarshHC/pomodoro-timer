@@ -20,7 +20,6 @@ function RunningTimer(props) {
   const [mins, setMins] = useState(
     props.mode == SESSION ? props.sessionMins : props.breakMins
   );
-  const [notifications, setNotifications] = useState(false);
   const timeProps = localStorage.getItem("timerProps");
   const [updatedTime, setUpdatedTime] = 
   useState(timeProps? 
@@ -77,11 +76,6 @@ function RunningTimer(props) {
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
-      if(notifications == true)
-      {
-        //give toast notification that we are switching mode
-
-      }
     }
   };
 
@@ -112,7 +106,6 @@ function RunningTimer(props) {
         }
       } else {
         //if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
-        console.log(updatedTime);
         interval = startTimer((updatedTime + 1) / 60);
       }
     }
