@@ -1,3 +1,18 @@
+# Pomodoro Timer:
+    Features:
+    
+    * Timer using the Pomodoro Technique to plan studies and increase productivity.
+    * Drag and Drop Tasks List(With separeted lists for New and Completed Tasks.
+    * Dark and Light Mode.
+    * Choose Theme Colours.
+    * Choose random backgrounds related to the Theme Color.
+    * Choose custom image backgrounds using the unplash API.
+    * Custom notification settings.
+    * Fully responsive APP, works both on Phone and PC.
+    
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
