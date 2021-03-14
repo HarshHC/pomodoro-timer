@@ -1,37 +1,26 @@
 import { Container, Flex, Text, useColorMode } from '@chakra-ui/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { SESSION, BREAK } from '../../Constants/modes';
-import {
-  Modal,
-  Button,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-} from '@chakra-ui/react';
+// import { useDisclosure } from '@chakra-ui/react';
 
 function RunningTimer(props) {
   //useStates defined here
   const { colorMode } = useColorMode();
   const [seconds, setSeconds] = useState(0);
   const [mins, setMins] = useState(
-    props.mode == SESSION ? props.sessionMins : props.breakMins
+    props.mode === SESSION ? props.sessionMins : props.breakMins
   );
-  const [notifications, setNotifications] = useState(false);
+  // const [notifications, setNotifications] = useState(false);
   const timeProps = localStorage.getItem('timerProps');
   const [updatedTime, setUpdatedTime] = useState(
     timeProps
       ? JSON.parse(localStorage.getItem('timerProps')).updatedTime
       : props.sessionMins
   );
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   //variables defined here
   const time = useRef(null);
-  let interval;
 
   useEffect(() => {
     const timerProps = JSON.parse(localStorage.getItem('timerProps'));
@@ -64,23 +53,23 @@ function RunningTimer(props) {
   //function to handle the countdown. will be called every second.
   const countdownHandler = () => {
     setUpdatedTime(time.current);
-    if (!props.isRunning) {
-      clearInterval(interval);
-    }
+    // if (!props.isRunning) {
+    //   clearInterval(interval);
+    // }
     if (time.current < 0) {
       setMins(props.mode === !SESSION ? props.sessionMins : props.breakMins);
       setUpdatedTime(
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
-      if (notifications == true) {
-        //give toast notification that we are switching mode
-      }
+      // if (notifications == true) {
+      //   //give toast notification that we are switching mode
+      // }
     }
   };
 
   //function that takes anammout of minutes as a parameter and starts the timer
-  const startTimer = (startingMins) => {
+  const startTimer = startingMins => {
     time.current = startingMins * 60 - 1;
     const runningInterval = window.setInterval(() => {
       setSeconds(time.current % 60);
@@ -93,6 +82,7 @@ function RunningTimer(props) {
 
   //useEffects defined here
   useEffect(() => {
+    let interval;
     if (props.isRunning) {
       //when start is clicked state is changed
       if (mins === props.sessionMins || mins === props.breakMins) {
@@ -142,7 +132,7 @@ function RunningTimer(props) {
             ? props.theme.styles.imageModeContrastText
             : {})}
           fontSize="8xl">
-          {seconds < 10 ? mins + ':' + '0' + seconds : mins + ':' + seconds}
+          {seconds < 10 ? `${mins}:0${seconds}` : mins + ':' + seconds}
         </Text>
       </Container>
     </Flex>
