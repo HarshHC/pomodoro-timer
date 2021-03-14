@@ -1,6 +1,6 @@
-import { Flex, Square, Text, Tooltip } from "@chakra-ui/react";
-import React from "react";
-import { changeGradientThemeColorTo, themesList } from "../../Constants/themes";
+import { Flex, Square, Text, Tooltip } from '@chakra-ui/react';
+import React from 'react';
+import { changeGradientThemeColorTo, themesList } from '../../Constants/themes';
 
 function ColourSelector(props) {
   return (

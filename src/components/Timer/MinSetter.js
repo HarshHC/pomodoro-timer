@@ -1,4 +1,4 @@
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import {
   Button,
   Container,
@@ -10,9 +10,9 @@ import {
   Square,
   Text,
   useToast,
-} from "@chakra-ui/react";
-import React from "react";
-import { isInputValid, validateMins } from "./utilities";
+} from '@chakra-ui/react';
+import React from 'react';
+import { isInputValid, validateMins } from './utilities';
 
 function MinSetter(props) {
   const toast = useToast();
@@ -44,9 +44,9 @@ function MinSetter(props) {
               props.setMins(props.mins + 1);
             } else {
               toast({
-                title: "Error",
-                description: "Minutes cannot exceed max limit " + props.maxVal,
-                status: "error",
+                title: 'Error',
+                description: 'Minutes cannot exceed max limit ' + props.maxVal,
+                status: 'error',
                 duration: 1000,
                 isClosable: true,
               });
@@ -91,9 +91,9 @@ function MinSetter(props) {
               props.setMins(props.mins - 1);
             } else {
               toast({
-                title: "Error",
-                description: "Minutes cannot be less than 1",
-                status: "error",
+                title: 'Error',
+                description: 'Minutes cannot be less than 1',
+                status: 'error',
                 duration: 1000,
                 isClosable: true,
               });

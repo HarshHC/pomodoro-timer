@@ -1,6 +1,6 @@
-import { Flex, useColorMode } from "@chakra-ui/react";
-import React from "react";
-import MinSetter from "./MinSetter";
+import { Flex, useColorMode } from '@chakra-ui/react';
+import React from 'react';
+import MinSetter from './MinSetter';
 
 function TimerEditMode(props) {
   const { colorMode } = useColorMode();
@@ -8,7 +8,7 @@ function TimerEditMode(props) {
   return (
     <Flex
       height="100%"
-      color={colorMode === "light" ? "black" : "white"}
+      color={colorMode === 'light' ? 'black' : 'white'}
       justifyContent="center"
       alignItems="center">
       <MinSetter

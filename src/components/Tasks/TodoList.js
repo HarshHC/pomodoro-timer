@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import TodoForm from "./TodoForm";
-import TodoItem from "./TodoItem";
-import { Draggable } from "react-beautiful-dnd";
+import React, { useState } from 'react';
+import TodoForm from './TodoForm';
+import TodoItem from './TodoItem';
+import { Draggable } from 'react-beautiful-dnd';
 
 function TodoList(props) {
   const [edit, setEdit] = useState({
     id: null,
-    value: "",
+    value: '',
   });
 
   const submitUpdate = (value) => {
     props.updateTodo(edit.id, value);
     setEdit({
       id: null,
-      value: "",
+      value: '',
     });
   };
 
@@ -22,7 +22,7 @@ function TodoList(props) {
   }
 
   return props.todos.map((todo, index) => (
-    <Draggable key={todo.id} draggableId={todo.id + ""} index={index}>
+    <Draggable key={todo.id} draggableId={todo.id + ''} index={index}>
       {(provided) => (
         <TodoItem
           theme={props.theme}

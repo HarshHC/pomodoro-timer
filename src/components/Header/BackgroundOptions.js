@@ -1,11 +1,11 @@
-import { Search2Icon } from "@chakra-ui/icons";
-import { Button, Flex, Switch, Text, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import { Search2Icon } from '@chakra-ui/icons';
+import { Button, Flex, Switch, Text, useDisclosure } from '@chakra-ui/react';
+import React from 'react';
 import {
   toggleBackgroundImageInGradientTheme,
   toggleRandomImageInGradientTheme,
-} from "../../Constants/themes";
-import ImageSearchDrawer from "./ImageSearchDrawer";
+} from '../../Constants/themes';
+import ImageSearchDrawer from './ImageSearchDrawer';
 
 function BackgroundOptions(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();

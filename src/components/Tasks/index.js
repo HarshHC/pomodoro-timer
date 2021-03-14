@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
-import { Heading, Flex, useMediaQuery, Box } from "@chakra-ui/react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import React, { useState } from 'react';
+import TodoForm from './TodoForm';
+import TodoList from './TodoList';
+import { Heading, Flex, useMediaQuery, Box } from '@chakra-ui/react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 function Tasks(props) {
   const [todos, setTodos] = useState({
@@ -10,7 +10,7 @@ function Tasks(props) {
     completedTasks: [],
   });
 
-  const [isOnmobile] = useMediaQuery("(max-width: 768px)");
+  const [isOnmobile] = useMediaQuery('(max-width: 768px)');
 
   function onEnd(result) {
     console.log(result);
@@ -18,26 +18,26 @@ function Tasks(props) {
       const start = result.source.droppableId;
       const finish = result.destination.droppableId;
       if (start === finish) {
-        const items = start == "NEW" ? todos.newTasks : todos.completedTasks;
+        const items = start == 'NEW' ? todos.newTasks : todos.completedTasks;
         const [reorder] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorder);
         const newTodos = { ...todos };
-        start == "NEW"
+        start == 'NEW'
           ? (newTodos.newTasks = items)
           : (newTodos.completedTasks = items);
         setTodos(newTodos);
       } else {
         const sourceList =
-          start == "DONE" ? todos.completedTasks : todos.newTasks;
+          start == 'DONE' ? todos.completedTasks : todos.newTasks;
         const [removed] = sourceList.splice(result.source.index, 1);
-        removed.columnID == "DONE"
-          ? (removed.columnID = "NEW")
-          : (removed.columnID = "DONE");
+        removed.columnID == 'DONE'
+          ? (removed.columnID = 'NEW')
+          : (removed.columnID = 'DONE');
         const destinationList =
-          finish == "DONE" ? todos.completedTasks : todos.newTasks;
+          finish == 'DONE' ? todos.completedTasks : todos.newTasks;
         destinationList.splice(result.destination.index, 0, removed);
         const newTodos = { ...todos };
-        if (start == "DONE") {
+        if (start == 'DONE') {
           newTodos.completedTasks = sourceList;
           newTodos.newTasks = destinationList;
         } else {
@@ -66,7 +66,7 @@ function Tasks(props) {
     }
     const newTodos = { ...todos };
 
-    if (columnID == "NEW") {
+    if (columnID == 'NEW') {
       const items = [...todos.newTasks];
       items[index].text = newValue;
       newTodos.newTasks = items;
@@ -81,7 +81,7 @@ function Tasks(props) {
   const removeTodo = (index, columnID) => {
     const newTodos = { ...todos };
 
-    if (columnID == "NEW") {
+    if (columnID == 'NEW') {
       const items = [...todos.newTasks];
       items.splice(index, 1);
       newTodos.newTasks = items;
