@@ -1,8 +1,8 @@
-import { Box, Button, Center, Flex } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import { SESSION } from "../../Constants/modes";
-import RunningTimer from "./RunningTimer";
-import TimerEditMode from "./TimerEditMode";
+import { Box, Button, Center, Flex } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { SESSION } from '../../Constants/modes';
+import RunningTimer from './RunningTimer';
+import TimerEditMode from './TimerEditMode';
 
 function Timer(props) {
   const [sessionMins, setSessionMins] = useState(25);
@@ -13,9 +13,9 @@ function Timer(props) {
 
   let displayedTimer;
 
-  //useEffect to parse local storage and load started value on refresh
+  // useEffect to parse local storage and load started value on refresh
   useEffect(() => {
-    const timerProp = JSON.parse(localStorage.getItem("timerProps"));
+    const timerProp = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProp) {
       setStarted(timerProp.started);
       setIsRunning(false);
@@ -23,12 +23,12 @@ function Timer(props) {
     }
   }, []);
 
-  //useEffect to save Mode to local storage
+  // useEffect to save Mode to local storage
   useEffect(() => {
-    const timerProp = JSON.parse(localStorage.getItem("timerProps"));
+    const timerProp = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProp) {
       timerProp.started = started;
-      window.localStorage.setItem("timerProps", JSON.stringify(timerProp));
+      window.localStorage.setItem('timerProps', JSON.stringify(timerProp));
     }
   }, [started]);
 
@@ -83,7 +83,7 @@ function Timer(props) {
                 setStarted(!started);
                 setIsRunning(true);
               }}>
-              {started ? "STOP" : "START"}
+              {started ? 'STOP' : 'START'}
             </Button>
           </Center>
 
@@ -92,11 +92,11 @@ function Timer(props) {
               <Button
                 {...props.theme.styles.bg}
                 onClick={() => setIsRunning(!isRunning)}>
-                {isRunning ? "PAUSE" : "RESUME"}
+                {isRunning ? 'PAUSE' : 'RESUME'}
               </Button>
             </Center>
           ) : (
-            <div></div>
+            <div />
           )}
         </Flex>
       </Flex>

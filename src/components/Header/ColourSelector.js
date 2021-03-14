@@ -1,6 +1,7 @@
-import { Flex, Square, Text, Tooltip } from "@chakra-ui/react";
-import React from "react";
-import { changeGradientThemeColorTo, themesList } from "../../Constants/themes";
+import { Flex, Square, Text, Tooltip } from '@chakra-ui/react';
+import uuid from 'react-uuid';
+import React from 'react';
+import { changeGradientThemeColorTo, themesList } from '../../Constants/themes';
 
 function ColourSelector(props) {
   return (
@@ -11,7 +12,7 @@ function ColourSelector(props) {
       <Flex mt="4" maxW="40vw" flexWrap="wrap">
         {themesList.map((item, i) => {
           return (
-            <Tooltip label={item.name.toUpperCase()} key={i}>
+            <Tooltip label={item.name.toUpperCase()} key={uuid()}>
               <Square
                 m="2"
                 size="10"
@@ -21,7 +22,8 @@ function ColourSelector(props) {
                   props.setTheme(
                     changeGradientThemeColorTo(props.theme, themesList[i])
                   );
-                }}></Square>
+                }}
+              />
             </Tooltip>
           );
         })}

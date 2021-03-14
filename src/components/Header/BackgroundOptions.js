@@ -1,11 +1,11 @@
-import { Search2Icon } from "@chakra-ui/icons";
-import { Button, Flex, Switch, Text, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import { Search2Icon } from '@chakra-ui/icons';
+import { Button, Flex, Switch, Text, useDisclosure } from '@chakra-ui/react';
+import React from 'react';
 import {
   toggleBackgroundImageInGradientTheme,
-  toggleRandomImageInGradientTheme,
-} from "../../Constants/themes";
-import ImageSearchDrawer from "./ImageSearchDrawer";
+  toggleRandomImageInGradientTheme
+} from '../../Constants/themes';
+import ImageSearchDrawer from './ImageSearchDrawer';
 
 function BackgroundOptions(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,7 +48,7 @@ function BackgroundOptions(props) {
             />
           </Flex>
         ) : (
-          <div></div>
+          <div />
         )}
         {!props.theme.bgInfo.random && props.theme.bgImage ? (
           <Button
@@ -60,7 +60,7 @@ function BackgroundOptions(props) {
             Find image
           </Button>
         ) : (
-          <div></div>
+          <div />
         )}
       </Flex>
       <ImageSearchDrawer
