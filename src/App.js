@@ -51,15 +51,25 @@ function App() {
       {content}
     </Box>
   );
+
   const withBgRandomImage = (
     <Box
       width="100vw"
-      height="maxContent"
       minH="100vh"
-      bgImage={"url(" + timerTheme.bgInfo.random_url + ")"}
-      bgAttachment="fixed"
-      bgSize="cover"
-      bgRepeat="no-repeat">
+      _before={{
+        bgImage: `url('${timerTheme.bgInfo.random_url}')`,
+        bgAttachment: "fixed",
+        bgSize: "cover",
+        bgRepeat: "no-repeat",
+        height: "100%",
+        left: 0,
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        willChange: "transform",
+        content: "''",
+        zIndex: -1,
+      }}>
       {content}
     </Box>
   );
@@ -69,10 +79,20 @@ function App() {
       width="100vw"
       height="maxContent"
       minH="100vh"
-      bgImage={"url(" + timerTheme.bgInfo.custom_url + ")"}
-      bgAttachment="fixed"
-      bgSize="cover"
-      bgRepeat="no-repeat">
+      _before={{
+        bgImage: `url('${timerTheme.bgInfo.custom_url}')`,
+        bgAttachment: "fixed",
+        bgSize: "cover",
+        bgRepeat: "no-repeat",
+        height: "100%",
+        left: 0,
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        willChange: "transform",
+        content: "''",
+        zIndex: -1,
+      }}>
       {content}
     </Box>
   );
