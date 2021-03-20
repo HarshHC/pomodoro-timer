@@ -10,12 +10,12 @@ function RunningTimer(props) {
   const [mins, setMins] = useState(
     props.mode === SESSION ? props.sessionMins : props.breakMins
   );
-  const timeProps = localStorage.getItem("timerProps");
-  const [updatedTime, setUpdatedTime] = 
-  useState(timeProps? 
-    JSON.parse(localStorage.getItem("timerProps")).updatedTime:
-    props.sessionMins);
-    const { isOpen, onOpen, onClose } = useDisclosure();
+  const timeProps = localStorage.getItem('timerProps');
+  const [updatedTime, setUpdatedTime] = useState(
+    timeProps
+      ? JSON.parse(localStorage.getItem('timerProps')).updatedTime
+      : props.sessionMins
+  );
 
   // variables defined here
   const time = useRef(null);
@@ -90,7 +90,7 @@ function RunningTimer(props) {
           interval = startTimer(props.breakMins);
         }
       } else {
-        //if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
+        //  if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
         interval = startTimer((updatedTime + 1) / 60);
       }
     }
