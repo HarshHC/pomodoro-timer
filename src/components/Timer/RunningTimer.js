@@ -20,6 +20,7 @@ function RunningTimer(props) {
   // variables defined here
   const time = useRef(null);
 
+  //  useEffect to store data in local storage
   useEffect(() => {
     const timerProps = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProps) {
@@ -28,7 +29,7 @@ function RunningTimer(props) {
       window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, [props.mode, updatedTime]);
-
+  //  useEffect to reload data from local storage and store in our variables
   useEffect(() => {
     let timerProps = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProps) {
@@ -46,14 +47,14 @@ function RunningTimer(props) {
       window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, []);
-
+  useEffect(() => {
+    setSeconds(0);
+    setMins(props.sessionMins);
+  }, [props.started]);
   // javascript functions defined here
   // function to handle the countdown. will be called every second.
   const countdownHandler = () => {
     setUpdatedTime(time.current);
-    // if (!props.isRunning) {
-    //   clearInterval(interval);
-    // }
     if (time.current < 0) {
       setMins(props.mode === !SESSION ? props.sessionMins : props.breakMins);
       setUpdatedTime(
