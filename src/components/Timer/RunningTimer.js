@@ -10,18 +10,17 @@ function RunningTimer(props) {
   const [mins, setMins] = useState(
     props.mode === SESSION ? props.sessionMins : props.breakMins
   );
-  // const [notifications, setNotifications] = useState(false);
   const timeProps = localStorage.getItem('timerProps');
   const [updatedTime, setUpdatedTime] = useState(
     timeProps
       ? JSON.parse(localStorage.getItem('timerProps')).updatedTime
       : props.sessionMins
   );
-  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   // variables defined here
   const time = useRef(null);
 
+  //  useEffect to store data in local storage
   useEffect(() => {
     const timerProps = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProps) {
@@ -30,7 +29,7 @@ function RunningTimer(props) {
       window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, [props.mode, updatedTime]);
-
+  //  useEffect to reload data from local storage and store in our variables
   useEffect(() => {
     let timerProps = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProps) {
@@ -48,23 +47,20 @@ function RunningTimer(props) {
       window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, []);
-
+  useEffect(() => {
+    setSeconds(0);
+    setMins(props.sessionMins);
+  }, [props.started]);
   // javascript functions defined here
   // function to handle the countdown. will be called every second.
   const countdownHandler = () => {
     setUpdatedTime(time.current);
-    // if (!props.isRunning) {
-    //   clearInterval(interval);
-    // }
     if (time.current < 0) {
       setMins(props.mode === !SESSION ? props.sessionMins : props.breakMins);
       setUpdatedTime(
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
-      // if (notifications == true) {
-      //   //give toast notification that we are switching mode
-      // }
     }
   };
 
@@ -95,8 +91,7 @@ function RunningTimer(props) {
           interval = startTimer(props.breakMins);
         }
       } else {
-        // if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
-        // console.log(updatedTime);
+        //  if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
         interval = startTimer((updatedTime + 1) / 60);
       }
     }

@@ -29,6 +29,7 @@ function Timer(props) {
     if (timerProp) {
       timerProp.started = started;
       window.localStorage.setItem('timerProps', JSON.stringify(timerProp));
+      setMode(SESSION);
     }
   }, [started]);
 
