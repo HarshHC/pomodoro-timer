@@ -27,7 +27,7 @@ function App() {
       );
     }
   }, [colorMode, timerTheme.color]);
-  Notification.requestPermission();
+  // Notification.requestPermission();
 
   const content = (
     <Container centerContent>
