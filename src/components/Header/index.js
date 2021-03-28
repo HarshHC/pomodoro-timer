@@ -9,6 +9,7 @@ import {
 import { MoonIcon, SettingsIcon, SunIcon } from '@chakra-ui/icons';
 import { IoMdBrush } from 'react-icons/io';
 import ThemeDrawer from './ThemeDrawer';
+import { FONT_FAMILY } from '../../Constants/themes';
 
 function Header(props) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -20,11 +21,14 @@ function Header(props) {
       <Flex justify="center" align="center" p="5" m="4">
         <Heading
           color={colorMode === 'light' ? 'black' : 'white'}
+          size="2xl"
+          fontFamily={FONT_FAMILY}
+          letterSpacing="wide"
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastText
             : {})}
           mx="20px">
-          Pomodoro Timer
+          Study Pomodoro
         </Heading>
         <IconButton
           color={colorMode === 'light' ? 'black' : 'white'}

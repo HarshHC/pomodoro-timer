@@ -1,6 +1,7 @@
 import { Box, Button, Center, Flex } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { SESSION } from '../../Constants/modes';
+import { FONT_FAMILY } from '../../Constants/themes';
 import RunningTimer from './RunningTimer';
 import TimerEditMode from './TimerEditMode';
 
@@ -70,6 +71,8 @@ function Timer(props) {
       minH="40vh"
       rounded="xl"
       boxShadow="dark-lg"
+      fontFamily={FONT_FAMILY}
+      letterSpacing="wide"
       p="2"
       {...(props.theme.bgImage ? props.theme.styles.imageModeContrastBg : {})}>
       <Flex
@@ -83,6 +86,9 @@ function Timer(props) {
           <Center m="20px">
             <Button
               {...props.theme.styles.bg}
+              fontSize="2xl"
+              letterSpacing="wider"
+              p="6"
               onClick={() => {
                 setStarted(!started);
                 setIsRunning(true);
@@ -96,6 +102,9 @@ function Timer(props) {
             <Center>
               <Button
                 {...props.theme.styles.bg}
+                fontSize="2xl"
+                letterSpacing="wider"
+                p="6"
                 onClick={() => setIsRunning(!isRunning)}>
                 {isRunning ? 'PAUSE' : 'RESUME'}
               </Button>

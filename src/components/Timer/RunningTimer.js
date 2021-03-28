@@ -110,7 +110,8 @@ function RunningTimer(props) {
       <Container h="100%" bg="transparent" centerContent>
         <Text
           m="5"
-          fontSize="2xl"
+          fontSize="4xl"
+          letterSpacing="wide"
           {...props.theme.styles.bgNoHover}
           textShadow={
             props.theme.colorMode === 'dark' && props.theme.bgImage
@@ -127,7 +128,8 @@ function RunningTimer(props) {
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastText
             : {})}
-          fontSize="8xl">
+          letterSpacing="wide"
+          fontSize="100px">
           {seconds < 10 ? `${mins}:0${seconds}` : `${mins}:${seconds}`}
         </Text>
       </Container>

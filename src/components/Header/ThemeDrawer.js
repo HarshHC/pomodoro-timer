@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
+import { FONT_FAMILY } from '../../Constants/themes';
 
 function ThemeDrawer(props) {
   return (
@@ -25,7 +26,12 @@ function ThemeDrawer(props) {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
-            <Text ml="3" fontWeight="800">
+            <Text
+              ml="3"
+              letterSpacing="wide"
+              fontFamily={FONT_FAMILY}
+              fontSize="2xl"
+              fontWeight="800">
               Customize Theme
             </Text>
           </DrawerHeader>

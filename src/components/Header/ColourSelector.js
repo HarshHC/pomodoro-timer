@@ -1,12 +1,21 @@
 import { Flex, Square, Text, Tooltip } from '@chakra-ui/react';
 import uuid from 'react-uuid';
 import React from 'react';
-import { changeGradientThemeColorTo, themesList } from '../../Constants/themes';
+import {
+  changeGradientThemeColorTo,
+  FONT_FAMILY,
+  themesList
+} from '../../Constants/themes';
 
 function ColourSelector(props) {
   return (
     <Flex flexDir="column" flex="1">
-      <Text ml="2" fontWeight="800">
+      <Text
+        letterSpacing="wide"
+        fontFamily={FONT_FAMILY}
+        fontSize="xl"
+        ml="3"
+        fontWeight="800">
         Colours
       </Text>
       <Flex mt="4" maxW="40vw" flexWrap="wrap">
