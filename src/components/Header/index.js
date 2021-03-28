@@ -22,8 +22,8 @@ function Header(props) {
         <Heading
           color={colorMode === 'light' ? 'black' : 'white'}
           size="2xl"
-          fontFamily={FONT_FAMILY}
           letterSpacing="wide"
+          fontFamily={FONT_FAMILY}
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastText
             : {})}
