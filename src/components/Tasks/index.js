@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heading, Flex, Box } from '@chakra-ui/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import TodoForm from './TodoForm';
@@ -8,10 +8,17 @@ import { FONT_FAMILY } from '../../Constants/themes';
 
 function Tasks(props) {
   // useState to create the todo items and use the object elements to store the values of each column
-  const [todos, setTodos] = useState({
-    newTasks: [],
-    completedTasks: []
-  });
+  const [todos, setTodos] = useState(
+    localStorage.getItem('timer-todo')
+      ? JSON.parse(localStorage.getItem('timer-todo'))
+      : {
+          newTasks: [],
+          completedTasks: []
+        }
+  );
+  useEffect(() => {
+    window.localStorage.setItem('timer-todo', JSON.stringify(todos));
+  }, [todos]);
   // function to check the location in the DND feature and save the values for the respective location
   function onEnd(result) {
     if (result.destination) {
