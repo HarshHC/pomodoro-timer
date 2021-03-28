@@ -27,6 +27,10 @@ function App() {
       );
     }
   }, [colorMode, timerTheme.color]);
+<<<<<<< HEAD
+=======
+  // Notification.requestPermission();
+>>>>>>> main
 
   const content = (
     <Container centerContent>
