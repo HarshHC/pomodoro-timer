@@ -19,7 +19,10 @@ import {
 } from '@chakra-ui/react';
 import { Search2Icon } from '@chakra-ui/icons';
 import { config } from 'dotenv';
-import { setGradientThemeImageCustomUrl } from '../../Constants/themes';
+import {
+  FONT_FAMILY,
+  setGradientThemeImageCustomUrl
+} from '../../Constants/themes';
 
 function ImageSearchDrawer(props) {
   const [searchInput, setSearchInput] = useState('nature background');
@@ -113,7 +116,12 @@ function ImageSearchDrawer(props) {
           <DrawerHeader>
             <Flex justify="space-between" w="100%" align="center">
               <Flex flexDir="column">
-                <Text ml="4" fontWeight="bold">
+                <Text
+                  fontFamily={FONT_FAMILY}
+                  fontSize="2xl"
+                  letterSpacing="wide"
+                  ml="4"
+                  fontWeight="bold">
                   Choose Background Image
                 </Text>
                 <Text ml="4" fontSize="sm">
@@ -142,6 +150,9 @@ function ImageSearchDrawer(props) {
                   w="100%"
                   pr="1vw"
                   value={searchInput}
+                  fontFamily={FONT_FAMILY}
+                  fontSize="xl"
+                  letterSpacing="wider"
                   onChange={e => {
                     setSearchInput(e.target.value);
                   }}
@@ -154,10 +165,13 @@ function ImageSearchDrawer(props) {
                   size="md"
                   type="submit"
                   minW="max-content"
+                  fontFamily={FONT_FAMILY}
+                  fontSize="xl"
+                  letterSpacing="wider"
                   borderRadius="0px 4px 4px 0px"
                   leftIcon={<Search2Icon />}
                   onClick={() => setSearchClicked(true)}>
-                  search
+                  SEARCH
                 </Button>
               </Flex>
             </form>

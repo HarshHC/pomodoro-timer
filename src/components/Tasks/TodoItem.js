@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { EditIcon, DeleteIcon, CheckIcon } from '@chakra-ui/icons';
 import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
+import { FONT_FAMILY } from '../../Constants/themes';
 
 function TodoItem(props) {
   const [updateMode, setUpdateMode] = useState(false);
@@ -34,6 +35,9 @@ function TodoItem(props) {
       w={isOnmobile ? '42vw' : '100%'}
       borderRadius="4px"
       p={isOnmobile ? '2' : '4'}
+      fontSize="xl"
+      letterSpacing="wider"
+      fontFamily={FONT_FAMILY}
       my="10px"
       key={props.index}>
       <Flex>
@@ -46,6 +50,9 @@ function TodoItem(props) {
               borderRadius="4px 0 0 4px"
               p="4px 8px"
               borderColor="white"
+              fontSize="xl"
+              letterSpacing="wider"
+              fontFamily={FONT_FAMILY}
               color={props.theme.colorMode === 'light' ? 'black' : 'white'}
               _placeholder={{
                 color: props.theme.colorMode === 'light' ? 'black' : 'white',
@@ -86,6 +93,9 @@ function TodoItem(props) {
       borderRadius="4px"
       p={isOnmobile ? '2' : '4'}
       my="10px"
+      fontSize="xl"
+      letterSpacing="wide"
+      fontFamily={FONT_FAMILY}
       key={props.index}>
       <Flex justify="space-between">
         <Box

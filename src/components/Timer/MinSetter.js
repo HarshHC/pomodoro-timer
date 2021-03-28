@@ -28,7 +28,14 @@ function MinSetter(props) {
         : {})}>
       <Flex height="100%" direction="column" align="center" justify="center">
         <Spacer />
-        <Text my="10px" w="100%" fontWeight="bold" textAlign="center" m="8">
+        <Text
+          fontSize="xl"
+          my="10px"
+          w="100%"
+          fontWeight="bold"
+          letterSpacing="wider"
+          textAlign="center"
+          m="8">
           {props.title.toUpperCase()} (mins)
         </Text>
         <Spacer />
@@ -59,7 +66,7 @@ function MinSetter(props) {
           size="100px"
           bg="transparent"
           rounded="md"
-          fontSize="6xl"
+          fontSize="7xl"
           textAlign="center">
           <Editable
             defaultValue={props.defaultMins}

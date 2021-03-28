@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HStack, Box, useMediaQuery } from '@chakra-ui/react';
+import { FONT_FAMILY } from '../../Constants/themes';
 
 function TodoForm(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
@@ -22,13 +23,18 @@ function TodoForm(props) {
   };
   // function: Bon to insert the elements into the TodoList
   const taskOption = (
-    <HStack spacing="0px" w={isOnmobile ? '70vw' : '32vw'}>
+    <HStack
+      spacing="0px"
+      w={isOnmobile ? '70vw' : '32vw'}
+      fontFamily={FONT_FAMILY}>
       <Box
         {...props.theme.styles.bgNoHover}
         bg="transparent"
         border="2px"
+        fontSize="xl"
+        letterSpacing="wide"
         borderRadius="4px 0 0 4px"
-        p="14px 16px 14px 16px"
+        p="10px 12px 10px 12px"
         borderColor={props.theme.startColor}
         color={props.theme.colorMode === 'light' ? 'black' : 'white'}
         _placeholder={{
@@ -50,7 +56,9 @@ function TodoForm(props) {
         ml="0px"
         w="30%"
         border="2px"
-        py="14px"
+        py="12px"
+        fontSize="lg"
+        letterSpacing="wide"
         borderRadius="0 4px 4px 0"
         textAlign="center"
         {...props.theme.styles.bg}

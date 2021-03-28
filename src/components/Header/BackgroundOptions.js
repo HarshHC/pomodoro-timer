@@ -2,6 +2,7 @@ import { Search2Icon } from '@chakra-ui/icons';
 import { Button, Flex, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import {
+  FONT_FAMILY,
   toggleBackgroundImageInGradientTheme,
   toggleRandomImageInGradientTheme
 } from '../../Constants/themes';
@@ -12,12 +13,22 @@ function BackgroundOptions(props) {
 
   return (
     <Flex flexDir="column" flex="1" my="8">
-      <Text ml="2" fontWeight="800">
+      <Text
+        letterSpacing="wide"
+        fontFamily={FONT_FAMILY}
+        fontSize="xl"
+        ml="3"
+        fontWeight="800">
         Background
       </Text>
       <Flex m="2" flexDir="column">
         <Flex m="2" w="90%" justify="space-between">
-          <Text width="70%" mr="4">
+          <Text
+            fontFamily={FONT_FAMILY}
+            fontSize="xl"
+            letterSpacing="wide"
+            width="70%"
+            mr="4">
             Background Image
           </Text>
           <Switch
@@ -34,7 +45,12 @@ function BackgroundOptions(props) {
         </Flex>
         {props.theme.bgImage ? (
           <Flex m="2" w="90%" justify="space-between">
-            <Text width="70%" mr="4">
+            <Text
+              fontFamily={FONT_FAMILY}
+              fontSize="xl"
+              letterSpacing="wide"
+              width="70%"
+              mr="4">
               Random Image
             </Text>
             <Switch
@@ -55,6 +71,10 @@ function BackgroundOptions(props) {
             my="4"
             minW="max-content"
             w="40%"
+            p="6"
+            fontFamily={FONT_FAMILY}
+            fontSize="xl"
+            letterSpacing="wider"
             leftIcon={<Search2Icon />}
             onClick={() => onOpen()}>
             Find image

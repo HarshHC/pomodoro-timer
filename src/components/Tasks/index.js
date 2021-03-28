@@ -4,6 +4,7 @@ import { Heading, Flex, Box } from '@chakra-ui/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
+import { FONT_FAMILY } from '../../Constants/themes';
 
 function Tasks(props) {
   // useState to create the todo items and use the object elements to store the values of each column
@@ -103,8 +104,10 @@ function Tasks(props) {
           justifyContent="center"
           flexDirection="column">
           <Heading
-            fontSize="xl"
-            m="30px"
+            fontSize="3xl"
+            my="30px"
+            letterSpacing="wide"
+            fontFamily={FONT_FAMILY}
             textAlign="center"
             {...(props.theme.bgImage
               ? props.theme.styles.imageModeContrastText
@@ -138,9 +141,11 @@ function Tasks(props) {
           justifyContent="center"
           flexDirection="column">
           <Heading
-            fontSize="xl"
             textAlign="center"
-            m="30px"
+            fontSize="3xl"
+            fontFamily={FONT_FAMILY}
+            my="30px"
+            letterSpacing="wide"
             {...(props.theme.bgImage
               ? props.theme.styles.imageModeContrastText
               : {})}>
@@ -171,9 +176,11 @@ function Tasks(props) {
   return (
     <Flex w="100vw" flexDir="column" align="center">
       <Heading
-        fontSize="2xl"
+        fontSize="4xl"
         textAlign="center"
-        m="30px"
+        fontFamily={FONT_FAMILY}
+        letterSpacing="wide"
+        mt="30px"
         {...(props.theme.bgImage
           ? props.theme.styles.imageModeContrastText
           : {})}>
