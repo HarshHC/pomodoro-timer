@@ -11,7 +11,7 @@ import {
   PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  ButtonGroup
+  useDisclosure
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { SESSION } from '../../Constants/modes';
@@ -27,6 +27,22 @@ function Timer(props) {
   const [isRunning, setIsRunning] = useState(true);
   const [updatedStart, setUpdatedStart] = useState(false);
   const initialFocusRef = React.useRef();
+
+  const { onOpen, onClose, isOpen } = useDisclosure();
+  const displayNotification = () => {
+    if (Notification.permission === 'granted') {
+      // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-new
+      const not = new Notification('Hi there!');
+
+      Notification.requestPermission().then(function() {
+        console.log(not);
+      });
+    }
+  };
+  useEffect(() => {
+    displayNotification();
+  }, []);
 
   let displayedTimer;
 
@@ -110,7 +126,10 @@ function Timer(props) {
             <Popover
               initialFocusRef={initialFocusRef}
               placement="bottom"
-              closeOnBlur={false}>
+              isOpen={isOpen}
+              onOpen={onOpen}
+              onClose={onClose}
+              closeOnBlur>
               <PopoverTrigger>
                 <Button
                   {...props.theme.styles.bg}
@@ -120,18 +139,19 @@ function Timer(props) {
                   {started ? 'STOP' : 'START'}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent
-                color="white"
-                bg="blue.800"
-                borderColor="blue.800">
-                <PopoverHeader pt={4} fontWeight="bold" border="0">
-                  Manage Your Channels
+              <PopoverContent color="white">
+                <PopoverHeader
+                  pt={4}
+                  fontSize="2xl"
+                  letterSpacing="wide"
+                  fontWeight="bold"
+                  border="0">
+                  Notification Request
                 </PopoverHeader>
                 <PopoverArrow />
                 <PopoverCloseButton />
-                <PopoverBody>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore.
+                <PopoverBody fontSize="lg" letterSpacing="wide">
+                  Would you like to receive Notifications when the session ends?
                 </PopoverBody>
                 <PopoverFooter
                   border="0"
@@ -139,15 +159,22 @@ function Timer(props) {
                   alignItems="center"
                   justifyContent="space-between"
                   pb={4}>
-                  <Box fontSize="sm">Step 2 of 4</Box>
-                  <ButtonGroup size="sm">
-                    <Button colorScheme="green" onClick={startClicked}>
-                      START
+                  <Flex
+                    w="100%"
+                    justify="flex-end"
+                    size="lg"
+                    fontFamily="Roboto">
+                    <Button bg="green.500" fontSize="sm" onClick={startClicked}>
+                      YES
                     </Button>
-                    <Button colorScheme="blue" ref={initialFocusRef}>
-                      Next
+                    <Button
+                      ml="2"
+                      bg="red.500"
+                      fontSize="sm"
+                      ref={initialFocusRef}>
+                      NO THANKS
                     </Button>
-                  </ButtonGroup>
+                  </Flex>
                 </PopoverFooter>
               </PopoverContent>
             </Popover>
