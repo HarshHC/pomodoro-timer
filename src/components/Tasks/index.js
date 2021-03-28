@@ -12,6 +12,7 @@ function Tasks(props) {
     newTasks: [],
     completedTasks: []
   });
+
   // function to check the location in the DND feature and save the values for the respective location
   function onEnd(result) {
     if (result.destination) {
