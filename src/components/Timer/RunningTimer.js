@@ -26,15 +26,17 @@ function RunningTimer(props) {
     if (timerProps) {
       timerProps.mode = props.mode;
       timerProps.updatedTime = updatedTime;
+      timerProps.updatedStart = props.updatedStart;
       window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
-  }, [props.mode, updatedTime]);
+  }, [props.mode, updatedTime, props.updatedStart]);
   //  useEffect to reload data from local storage and store in our variables
   useEffect(() => {
     let timerProps = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProps) {
       setUpdatedTime(timerProps.updatedTime);
       props.setMode(timerProps.mode);
+      props.setUpdatedStart(timerProps.updatedStart);
       setMins(Math.floor(timerProps.updatedTime / 60));
       setSeconds(timerProps.updatedTime % 60);
     } else {
@@ -44,13 +46,18 @@ function RunningTimer(props) {
       timerProps.isRunning = false;
       timerProps.mode = props.mode;
       timerProps.updatedTime = updatedTime;
+      timerProps.updatedStart = true;
       window.localStorage.setItem('timerProps', JSON.stringify(timerProps));
     }
   }, []);
   useEffect(() => {
-    setSeconds(0);
-    setMins(props.sessionMins);
-  }, [props.started]);
+    if (!props.updatedStart) {
+      props.setMode(SESSION);
+      setSeconds(0);
+      setMins(props.mode === SESSION ? props.sessionMins : props.breakMins);
+      props.setMode(SESSION);
+    }
+  }, [props.updatedStart]);
   // javascript functions defined here
   // function to handle the countdown. will be called every second.
   const countdownHandler = () => {

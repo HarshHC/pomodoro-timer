@@ -10,6 +10,7 @@ function Timer(props) {
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
+  const [updatedStart, setUpdatedStart] = useState(false);
 
   let displayedTimer;
 
@@ -20,6 +21,7 @@ function Timer(props) {
       setStarted(timerProp.started);
       setIsRunning(false);
       setMode(timerProp.mode);
+      setUpdatedStart(timerProp.updatedStart);
     }
   }, []);
 
@@ -29,7 +31,6 @@ function Timer(props) {
     if (timerProp) {
       timerProp.started = started;
       window.localStorage.setItem('timerProps', JSON.stringify(timerProp));
-      setMode(SESSION);
     }
   }, [started]);
 
@@ -45,6 +46,8 @@ function Timer(props) {
         isRunning={isRunning}
         setIsRunning={setIsRunning}
         breakMins={breakMins}
+        setUpdatedStart={setUpdatedStart}
+        updatedStart={updatedStart}
       />
     );
   } else {
@@ -83,6 +86,7 @@ function Timer(props) {
               onClick={() => {
                 setStarted(!started);
                 setIsRunning(true);
+                setUpdatedStart(!updatedStart);
               }}>
               {started ? 'STOP' : 'START'}
             </Button>
