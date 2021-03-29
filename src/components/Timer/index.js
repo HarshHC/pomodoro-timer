@@ -14,6 +14,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
+import Notification from 'react-web-notification';
 import { SESSION } from '../../Constants/modes';
 import { FONT_FAMILY } from '../../Constants/themes';
 import RunningTimer from './RunningTimer';
@@ -29,20 +30,18 @@ function Timer(props) {
   const initialFocusRef = React.useRef();
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const displayNotification = () => {
-    if (Notification.permission === 'granted') {
-      // eslint-disable-next-line no-unused-vars
-      // eslint-disable-next-line no-new
-      const not = new Notification('Hi there!');
-
-      Notification.requestPermission().then(function() {
-        console.log(not);
-      });
-    }
-  };
-  useEffect(() => {
-    displayNotification();
-  }, []);
+  // const displayNotification = () => {
+  //     // eslint-disable-next-line no-unused-vars
+  //     // eslint-disable-next-line no-new
+  //     // const not = new Notification('Hi there!');
+  //     // Notification.requestPermission().then(function() {
+  //     //   console.log(not);
+  //     // });
+  //   }
+  // };
+  // useEffect(() => {
+  //   displayNotification();
+  // }, []);
 
   let displayedTimer;
 
@@ -152,6 +151,7 @@ function Timer(props) {
                 <PopoverCloseButton />
                 <PopoverBody fontSize="lg" letterSpacing="wide">
                   Would you like to receive Notifications when the session ends?
+                  <Notification title="hi" />
                 </PopoverBody>
                 <PopoverFooter
                   border="0"

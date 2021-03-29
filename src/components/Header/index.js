@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Flex,
   Heading,
@@ -6,14 +6,18 @@ import {
   useColorMode,
   useDisclosure
 } from '@chakra-ui/react';
-import { MoonIcon, SettingsIcon, SunIcon } from '@chakra-ui/icons';
+import { RiAccountCircleLine } from 'react-icons/ri';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { IoMdBrush } from 'react-icons/io';
-import ThemeDrawer from './ThemeDrawer';
+import SideDrawer from './SideDrawer';
 import { FONT_FAMILY } from '../../Constants/themes';
 
 function Header(props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [mode, setMode] = useState('THEME');
+
   const btnRef = React.useRef();
 
   return (
@@ -46,27 +50,34 @@ function Header(props) {
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastBg
             : {})}
-          onClick={onOpen}
+          onClick={() => {
+            setMode('THEME');
+            onOpen();
+          }}
           mx="10px"
           fill="red"
         />
         <IconButton
           color={colorMode === 'light' ? 'black' : 'white'}
-          icon={<SettingsIcon />}
+          icon={<RiAccountCircleLine />}
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastBg
             : {})}
-          onClick={onOpen}
+          onClick={() => {
+            setMode('SETTINGS');
+            onOpen();
+          }}
           mx="10px"
           fill="red"
         />
       </Flex>
-      <ThemeDrawer
+      <SideDrawer
         isOpen={isOpen}
         onClose={onClose}
         btnRef={btnRef}
         theme={props.theme}
         setTheme={props.setTheme}
+        mode={mode}
       />
     </>
   );
