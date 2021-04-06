@@ -28,7 +28,9 @@ function SideDrawer(props) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(currentUser => {
       setUser(currentUser);
-      console.log('checking', currentUser);
+      if (currentUser != null) {
+        setBtnText('Log Out');
+      }
     });
   }, []);
 
