@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Drawer,
@@ -11,24 +11,60 @@ import {
   Flex,
   Text
 } from '@chakra-ui/react';
-// eslint-disable-next-line no-unused-vars
-import * as firebaseui from 'firebaseui';
+import firebase from 'firebase/app';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
-import { ui, firebase } from '../../Constants/firebase';
-
-const signInClicked = () => {
-  ui.start('#firebaseui-auth-container', {
-    signInOptions: [
-      // List of OAuth providers supported.
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ]
-    // Other config options...
-  });
-};
+import { provider } from '../../Constants/firebase';
 
 function SideDrawer(props) {
+  const [btnText, setBtnText] = useState('SIGN IN');
+  const [user, setUser] = useState(null);
+
+  const isUserSignedIn = () => {
+    return user != null;
+  };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(currentUser => {
+      setUser(currentUser);
+      console.log('checking', currentUser);
+    });
+  }, []);
+
+  const signInClicked = () => {
+    if (isUserSignedIn()) {
+      // user is already signed in
+      // todo: sign user out
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          setUser(null);
+          setBtnText('Log In');
+        })
+        .catch(error => {
+          // error
+          console.log(error);
+        });
+    } else {
+      // user not signed in
+      // todo: sign the user in
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          const { currentUser } = result;
+          setUser(currentUser);
+          setBtnText('Log Out');
+        })
+        .catch(error => {
+          // if there is an error
+          console.log(`failed! ${error}`);
+        });
+    }
+  };
+
   const themeDrawer = (
     <DrawerContent>
       <DrawerCloseButton />
@@ -51,7 +87,7 @@ function SideDrawer(props) {
       </DrawerBody>
 
       <DrawerFooter>
-        <Button variant="outline" mr={3} onClick={props.onClose}>
+        <Button letiant="outline" mr={3} onClick={props.onClose}>
           Close
         </Button>
       </DrawerFooter>
@@ -74,12 +110,20 @@ function SideDrawer(props) {
 
       <DrawerBody>
         <Flex flexDir="column">
-          <Button onClick={signInClicked}>SIGN IN</Button>
+          <Text
+            my="2"
+            fontWeight="semibold"
+            fontSize="2xl"
+            letterSpacing="wide"
+            fontFamily={FONT_FAMILY}>
+            {isUserSignedIn() ? `Hi ${user.displayName.split(' ')[0]}` : ''}
+          </Text>
+          <Button onClick={signInClicked}>{btnText}</Button>
         </Flex>
       </DrawerBody>
 
       <DrawerFooter>
-        <Button variant="outline" mr={3} onClick={props.onClose}>
+        <Button letiant="outline" mr={3} onClick={props.onClose}>
           Close
         </Button>
       </DrawerFooter>
