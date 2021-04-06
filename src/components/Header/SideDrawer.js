@@ -16,19 +16,20 @@ import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
 import { provider } from '../../Constants/firebase';
+import { checkIfUserAlreadyExists } from '../../Constants/firebaseUtils';
 
 function SideDrawer(props) {
   const [btnText, setBtnText] = useState('SIGN IN');
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const isUserSignedIn = () => {
-    return user != null;
+    return currentUser != null;
   };
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(currentUser => {
-      setUser(currentUser);
-      if (currentUser != null) {
+    firebase.auth().onAuthStateChanged(user => {
+      setCurrentUser(user);
+      if (user != null) {
         setBtnText('Log Out');
       }
     });
@@ -42,7 +43,7 @@ function SideDrawer(props) {
         .auth()
         .signOut()
         .then(() => {
-          setUser(null);
+          setCurrentUser(null);
           setBtnText('Log In');
         })
         .catch(error => {
@@ -56,9 +57,10 @@ function SideDrawer(props) {
         .auth()
         .signInWithPopup(provider)
         .then(result => {
-          const { currentUser } = result;
-          setUser(currentUser);
+          const { user } = result;
+          setCurrentUser(user);
           setBtnText('Log Out');
+          checkIfUserAlreadyExists(user);
         })
         .catch(error => {
           // if there is an error
@@ -118,7 +120,9 @@ function SideDrawer(props) {
             fontSize="2xl"
             letterSpacing="wide"
             fontFamily={FONT_FAMILY}>
-            {isUserSignedIn() ? `Hi ${user.displayName.split(' ')[0]}` : ''}
+            {isUserSignedIn()
+              ? `Hi ${currentUser.displayName.split(' ')[0]}`
+              : ''}
           </Text>
           <Button onClick={signInClicked}>{btnText}</Button>
         </Flex>

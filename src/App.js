@@ -2,18 +2,42 @@ import { React, useEffect, useState } from 'react';
 import './App.css';
 import { Box, Container, useColorMode } from '@chakra-ui/react';
 import 'focus-visible/dist/focus-visible';
+import firebase from 'firebase/app';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import Timer from './components/Timer';
 import { generateGradientTheme, PURPLE } from './Constants/themes';
+import { checkIfUserIsPremium } from './Constants/firebaseUtils';
 
 function App() {
   const { colorMode } = useColorMode();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isPremium, setIsPremium] = useState(false);
   const [timerTheme, setTimerTheme] = useState(
     localStorage.getItem('timer-theme')
       ? JSON.parse(localStorage.getItem('timer-theme'))
       : generateGradientTheme(PURPLE, colorMode)
   );
+
+  const isUserPremium = result => {
+    if (result) {
+      setIsPremium(true);
+    } else {
+      setIsPremium(false);
+    }
+  };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      setCurrentUser(user);
+      if (currentUser && isPremium) {
+        // lol fooled u eslint
+      }
+      if (user != null) {
+        checkIfUserIsPremium(user, isUserPremium);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const storedTheme = JSON.parse(localStorage.getItem('timer-theme'));
@@ -31,7 +55,11 @@ function App() {
 
   const content = (
     <Container centerContent>
-      <Header theme={timerTheme} setTheme={setTimerTheme} />
+      <Header
+        theme={timerTheme}
+        setTheme={setTimerTheme}
+        isPremium={isPremium}
+      />
       <Timer theme={timerTheme} />
       <Tasks theme={timerTheme} />
     </Container>
