@@ -1,6 +1,7 @@
-import { Flex, Square, Text, Tooltip } from '@chakra-ui/react';
+import { Flex, Square, Text, Tooltip, useToast } from '@chakra-ui/react';
 import uuid from 'react-uuid';
 import React from 'react';
+import { LockIcon } from '@chakra-ui/icons';
 import {
   changeGradientThemeColorTo,
   FONT_FAMILY,
@@ -8,6 +9,11 @@ import {
 } from '../../Constants/themes';
 
 function ColourSelector(props) {
+  const toast = useToast();
+  let showLock = '';
+  if (!props.isPremium) {
+    showLock = <LockIcon textColor="black" />;
+  }
   return (
     <Flex flexDir="column" flex="1">
       <Text
@@ -28,11 +34,23 @@ function ColourSelector(props) {
                 bg={item.baseColor}
                 rounded="md"
                 onClick={() => {
-                  props.setTheme(
-                    changeGradientThemeColorTo(props.theme, themesList[i])
-                  );
-                }}
-              />
+                  if (i === 0 || i === 1 || props.isPremium) {
+                    props.setTheme(
+                      changeGradientThemeColorTo(props.theme, themesList[i])
+                    );
+                  } else {
+                    toast({
+                      title: 'Premium Required!',
+                      description:
+                        'You need to sign for Premium to Access this feature',
+                      status: 'warning',
+                      duration: 2000,
+                      isClosable: true
+                    });
+                  }
+                }}>
+                {i === 0 || i === 1 ? '' : showLock}
+              </Square>
             </Tooltip>
           );
         })}

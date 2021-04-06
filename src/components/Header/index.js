@@ -78,6 +78,7 @@ function Header(props) {
         theme={props.theme}
         setTheme={props.setTheme}
         mode={mode}
+        isPremium={props.isPremium}
       />
     </>
   );

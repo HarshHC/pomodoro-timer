@@ -85,8 +85,16 @@ function SideDrawer(props) {
 
       <DrawerBody>
         <Flex flexDir="column">
-          <ColourSelector theme={props.theme} setTheme={props.setTheme} />
-          <BackgroundOptions theme={props.theme} setTheme={props.setTheme} />
+          <ColourSelector
+            theme={props.theme}
+            setTheme={props.setTheme}
+            isPremium={props.isPremium}
+          />
+          <BackgroundOptions
+            theme={props.theme}
+            setTheme={props.setTheme}
+            isPremium={props.isPremium}
+          />
         </Flex>
       </DrawerBody>
 

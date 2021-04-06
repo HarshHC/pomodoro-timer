@@ -176,4 +176,35 @@ export const YELLOW = {
   textColor: 'black'
 };
 
-export const themesList = [BLUE, PURPLE, ORANGE, RED, GREEN, YELLOW];
+export const BABY_BLUE = {
+  name: 'baby blue',
+  baseColor: '#77C3EC',
+  lightColor1: '#77C3EC',
+  lightColor2: '#9DD9FE',
+  darkColor1: '#77C3EC',
+  darkColor2: '#9DD9FE',
+  hover: '#00DBFF',
+  textColor: 'black'
+};
+
+export const PINK = {
+  name: 'pink',
+  baseColor: '#FA5181',
+  lightColor1: '#FA5181',
+  lightColor2: '#FF82AC',
+  darkColor1: '#FA5181',
+  darkColor2: '#FF82AC',
+  hover: '#FFA1A9',
+  textColor: 'black'
+};
+
+export const themesList = [
+  BLUE,
+  PURPLE,
+  ORANGE,
+  RED,
+  GREEN,
+  YELLOW,
+  BABY_BLUE,
+  PINK
+];

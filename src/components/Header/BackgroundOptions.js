@@ -1,4 +1,4 @@
-import { Search2Icon } from '@chakra-ui/icons';
+import { LockIcon, Search2Icon } from '@chakra-ui/icons';
 import { Button, Flex, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import {
@@ -22,7 +22,8 @@ function BackgroundOptions(props) {
         Background
       </Text>
       <Flex m="2" flexDir="column">
-        <Flex m="2" w="90%" justify="space-between">
+        <Flex m="2" w="90%" justify="space-between" align="center">
+          {props.isPremium ? ' ' : <LockIcon fontSize="xl" mr="2" mb="1" />}
           <Text
             fontFamily={FONT_FAMILY}
             fontSize="xl"
@@ -32,6 +33,7 @@ function BackgroundOptions(props) {
             Background Image
           </Text>
           <Switch
+            {...(props.isPremium ? {} : { isDisabled: true })}
             size="lg"
             colorScheme={props.theme.name}
             isChecked={props.theme.bgImage}
