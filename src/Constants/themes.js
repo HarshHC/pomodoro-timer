@@ -194,7 +194,7 @@ export const PINK = {
   lightColor2: '#FF82AC',
   darkColor1: '#FA5181',
   darkColor2: '#FF82AC',
-  hover: '#FFA1A9',
+  hover: '#D24986',
   textColor: 'black'
 };
 
