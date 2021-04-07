@@ -1,7 +1,7 @@
 import { Container, Flex, Text, useColorMode } from '@chakra-ui/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { SESSION, BREAK } from '../../Constants/modes';
-// import { useDisclosure } from '@chakra-ui/react';
+import { createNotification } from '../../Constants/utils';
 
 function RunningTimer(props) {
   // useStates defined here
@@ -67,6 +67,21 @@ function RunningTimer(props) {
       setUpdatedTime(
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
+
+      // send a notification
+      createNotification({
+        title: `${props.mode.toUpperCase()}'s Over! `,
+        message: `${
+          props.mode === SESSION ? BREAK.toUpperCase() : SESSION.toUpperCase()
+        } time!`,
+        icon:
+          'https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/hourglass-64.png',
+        clickCallback() {
+          // function executed on clicking notification
+        }
+      });
+
+      // change the mode state
       props.setMode(props.mode === SESSION ? BREAK : SESSION);
     }
   };

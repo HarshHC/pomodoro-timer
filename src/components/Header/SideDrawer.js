@@ -9,7 +9,8 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Text
+  Text,
+  useMediaQuery
 } from '@chakra-ui/react';
 import firebase from 'firebase/app';
 import BackgroundOptions from './BackgroundOptions';
@@ -21,6 +22,7 @@ import { checkIfUserAlreadyExists } from '../../Constants/firebaseUtils';
 function SideDrawer(props) {
   const [btnText, setBtnText] = useState('SIGN IN');
   const [currentUser, setCurrentUser] = useState(null);
+  const [isOnmobile] = useMediaQuery('(max-width: 768px)');
 
   const isUserSignedIn = () => {
     return currentUser != null;
@@ -34,6 +36,38 @@ function SideDrawer(props) {
       }
     });
   }, []);
+
+  function signUserIn() {
+    if (isOnmobile) {
+      firebase
+        .auth()
+        .signInWithRedirect(provider)
+        .then(result => {
+          const { user } = result;
+          setCurrentUser(user);
+          setBtnText('Log Out');
+          checkIfUserAlreadyExists(user);
+        })
+        .catch(error => {
+          // if there is an error
+          console.log(`failed! ${error}`);
+        });
+    } else {
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          const { user } = result;
+          setCurrentUser(user);
+          setBtnText('Log Out');
+          checkIfUserAlreadyExists(user);
+        })
+        .catch(error => {
+          // if there is an error
+          console.log(`failed! ${error}`);
+        });
+    }
+  }
 
   const signInClicked = () => {
     if (isUserSignedIn()) {
@@ -53,19 +87,7 @@ function SideDrawer(props) {
     } else {
       // user not signed in
       // todo: sign the user in
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(result => {
-          const { user } = result;
-          setCurrentUser(user);
-          setBtnText('Log Out');
-          checkIfUserAlreadyExists(user);
-        })
-        .catch(error => {
-          // if there is an error
-          console.log(`failed! ${error}`);
-        });
+      signUserIn();
     }
   };
 
