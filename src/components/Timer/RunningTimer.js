@@ -12,9 +12,12 @@ function RunningTimer(props) {
   );
   const timeProps = localStorage.getItem('timerProps');
   const [updatedTime, setUpdatedTime] = useState(
+    // eslint-disable-next-line no-nested-ternary
     timeProps
       ? JSON.parse(localStorage.getItem('timerProps')).updatedTime
-      : props.sessionMins
+      : props.mode === SESSION
+      ? props.sessionMins
+      : props.breakMins
   );
 
   // variables defined here

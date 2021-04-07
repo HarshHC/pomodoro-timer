@@ -44,6 +44,8 @@ function Timer(props) {
       setIsRunning(false);
       setMode(timerProp.mode);
       setUpdatedStart(timerProp.updatedStart);
+      setBreakMins(timerProp.breakMins ? timerProp.breakMins : 10);
+      setSessionMins(timerProp.sessionMins ? timerProp.sessionMins : 25);
     }
   }, []);
 
@@ -52,9 +54,11 @@ function Timer(props) {
     const timerProp = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProp) {
       timerProp.started = started;
+      timerProp.sessionMins = sessionMins;
+      timerProp.breakMins = breakMins;
       window.localStorage.setItem('timerProps', JSON.stringify(timerProp));
     }
-  }, [started]);
+  }, [started, breakMins, sessionMins]);
 
   if (started) {
     displayedTimer = (
