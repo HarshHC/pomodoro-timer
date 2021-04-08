@@ -10,9 +10,23 @@ import {
   DrawerOverlay,
   Flex,
   Text,
-  useMediaQuery
+  useMediaQuery,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Radio,
+  RadioGroup,
+  Stack
 } from '@chakra-ui/react';
+
 import firebase from 'firebase/app';
+import { MdAttachMoney } from 'react-icons/md';
+import { StarIcon } from '@chakra-ui/icons';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
@@ -23,6 +37,8 @@ function SideDrawer(props) {
   const [btnText, setBtnText] = useState('SIGN IN');
   const [currentUser, setCurrentUser] = useState(null);
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [value, setValue] = useState('1');
 
   const isUserSignedIn = () => {
     return currentUser != null;
@@ -144,16 +160,29 @@ function SideDrawer(props) {
 
       <DrawerBody>
         <Flex flexDir="column">
-          <Text
-            my="2"
-            fontWeight="semibold"
-            fontSize="2xl"
-            letterSpacing="wide"
-            fontFamily={FONT_FAMILY}>
-            {isUserSignedIn()
-              ? `Hi ${currentUser.displayName.split(' ')[0]}`
-              : ''}
-          </Text>
+          <Flex flexDir="row" justifyContent="space-between">
+            <Text
+              my="2"
+              fontWeight="semibold"
+              fontSize="2xl"
+              letterSpacing="wide"
+              fontFamily={FONT_FAMILY}>
+              {isUserSignedIn()
+                ? `Hi ${currentUser.displayName.split(' ')[0]}`
+                : 'Hi User'}
+            </Text>
+            <Button
+              onClick={onOpen}
+              leftIcon={
+                props.isPremium && isUserSignedIn() ? (
+                  <StarIcon />
+                ) : (
+                  <MdAttachMoney />
+                )
+              }>
+              {props.isPremium && isUserSignedIn() ? 'Premium' : 'Buy Premium'}
+            </Button>
+          </Flex>
           <Button onClick={signInClicked}>{btnText}</Button>
         </Flex>
       </DrawerBody>
@@ -167,15 +196,44 @@ function SideDrawer(props) {
   );
 
   return (
-    <Drawer
-      isOpen={props.isOpen}
-      placement="right"
-      onClose={props.onClose}
-      finalFocusRef={props.btnRef}>
-      <DrawerOverlay>
-        {props.mode === 'THEME' ? themeDrawer : settingsDrawer}
-      </DrawerOverlay>
-    </Drawer>
+    <>
+      <Drawer
+        isOpen={props.isOpen}
+        placement="right"
+        onClose={props.onClose}
+        finalFocusRef={props.btnRef}>
+        <DrawerOverlay>
+          {props.mode === 'THEME' ? themeDrawer : settingsDrawer}
+        </DrawerOverlay>
+      </Drawer>
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text fontWeight="bold" mb="1rem">
+              Premium plans: <br />
+              <br />
+              <RadioGroup onChange={setValue} value={value}>
+                <Stack direction="row">
+                  <Radio value="1">1 Month</Radio>
+                  <Radio value="2">6 Months</Radio>
+                  <Radio value="3">1 Year</Radio>
+                </Stack>
+              </RadioGroup>
+            </Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Buy</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 
