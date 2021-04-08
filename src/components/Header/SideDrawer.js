@@ -173,6 +173,10 @@ function SideDrawer(props) {
             </Text>
             <Button
               onClick={onOpen}
+              bg={props.isPremium && isUserSignedIn() ? '#FFD700' : 'blue'}
+              textColor={
+                props.isPremium && isUserSignedIn() ? 'black' : 'white'
+              }
               leftIcon={
                 props.isPremium && isUserSignedIn() ? (
                   <StarIcon />
@@ -209,20 +213,24 @@ function SideDrawer(props) {
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Payment Plans</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text fontWeight="bold" mb="1rem">
-              Premium plans: <br />
-              <br />
-              <RadioGroup onChange={setValue} value={value}>
-                <Stack direction="row">
-                  <Radio value="1">1 Month</Radio>
-                  <Radio value="2">6 Months</Radio>
-                  <Radio value="3">1 Year</Radio>
-                </Stack>
-              </RadioGroup>
-            </Text>
+            {!props.isPremium || !isUserSignedIn() ? (
+              <Text fontWeight="bold" mb="1rem" fontSize="lg">
+                <RadioGroup onChange={setValue} value={value}>
+                  <Stack direction="column">
+                    <Radio value="1">1 Month</Radio>
+                    <Radio value="2">6 Months</Radio>
+                    <Radio value="3">1 Year</Radio>
+                  </Stack>
+                </RadioGroup>
+              </Text>
+            ) : (
+              <Text fontWeight="bold" mb="1rem" fontSize="lg">
+                You have 10 days left as a premium member
+              </Text>
+            )}
           </ModalBody>
 
           <ModalFooter>
