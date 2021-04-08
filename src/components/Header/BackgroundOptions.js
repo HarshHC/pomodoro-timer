@@ -10,6 +10,10 @@ import ImageSearchDrawer from './ImageSearchDrawer';
 
 function BackgroundOptions(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  if (props.theme.bgImage && props.isPremium === false) {
+    const newTheme = toggleBackgroundImageInGradientTheme(props.theme);
+    props.setTheme(newTheme);
+  }
 
   return (
     <Flex flexDir="column" flex="1" my="8">
