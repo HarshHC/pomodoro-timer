@@ -31,6 +31,7 @@ function TodoList(props) {
           index={index}
           removeTodo={props.removeTodo}
           updateTodo={props.updateTodo}
+          markTodoComplete={props.markTodoComplete}
         />
       )}
     </Draggable>

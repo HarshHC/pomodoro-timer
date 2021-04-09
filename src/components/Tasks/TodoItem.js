@@ -82,7 +82,7 @@ function TodoItem(props) {
       </Flex>
     </Box>
   );
-  // function to define when in default page in the file
+  //  default mode
   const defaultTodoMode = (
     <Box
       {...props.provided.draggableProps}
@@ -101,7 +101,8 @@ function TodoItem(props) {
         <Box
           w={isOnmobile ? '20vw' : '200%'}
           overflow="hidden"
-          key={props.todo.id}>
+          key={props.todo.id}
+          textDecor={props.todo.columnID !== 'NEW' ? 'line-through' : 'none'}>
           {props.todo.text}
         </Box>
 
@@ -123,6 +124,17 @@ function TodoItem(props) {
               setInput(props.todo.text);
             }}
           />
+          {props.todo.columnID === 'NEW' ? (
+            <CheckIcon
+              boxSize={isOnmobile ? '4' : '5'}
+              m="8px"
+              onClick={() => {
+                props.markTodoComplete(props.index);
+              }}
+            />
+          ) : (
+            ''
+          )}
         </Flex>
       </Flex>
     </Box>

@@ -99,6 +99,20 @@ function Tasks(props) {
     }
     setTodos(newTodos);
   };
+
+  const markTodoComplete = index => {
+    const sourceList = todos.newTasks;
+    const [removed] = sourceList.splice(index, 1);
+    removed.columnID = 'DONE';
+
+    const destinationList = [removed, ...todos.completedTasks];
+
+    const newTodos = { ...todos };
+    newTodos.completedTasks = destinationList;
+    newTodos.newTasks = sourceList;
+    setTodos(newTodos);
+  };
+
   // function to run the Tasks
   const desktopTodos = (
     <DragDropContext onDragEnd={onEnd}>
@@ -134,6 +148,7 @@ function Tasks(props) {
                   todos={todos.newTasks}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
+                  markTodoComplete={markTodoComplete}
                 />
                 {provided.placeholder}
               </Box>
@@ -171,6 +186,7 @@ function Tasks(props) {
                   todos={todos.completedTasks}
                   removeTodo={removeTodo}
                   updateTodo={updateTodo}
+                  markTodoComplete={markTodoComplete}
                 />
                 {provided.placeholder}
               </Box>
