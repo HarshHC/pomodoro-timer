@@ -40,9 +40,6 @@ function SideDrawer(props) {
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState('1');
-  const stripe = loadStripe(
-    'pk_test_51Ia4N7HDIe5YOLPEPy2Zz3ymAbBKYiTDNKTAHJZ0kWEYHORd3ISIa2qVfuNbsRa71mbbbcNlNsqR4YZGuZoKOsYR00wJTCYWeO'
-  );
 
   const isUserSignedIn = () => {
     return currentUser != null;
@@ -111,45 +108,33 @@ function SideDrawer(props) {
     }
   };
 
-  const createCheckoutSession = priceId => {
-    // try {
-    //   const response = await axios.post(
-    //     'http://localhost:4000/create-checkout-session',
-    //     { priceId },
-    //     {
-    //       method: 'HEAD',
-    //       mode: 'no-cors'
-    //     }
-    //   );
-
-    //   if (response.data.success) {
-    //     console.log('Successful payment');
-    //   }
-    // } catch (error) {
-    //   console.log('Error', error);
-    // }
-
-    return fetch('http://localhost:4000/create-checkout-session', {
+  const createCheckoutSession = priceId =>
+    fetch('http://localhost:4000/create-checkout-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        priceId
+        priceId,
+        email: currentUser.email
       })
-    }).then(result => {
-      console.log(result.json());
-    });
-  };
+    }).then(result => result.json());
 
-  const handleResult = () => {};
+  const handleResult = () => {
+    console.log('handling result');
+  };
 
   const processPayment = async () => {
     const PRICE_ID = 'price_1Idbl2HDIe5YOLPEOenqpsQa';
-    await createCheckoutSession(PRICE_ID).then(async data => {
+    // const session = await createCheckoutSession(PRICE_ID);
+    const stripe = await loadStripe(
+      'pk_test_51Ia4N7HDIe5YOLPEPy2Zz3ymAbBKYiTDNKTAHJZ0kWEYHORd3ISIa2qVfuNbsRa71mbbbcNlNsqR4YZGuZoKOsYR00wJTCYWeO'
+    );
+
+    createCheckoutSession(PRICE_ID).then(data => {
       // Call Stripe.js method to redirect to the new Checkout page
-      console.log('str', data);
-      await stripe
+      console.log(data);
+      stripe
         .redirectToCheckout({
           sessionId: data.sessionId
         })
@@ -265,14 +250,14 @@ function SideDrawer(props) {
             <Text fontWeight="bold" mb="1rem">
               Premium plans: <br />
               <br />
-              <RadioGroup onChange={setValue} value={value}>
-                <Stack direction="row">
-                  <Radio value="1">1 Month</Radio>
-                  <Radio value="2">6 Months</Radio>
-                  <Radio value="3">1 Year</Radio>
-                </Stack>
-              </RadioGroup>
             </Text>
+            <RadioGroup onChange={setValue} value={value}>
+              <Stack direction="row">
+                <Radio value="1">1 Month</Radio>
+                <Radio value="2">6 Months</Radio>
+                <Radio value="3">1 Year</Radio>
+              </Stack>
+            </RadioGroup>
           </ModalBody>
 
           <ModalFooter>
