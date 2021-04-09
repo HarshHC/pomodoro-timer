@@ -120,20 +120,18 @@ function SideDrawer(props) {
       })
     }).then(result => result.json());
 
-  const handleResult = () => {
-    console.log('handling result');
+  const handleResult = result => {
+    console.log(result);
   };
 
   const processPayment = async () => {
     const PRICE_ID = 'price_1Idbl2HDIe5YOLPEOenqpsQa';
-    // const session = await createCheckoutSession(PRICE_ID);
     const stripe = await loadStripe(
       'pk_test_51Ia4N7HDIe5YOLPEPy2Zz3ymAbBKYiTDNKTAHJZ0kWEYHORd3ISIa2qVfuNbsRa71mbbbcNlNsqR4YZGuZoKOsYR00wJTCYWeO'
     );
 
     createCheckoutSession(PRICE_ID).then(data => {
       // Call Stripe.js method to redirect to the new Checkout page
-      console.log(data);
       stripe
         .redirectToCheckout({
           sessionId: data.sessionId

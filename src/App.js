@@ -22,26 +22,9 @@ function App() {
   const isUserPremium = result => {
     if (result) {
       setIsPremium(true);
-      // sendOneNotification({
-      //   title: 'User is Premium!',
-      //   message: 'Your message goes here',
-      //   icon:
-      //     'https://cdn2.iconfinder.com/data/icons/mixed-rounded-flat-icon/512/megaphone-64.png',
-      //   clickCallback() {
-      //     alert('do something when clicked on notification');
-      //   }
-      // });
+      // talk to stripe check user subs
     } else {
       setIsPremium(false);
-      // sendOneNotification({
-      //   title: 'User is not Premium!',
-      //   message: 'Your message goes here',
-      //   icon:
-      //     'https://cdn2.iconfinder.com/data/icons/mixed-rounded-flat-icon/512/megaphone-64.png',
-      //   clickCallback() {
-      //     alert('do something when clicked on notification');
-      //   }
-      // });
     }
     return true;
   };
