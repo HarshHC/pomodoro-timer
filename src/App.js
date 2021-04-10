@@ -35,6 +35,7 @@ function App() {
         const newTheme = toggleBackgroundImageInGradientTheme(timerTheme);
         setTimerTheme(newTheme);
       }
+      setTimerTheme(changeGradientThemeColorTo(timerTheme, PURPLE));
     }
     return true;
   };

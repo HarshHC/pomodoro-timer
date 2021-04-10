@@ -26,13 +26,12 @@ import {
 import firebase from 'firebase/app';
 import { MdAttachMoney } from 'react-icons/md';
 import { StarIcon } from '@chakra-ui/icons';
-import { loadStripe } from '@stripe/stripe-js';
-// import axios from 'axios';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
 import { provider } from '../../Constants/firebase';
 import { checkIfUserAlreadyExists } from '../../Constants/firebaseUtils';
+import { processPayment } from '../../Constants/paymentUtils';
 
 function SideDrawer(props) {
   const [btnText, setBtnText] = useState('SIGN IN');
@@ -106,38 +105,6 @@ function SideDrawer(props) {
       // todo: sign the user in
       signUserIn();
     }
-  };
-
-  const createCheckoutSession = priceId =>
-    fetch('http://localhost:4000/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        priceId,
-        email: currentUser.email
-      })
-    }).then(result => result.json());
-
-  const handleResult = result => {
-    console.log(result);
-  };
-
-  const processPayment = async () => {
-    const PRICE_ID = 'price_1Idbl2HDIe5YOLPEOenqpsQa';
-    const stripe = await loadStripe(
-      'pk_test_51Ia4N7HDIe5YOLPEPy2Zz3ymAbBKYiTDNKTAHJZ0kWEYHORd3ISIa2qVfuNbsRa71mbbbcNlNsqR4YZGuZoKOsYR00wJTCYWeO'
-    );
-
-    createCheckoutSession(PRICE_ID).then(data => {
-      // Call Stripe.js method to redirect to the new Checkout page
-      stripe
-        .redirectToCheckout({
-          sessionId: data.sessionId
-        })
-        .then(handleResult);
-    });
   };
 
   const themeDrawer = (
@@ -270,7 +237,9 @@ function SideDrawer(props) {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost" onClick={processPayment}>
+            <Button
+              variant="ghost"
+              onClick={() => processPayment(currentUser, props.isPremium)}>
               Buy
             </Button>
           </ModalFooter>

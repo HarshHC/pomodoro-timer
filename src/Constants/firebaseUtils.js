@@ -4,6 +4,7 @@ export const createUserInDB = user => {
   db.collection('users')
     .doc(user.uid)
     .set({
+      email: user.email,
       isPremium: false
     })
     .then(() => {
