@@ -22,6 +22,8 @@ import { config } from 'dotenv';
 import {
   FONT_FAMILY,
   setGradientThemeImageCustomUrl
+  // toggleBackgroundImageInGradientTheme,
+  // toggleRandomImageInGradientTheme
 } from '../../Constants/themes';
 
 function ImageSearchDrawer(props) {
@@ -31,7 +33,7 @@ function ImageSearchDrawer(props) {
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
   const toast = useToast();
 
-  config();
+  config(); // config unsplash api
 
   const unsplash = createApi({
     accessKey: process.env.REACT_APP_API_KEY
@@ -55,10 +57,10 @@ function ImageSearchDrawer(props) {
       });
   };
   useEffect(() => {
-    if (!props.theme.bgInfo.random && props.theme.bgImage && props.isOpen) {
+    if (props.isOpen) {
       searchUnsplash('nature background');
     }
-  }, [props.theme.bgInfo.random, props.theme.bgImage, props.isOpen]);
+  }, [props.isOpen]);
 
   const handleSearch = () => {
     searchUnsplash(searchInput);
@@ -90,12 +92,13 @@ function ImageSearchDrawer(props) {
                   photo.urls.regular
                 );
                 props.setTheme(newTheme);
+
                 toast({
                   title: 'Background changed!',
                   description:
                     'Close the image search drawer to see your changes',
                   status: 'success',
-                  duration: 500
+                  duration: 1500
                 });
               }}
             />
@@ -175,7 +178,6 @@ function ImageSearchDrawer(props) {
                 </Button>
               </Flex>
             </form>
-
             {images}
           </DrawerBody>
         </DrawerContent>

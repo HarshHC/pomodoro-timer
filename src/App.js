@@ -70,7 +70,7 @@ function App() {
     <Box
       width="100vw"
       height="maxContent"
-      overflow="hidden"
+      overflowX="hidden"
       minH="100vh"
       bgGradient={
         colorMode === 'light'

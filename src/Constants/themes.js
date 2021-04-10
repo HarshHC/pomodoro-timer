@@ -92,8 +92,18 @@ export const toggleBackgroundImageInGradientTheme = oldTheme => {
 
 export const toggleRandomImageInGradientTheme = oldTheme => {
   const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
-    image: oldTheme.bgImage,
+    image: oldTheme.bgInfo.random ? oldTheme.bgImage : true,
     random: !oldTheme.bgInfo.random,
+    custom_url: oldTheme.bgInfo.custom_url
+  });
+  saveThemeToStorage(newTheme);
+  return newTheme;
+};
+
+export const setUpThemeForCustomImageBG = oldTheme => {
+  const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
+    image: true,
+    random: false,
     custom_url: oldTheme.bgInfo.custom_url
   });
   saveThemeToStorage(newTheme);
@@ -102,8 +112,8 @@ export const toggleRandomImageInGradientTheme = oldTheme => {
 
 export const setGradientThemeImageCustomUrl = (oldTheme, url) => {
   const newTheme = generateGradientTheme(oldTheme.color, oldTheme.colorMode, {
-    image: oldTheme.bgImage,
-    random: oldTheme.bgInfo.random,
+    image: true,
+    random: false,
     custom_url: url
   });
   saveThemeToStorage(newTheme);

@@ -42,7 +42,7 @@ function ColourSelector(props) {
                     toast({
                       title: 'Premium Required!',
                       description:
-                        'You need to sign for Premium to Access this feature',
+                        'You need to buy Premium to access this feature',
                       status: 'warning',
                       duration: 2000,
                       isClosable: true
