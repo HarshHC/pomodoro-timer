@@ -6,7 +6,12 @@ import firebase from 'firebase/app';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import Timer from './components/Timer';
-import { generateGradientTheme, PURPLE } from './Constants/themes';
+import {
+  changeGradientThemeColorTo,
+  generateGradientTheme,
+  PURPLE,
+  toggleBackgroundImageInGradientTheme
+} from './Constants/themes';
 import { checkIfUserIsPremium } from './Constants/firebaseUtils';
 
 function App() {
@@ -25,6 +30,11 @@ function App() {
       // talk to stripe check user subs
     } else {
       setIsPremium(false);
+      // disable all premium features here
+      if (timerTheme.bgImage) {
+        const newTheme = toggleBackgroundImageInGradientTheme(timerTheme);
+        setTimerTheme(newTheme);
+      }
     }
     return true;
   };
@@ -51,6 +61,8 @@ function App() {
           custom_url: storedTheme.bgInfo.custom_url
         })
       );
+    } else {
+      setTimerTheme(changeGradientThemeColorTo(timerTheme, PURPLE));
     }
   }, [colorMode, timerTheme.color]);
 

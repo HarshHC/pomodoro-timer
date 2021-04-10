@@ -7,7 +7,7 @@ import {
   useDisclosure,
   useToast
 } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   FONT_FAMILY,
   // setUpThemeForCustomImageBG,
@@ -29,15 +29,6 @@ function BackgroundOptions(props) {
       isClosable: true
     });
   };
-
-  useEffect(() => {
-    if (props.isPremium === false) {
-      if (props.theme.bgImage) {
-        const newTheme = toggleBackgroundImageInGradientTheme(props.theme);
-        props.setTheme(newTheme);
-      }
-    }
-  }, []);
 
   return (
     <Flex flexDir="column" flex="1" my="8">
