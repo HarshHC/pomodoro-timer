@@ -1,6 +1,6 @@
 import { loadStripe } from '@stripe/stripe-js';
 
-const SERVER_URL = 'http://localhost:4000';
+const SERVER_URL = 'https://pomotimer-server.herokuapp.com';
 
 export const createCheckoutSession = (priceId, currentUser) =>
   fetch(`${SERVER_URL}/create-checkout-session`, {
