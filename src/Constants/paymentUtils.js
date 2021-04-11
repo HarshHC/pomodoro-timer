@@ -1,7 +1,9 @@
 import { loadStripe } from '@stripe/stripe-js';
 
+const SERVER_URL = 'http://localhost:4000';
+
 export const createCheckoutSession = (priceId, currentUser) =>
-  fetch('http://localhost:4000/create-checkout-session', {
+  fetch(`${SERVER_URL}/create-checkout-session`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -9,8 +11,7 @@ export const createCheckoutSession = (priceId, currentUser) =>
     body: JSON.stringify({
       priceId,
       email: currentUser.email,
-      userID: currentUser.uid,
-      custID: 'cus_JHMxux7uBsIRCv'
+      userID: currentUser.uid
     })
   }).then(result => result.json());
 
@@ -19,7 +20,7 @@ const handleResult = result => {
 };
 
 export const openCustomerDashboard = () => {
-  fetch('http://localhost:4000/customer-portal', {
+  fetch(`${SERVER_URL}/customer-portal`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

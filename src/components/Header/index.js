@@ -6,7 +6,7 @@ import {
   useColorMode,
   useDisclosure
 } from '@chakra-ui/react';
-import { RiAccountCircleLine } from 'react-icons/ri';
+import { BsFillPersonFill } from 'react-icons/bs';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { IoMdBrush } from 'react-icons/io';
 import SideDrawer from './SideDrawer';
@@ -59,7 +59,7 @@ function Header(props) {
         />
         <IconButton
           color={colorMode === 'light' ? 'black' : 'white'}
-          icon={<RiAccountCircleLine />}
+          icon={<BsFillPersonFill />}
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastBg
             : {})}

@@ -110,7 +110,8 @@ function TodoItem(props) {
           align="center"
           justify="center"
           w={isOnmobile ? '10vw' : '40%'}
-          pr={isOnmobile ? '2' : '0px'}>
+          ml={isOnmobile ? '10' : '0px'}
+          pr={isOnmobile ? '10' : '0px'}>
           <DeleteIcon
             boxSize={isOnmobile ? '4' : '5'}
             m="8px"
