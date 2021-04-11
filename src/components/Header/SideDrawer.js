@@ -162,7 +162,9 @@ function SideDrawer(props) {
             </Text>
             <Button
               onClick={onOpen}
-              bg={props.isPremium && isUserSignedIn() ? '#FFD700' : 'blue'}
+              {...(props.isPremium && isUserSignedIn()
+                ? { bg: '#FFD700' }
+                : props.theme.styles.bg)}
               textColor={
                 props.isPremium && isUserSignedIn() ? 'black' : 'white'
               }
@@ -199,7 +201,14 @@ function SideDrawer(props) {
           {props.mode === 'THEME' ? themeDrawer : settingsDrawer}
         </DrawerOverlay>
       </Drawer>
-      <PremiumPopUp onClose={onClose} isOpen={isOpen} />
+      <PremiumPopUp
+        onClose={onClose}
+        isOpen={isOpen}
+        isUserSignedIn={isUserSignedIn}
+        isPremium={props.isPremium}
+        currentUser={currentUser}
+        theme={props.theme}
+      />
     </>
   );
 }

@@ -7,16 +7,29 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Radio,
   RadioGroup,
   Stack,
   Text,
-  Button
+  Button,
+  useToast,
+  Box
 } from '@chakra-ui/react';
 import { processPayment } from '../../Constants/paymentUtils';
 
 function PremiumPopUp(props) {
   const [value, setValue] = useState('1');
+  const toast = useToast();
+
+  const displayToast = () => {
+    toast({
+      title: 'Login required',
+      description: 'You need to be logged in to buy premium',
+      status: 'error',
+      duration: 9000,
+      isClosable: true
+    });
+  };
+
   return (
     <Modal
       blockScrollOnMount={false}
@@ -24,7 +37,7 @@ function PremiumPopUp(props) {
       onClose={props.onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Payment Plans</ModalHeader>
+        <ModalHeader>Premium Plans</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           {!props.isPremium || !props.isUserSignedIn() ? (
@@ -34,10 +47,21 @@ function PremiumPopUp(props) {
               fontWeight="bold"
               mb="1rem"
               fontSize="lg">
-              <Stack direction="column">
-                <Radio value="1">1 Month ~ €1</Radio>
-                <Radio value="2">6 Months ~ €5</Radio>
-                <Radio value="3">1 Year ~ €8</Radio>
+              <Box direction="inline" margin="20px">
+                <Text margin="2px">BackGround Images</Text>
+                <Text margin="2px"> Custom BackGround Images</Text>
+                <Text margin="2px">Diffent Colour Thems</Text>
+                <Text margin="2px">
+                  All the future features implemented ...
+                </Text>
+              </Box>
+              <Text>Select Plan</Text>
+              <Stack>
+                <Box flexDirection="inline">
+                  <Button value="1">Monthly ~ €1 p/ month</Button>
+                  <Button value="2">6 Months ~ €5 p/ month</Button>
+                  <Button value="3">1 Year ~ €8 p/ month</Button>
+                </Box>
               </Stack>
             </RadioGroup>
           ) : (
@@ -53,7 +77,13 @@ function PremiumPopUp(props) {
           </Button>
           <Button
             variant="ghost"
-            onClick={() => processPayment(props.currentUser, props.isPremium)}>
+            onClick={() => {
+              if (props.isUserSignedIn()) {
+                processPayment(props.currentUser, props.isPremium);
+              } else {
+                displayToast();
+              }
+            }}>
             {props.isPremium && props.isUserSignedIn() ? 'Dashboard' : 'Buy'}
           </Button>
         </ModalFooter>
