@@ -21,7 +21,8 @@ import {
   useDisclosure,
   Radio,
   RadioGroup,
-  Stack
+  Stack,
+  useToast
 } from '@chakra-ui/react';
 import firebase from 'firebase/app';
 import { MdAttachMoney } from 'react-icons/md';
@@ -40,6 +41,8 @@ function SideDrawer(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState('1');
 
+  const toast = useToast();
+
   const isUserSignedIn = () => {
     return currentUser != null;
   };
@@ -52,6 +55,16 @@ function SideDrawer(props) {
       }
     });
   }, []);
+
+  const displayToast = () => {
+    toast({
+      title: 'Login required',
+      description: 'You need to be logged in to buy premium',
+      status: 'error',
+      duration: 9000,
+      isClosable: true
+    });
+  };
 
   function signUserIn() {
     if (isOnmobile) {
@@ -173,7 +186,9 @@ function SideDrawer(props) {
             </Text>
             <Button
               onClick={onOpen}
-              bg={props.isPremium && isUserSignedIn() ? '#FFD700' : 'blue'}
+              {...(props.isPremium && isUserSignedIn()
+                ? { bg: '#FFD700' }
+                : props.theme.styles.bg)}
               textColor={
                 props.isPremium && isUserSignedIn() ? 'black' : 'white'
               }
@@ -239,7 +254,11 @@ function SideDrawer(props) {
             </Button>
             <Button
               variant="ghost"
-              onClick={() => processPayment(currentUser, props.isPremium)}>
+              onClick={() =>
+                isUserSignedIn()
+                  ? processPayment(currentUser, props.isPremium)
+                  : displayToast()
+              }>
               {props.isPremium && isUserSignedIn() ? 'Dashboard' : 'Buy'}
             </Button>
           </ModalFooter>
