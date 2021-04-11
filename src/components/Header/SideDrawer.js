@@ -232,15 +232,18 @@ function SideDrawer(props) {
           <ModalCloseButton />
           <ModalBody>
             {!props.isPremium || !isUserSignedIn() ? (
-              <Text fontWeight="bold" mb="1rem" fontSize="lg">
-                <RadioGroup onChange={setValue} value={value}>
-                  <Stack direction="column">
-                    <Radio value="1">1 Month ~ €1</Radio>
-                    <Radio value="2">6 Months ~ €5</Radio>
-                    <Radio value="3">1 Year ~ €8</Radio>
-                  </Stack>
-                </RadioGroup>
-              </Text>
+              <RadioGroup
+                onChange={setValue}
+                value={value}
+                fontWeight="bold"
+                mb="1rem"
+                fontSize="lg">
+                <Stack direction="column">
+                  <Radio value="1">1 Month ~ €1</Radio>
+                  <Radio value="2">6 Months ~ €5</Radio>
+                  <Radio value="3">1 Year ~ €8</Radio>
+                </Stack>
+              </RadioGroup>
             ) : (
               <Text fontWeight="bold" mb="1rem" fontSize="lg">
                 You have 30 days left as a premium member
