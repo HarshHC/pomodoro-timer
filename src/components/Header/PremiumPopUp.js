@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -15,11 +15,16 @@ import {
   Box
 } from '@chakra-ui/react';
 import { processPayment } from '../../Constants/paymentUtils';
+import { getUserData } from '../../Constants/firebaseUtils';
 
 function PremiumPopUp(props) {
   const [value, setValue] = useState('1');
+  const [userData, setUserData] = useState({});
   const toast = useToast();
 
+  const recieveUserData = data => {
+    setUserData(data);
+  };
   const displayToast = () => {
     toast({
       title: 'Login required',
@@ -30,6 +35,19 @@ function PremiumPopUp(props) {
     });
   };
 
+  const calculateDays = endDate => {
+    const currentTime = Date.now();
+    let difference = endDate - currentTime;
+    const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
+    return difference;
+  };
+
+  useEffect(() => {
+    if (props.currentUser) {
+      getUserData(props.currentUser, recieveUserData);
+    }
+  }, [props.currentUser]);
   return (
     <Modal
       blockScrollOnMount={false}
@@ -66,7 +84,8 @@ function PremiumPopUp(props) {
             </RadioGroup>
           ) : (
             <Text fontWeight="bold" mb="1rem" fontSize="lg">
-              You have 30 days left as a premium member
+              You have {calculateDays(userData.endDate)} days left as a premium
+              member
             </Text>
           )}
         </ModalBody>

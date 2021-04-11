@@ -161,13 +161,13 @@ function SideDrawer(props) {
                 : 'Hi User'}
             </Text>
             <Button
+              textColor={
+                props.isPremium && isUserSignedIn() ? 'black' : 'white'
+              }
               onClick={onOpen}
               {...(props.isPremium && isUserSignedIn()
                 ? { bg: '#FFD700' }
                 : props.theme.styles.bg)}
-              textColor={
-                props.isPremium && isUserSignedIn() ? 'black' : 'white'
-              }
               leftIcon={
                 props.isPremium && isUserSignedIn() ? (
                   <StarIcon />
