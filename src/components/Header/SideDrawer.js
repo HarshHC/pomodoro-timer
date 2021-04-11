@@ -10,19 +10,8 @@ import {
   DrawerOverlay,
   Flex,
   Text,
-  useMediaQuery,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  Radio,
-  RadioGroup,
-  Stack,
-  useToast
+  useMediaQuery
 } from '@chakra-ui/react';
 import firebase from 'firebase/app';
 import { MdAttachMoney } from 'react-icons/md';
@@ -32,16 +21,13 @@ import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
 import { provider } from '../../Constants/firebase';
 import { checkIfUserAlreadyExists } from '../../Constants/firebaseUtils';
-import { processPayment } from '../../Constants/paymentUtils';
+import PremiumPopUp from './PremiumPopUp';
 
 function SideDrawer(props) {
   const [btnText, setBtnText] = useState('SIGN IN');
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentUser, setCurrentUser] = useState(null);
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [value, setValue] = useState('1');
-
-  const toast = useToast();
 
   const isUserSignedIn = () => {
     return currentUser != null;
@@ -55,16 +41,6 @@ function SideDrawer(props) {
       }
     });
   }, []);
-
-  const displayToast = () => {
-    toast({
-      title: 'Login required',
-      description: 'You need to be logged in to buy premium',
-      status: 'error',
-      duration: 9000,
-      isClosable: true
-    });
-  };
 
   function signUserIn() {
     if (isOnmobile) {
@@ -207,7 +183,7 @@ function SideDrawer(props) {
       </DrawerBody>
 
       <DrawerFooter>
-        <Button letiant="outline" mr={3} onClick={props.onClose}>
+        <Button letiant="outline" mr={3} onClick={onClose}>
           Close
         </Button>
       </DrawerFooter>
@@ -225,48 +201,14 @@ function SideDrawer(props) {
           {props.mode === 'THEME' ? themeDrawer : settingsDrawer}
         </DrawerOverlay>
       </Drawer>
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Payment Plans</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {!props.isPremium || !isUserSignedIn() ? (
-              <RadioGroup
-                onChange={setValue}
-                value={value}
-                fontWeight="bold"
-                mb="1rem"
-                fontSize="lg">
-                <Stack direction="column">
-                  <Radio value="1">1 Month ~ €1</Radio>
-                  <Radio value="2">6 Months ~ €5</Radio>
-                  <Radio value="3">1 Year ~ €8</Radio>
-                </Stack>
-              </RadioGroup>
-            ) : (
-              <Text fontWeight="bold" mb="1rem" fontSize="lg">
-                You have 30 days left as a premium member
-              </Text>
-            )}
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={() =>
-                isUserSignedIn()
-                  ? processPayment(currentUser, props.isPremium)
-                  : displayToast()
-              }>
-              {props.isPremium && isUserSignedIn() ? 'Dashboard' : 'Buy'}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <PremiumPopUp
+        onClose={onClose}
+        isOpen={isOpen}
+        isUserSignedIn={isUserSignedIn}
+        isPremium={props.isPremium}
+        currentUser={currentUser}
+        theme={props.theme}
+      />
     </>
   );
 }
