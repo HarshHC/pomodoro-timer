@@ -40,6 +40,12 @@ function App() {
     return true;
   };
 
+  // const recieveUserData = userData => {
+  //   if (userData) {
+  //     console.log(userData);
+  //   }
+  // };
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       setCurrentUser(user);
@@ -48,6 +54,7 @@ function App() {
       }
       if (user != null) {
         checkIfUserIsPremium(user, isUserPremium);
+        //  getUserData(user, recieveUserData);
       }
     });
   }, []);

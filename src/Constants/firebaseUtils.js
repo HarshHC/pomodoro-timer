@@ -48,3 +48,37 @@ export const checkIfUserIsPremium = (user, validationFunction) => {
       console.log('Error getting document:', error);
     });
 };
+export const getPremiumUserData = (userData, callBackFunction) => {
+  const docRef = db.collection('premium').doc(userData.custID);
+
+  docRef
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+        callBackFunction(doc.data(), userData);
+      }
+    })
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
+};
+
+export const getUserData = (user, callBackFunction) => {
+  const premiumCallBack = (premiumData, userData) => {
+    callBackFunction({ ...userData, ...premiumData });
+  };
+  const docRef = db.collection('users').doc(user.uid);
+
+  docRef
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+        getPremiumUserData(doc.data(), premiumCallBack);
+      }
+    })
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
+};
