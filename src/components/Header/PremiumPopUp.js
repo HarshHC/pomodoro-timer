@@ -36,11 +36,19 @@ function PremiumPopUp(props) {
   };
 
   const calculateDays = endDate => {
-    const currentTime = Date.now();
-    let difference = endDate - currentTime;
-    const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24;
-    return difference;
+    const currentTime = Math.floor(Date.now() / 1000);
+    const difference = endDate - currentTime;
+
+    const daysDifference = Math.floor(difference / 60 / 60 / 24);
+    return daysDifference;
+  };
+
+  const calculateHours = endDate => {
+    const currentTime = Math.floor(Date.now() / 1000);
+    const difference = endDate - currentTime;
+
+    const hoursDiff = Math.floor((difference / 60 / 60) % 24);
+    return hoursDiff;
   };
 
   useEffect(() => {
@@ -84,7 +92,8 @@ function PremiumPopUp(props) {
             </RadioGroup>
           ) : (
             <Text fontWeight="bold" mb="1rem" fontSize="lg">
-              You have {calculateDays(userData.endDate)} days left as a premium
+              You have {calculateDays(userData.endDate)} days and
+              {` ${calculateHours(userData.endDate)}`} hours left as a premium
               member
             </Text>
           )}
