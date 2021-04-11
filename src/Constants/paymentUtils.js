@@ -38,18 +38,17 @@ export const openCustomerDashboard = () => {
     });
 };
 
-export const processPayment = async (currentUser, isUserPremium) => {
+export const processPayment = async (currentUser, isUserPremium, priceID) => {
   if (isUserPremium) {
     openCustomerDashboard();
     return;
   }
 
-  const PRICE_ID = 'price_1Idbl2HDIe5YOLPEOenqpsQa';
   const stripe = await loadStripe(
-    'pk_test_51Ia4N7HDIe5YOLPEPy2Zz3ymAbBKYiTDNKTAHJZ0kWEYHORd3ISIa2qVfuNbsRa71mbbbcNlNsqR4YZGuZoKOsYR00wJTCYWeO'
+    'pk_live_51If6aMCis0IADyYOnEtT1mDXRRWTiE4TJTZ5kupPDFdtMMCTh2i6qoNQxaP9vvSyXvbqI7d4TPP6JaNDGwtxPLNN00qFmI9v9K'
   );
 
-  createCheckoutSession(PRICE_ID, currentUser).then(data => {
+  createCheckoutSession(priceID, currentUser).then(data => {
     // Call Stripe.js method to redirect to the new Checkout page
     stripe
       .redirectToCheckout({

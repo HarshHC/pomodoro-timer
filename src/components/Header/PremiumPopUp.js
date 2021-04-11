@@ -12,7 +12,8 @@ import {
   Text,
   Button,
   useToast,
-  Box
+  Box,
+  Flex
 } from '@chakra-ui/react';
 import { processPayment } from '../../Constants/paymentUtils';
 import { getUserData } from '../../Constants/firebaseUtils';
@@ -52,10 +53,10 @@ function PremiumPopUp(props) {
   };
 
   useEffect(() => {
-    if (props.currentUser) {
+    if (props.currentUser && props.isPremium && props.isOpen) {
       getUserData(props.currentUser, recieveUserData);
     }
-  }, [props.currentUser]);
+  }, [props.currentUser, props.isPremium, props.isOpen]);
   return (
     <Modal
       blockScrollOnMount={false}
@@ -83,11 +84,44 @@ function PremiumPopUp(props) {
               </Box>
               <Text>Select Plan</Text>
               <Stack>
-                <Box flexDirection="inline">
-                  <Button value="1">Monthly ~ €1 p/ month</Button>
-                  <Button value="2">6 Months ~ €5 p/ month</Button>
-                  <Button value="3">1 Year ~ €8 p/ month</Button>
-                </Box>
+                <Flex flexDirection="row" my="4">
+                  <Button
+                    m="2"
+                    value="1"
+                    onClick={() =>
+                      processPayment(
+                        props.currentUser,
+                        props.isPremium,
+                        'price_1If783Cis0IADyYOpyOyp5Hn'
+                      )
+                    }>
+                    Monthly ~ €1
+                  </Button>
+                  <Button
+                    m="2"
+                    value="2"
+                    onClick={() =>
+                      processPayment(
+                        props.currentUser,
+                        props.isPremium,
+                        'price_1If7AkCis0IADyYOvgdg8lHH'
+                      )
+                    }>
+                    6 Months ~ €5{' '}
+                  </Button>
+                  <Button
+                    m="2"
+                    value="3"
+                    onClick={() =>
+                      processPayment(
+                        props.currentUser,
+                        props.isPremium,
+                        'price_1If7COCis0IADyYOQlHgwn9i'
+                      )
+                    }>
+                    1 Year ~ €8
+                  </Button>
+                </Flex>
               </Stack>
             </RadioGroup>
           ) : (
@@ -100,20 +134,21 @@ function PremiumPopUp(props) {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={props.onClose}>
-            Close
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => {
-              if (props.isUserSignedIn()) {
-                processPayment(props.currentUser, props.isPremium);
-              } else {
-                displayToast();
-              }
-            }}>
-            {props.isPremium && props.isUserSignedIn() ? 'Dashboard' : 'Buy'}
-          </Button>
+          {props.isPremium && props.isUserSignedIn() ? (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                if (props.isUserSignedIn()) {
+                  processPayment(props.currentUser, props.isPremium);
+                } else {
+                  displayToast();
+                }
+              }}>
+              {props.isPremium && props.isUserSignedIn() ? 'Dashboard' : 'Buy'}
+            </Button>
+          ) : (
+            ''
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>
