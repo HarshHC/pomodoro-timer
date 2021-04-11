@@ -220,15 +220,15 @@ function SideDrawer(props) {
               <Text fontWeight="bold" mb="1rem" fontSize="lg">
                 <RadioGroup onChange={setValue} value={value}>
                   <Stack direction="column">
-                    <Radio value="1">1 Month</Radio>
-                    <Radio value="2">6 Months</Radio>
-                    <Radio value="3">1 Year</Radio>
+                    <Radio value="1">1 Month ~ €1</Radio>
+                    <Radio value="2">6 Months ~ €5</Radio>
+                    <Radio value="3">1 Year ~ €8</Radio>
                   </Stack>
                 </RadioGroup>
               </Text>
             ) : (
               <Text fontWeight="bold" mb="1rem" fontSize="lg">
-                You have 10 days left as a premium member
+                You have 30 days left as a premium member
               </Text>
             )}
           </ModalBody>
@@ -240,7 +240,7 @@ function SideDrawer(props) {
             <Button
               variant="ghost"
               onClick={() => processPayment(currentUser, props.isPremium)}>
-              Buy
+              {props.isPremium && isUserSignedIn() ? 'Dashboard' : 'Buy'}
             </Button>
           </ModalFooter>
         </ModalContent>
