@@ -34,8 +34,8 @@ export const openCustomerDashboard = customerID => {
     .then(data => {
       window.location.href = data.url;
     })
-    .catch(error => {
-      console.error('Error:', error);
+    .catch(() => {
+      // console.error('Error:', error);
     });
 };
 
@@ -45,9 +45,7 @@ export const processPayment = async (currentUser, priceID, custID) => {
   //     return;
   //   }
 
-  const stripe = await loadStripe(
-    'pk_live_51If6aMCis0IADyYOnEtT1mDXRRWTiE4TJTZ5kupPDFdtMMCTh2i6qoNQxaP9vvSyXvbqI7d4TPP6JaNDGwtxPLNN00qFmI9v9K'
-  );
+  const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
   createCheckoutSession(priceID, custID, currentUser).then(data => {
     // Call Stripe.js method to redirect to the new Checkout page
