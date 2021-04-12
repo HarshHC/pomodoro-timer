@@ -15,8 +15,14 @@ import {
   Box,
   Flex
 } from '@chakra-ui/react';
-import { processPayment } from '../../Constants/paymentUtils';
-import { getUserData } from '../../Constants/firebaseUtils';
+import {
+  openCustomerDashboard,
+  processPayment
+} from '../../Constants/paymentUtils';
+import {
+  getUserData,
+  getUserDataWithPriceID
+} from '../../Constants/firebaseUtils';
 
 function PremiumPopUp(props) {
   const [value, setValue] = useState('1');
@@ -34,6 +40,16 @@ function PremiumPopUp(props) {
       duration: 9000,
       isClosable: true
     });
+  };
+
+  const recieveUserDataForCustomerPortal = data => {
+    setUserData(data);
+    openCustomerDashboard(data.custID);
+  };
+
+  const recieveUserDataForPaymentSession = data => {
+    setUserData(data);
+    processPayment(props.currentUser, props.priceID, data.custID);
   };
 
   const calculateDays = endDate => {
@@ -88,37 +104,37 @@ function PremiumPopUp(props) {
                   <Button
                     m="2"
                     value="1"
-                    onClick={() =>
-                      processPayment(
+                    onClick={() => {
+                      getUserDataWithPriceID(
                         props.currentUser,
-                        props.isPremium,
+                        recieveUserDataForPaymentSession,
                         'price_1If783Cis0IADyYOpyOyp5Hn'
-                      )
-                    }>
+                      );
+                    }}>
                     Monthly ~ €1
                   </Button>
                   <Button
                     m="2"
                     value="2"
-                    onClick={() =>
-                      processPayment(
+                    onClick={() => {
+                      getUserDataWithPriceID(
                         props.currentUser,
-                        props.isPremium,
+                        recieveUserDataForPaymentSession,
                         'price_1If7AkCis0IADyYOvgdg8lHH'
-                      )
-                    }>
+                      );
+                    }}>
                     6 Months ~ €5{' '}
                   </Button>
                   <Button
                     m="2"
                     value="3"
-                    onClick={() =>
-                      processPayment(
+                    onClick={() => {
+                      getUserDataWithPriceID(
                         props.currentUser,
-                        props.isPremium,
+                        recieveUserDataForPaymentSession,
                         'price_1If7COCis0IADyYOQlHgwn9i'
-                      )
-                    }>
+                      );
+                    }}>
                     1 Year ~ €8
                   </Button>
                 </Flex>
@@ -138,8 +154,13 @@ function PremiumPopUp(props) {
             <Button
               variant="ghost"
               onClick={() => {
-                if (props.isUserSignedIn()) {
-                  processPayment(props.currentUser, props.isPremium);
+                if (props.isUserSignedIn() && props.isPremium) {
+                  if (props.isPremium) {
+                    getUserData(
+                      props.currentUser,
+                      recieveUserDataForCustomerPortal
+                    );
+                  }
                 } else {
                   displayToast();
                 }

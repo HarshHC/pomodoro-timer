@@ -2,7 +2,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const SERVER_URL = 'https://pomotimer-server.herokuapp.com';
 
-export const createCheckoutSession = (priceId, currentUser) =>
+export const createCheckoutSession = (priceId, custID, currentUser) =>
   fetch(`${SERVER_URL}/create-checkout-session`, {
     method: 'POST',
     headers: {
@@ -11,7 +11,8 @@ export const createCheckoutSession = (priceId, currentUser) =>
     body: JSON.stringify({
       priceId,
       email: currentUser.email,
-      userID: currentUser.uid
+      userID: currentUser.uid,
+      custID
     })
   }).then(result => result.json());
 
@@ -19,14 +20,14 @@ const handleResult = result => {
   console.log(result);
 };
 
-export const openCustomerDashboard = () => {
+export const openCustomerDashboard = customerID => {
   fetch(`${SERVER_URL}/customer-portal`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      custID: 'cus_JHMxux7uBsIRCv'
+      custID: customerID
     })
   })
     .then(response => response.json())
@@ -38,17 +39,17 @@ export const openCustomerDashboard = () => {
     });
 };
 
-export const processPayment = async (currentUser, isUserPremium, priceID) => {
-  if (isUserPremium) {
-    openCustomerDashboard();
-    return;
-  }
+export const processPayment = async (currentUser, priceID, custID) => {
+  //   if (isUserPremium) {
+  //     openCustomerDashboard();
+  //     return;
+  //   }
 
   const stripe = await loadStripe(
     'pk_live_51If6aMCis0IADyYOnEtT1mDXRRWTiE4TJTZ5kupPDFdtMMCTh2i6qoNQxaP9vvSyXvbqI7d4TPP6JaNDGwtxPLNN00qFmI9v9K'
   );
 
-  createCheckoutSession(priceID, currentUser).then(data => {
+  createCheckoutSession(priceID, custID, currentUser).then(data => {
     // Call Stripe.js method to redirect to the new Checkout page
     stripe
       .redirectToCheckout({

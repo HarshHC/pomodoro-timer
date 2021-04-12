@@ -82,3 +82,22 @@ export const getUserData = (user, callBackFunction) => {
       console.log('Error getting document:', error);
     });
 };
+
+export const getUserDataWithPriceID = (user, callBackFunction, priceID) => {
+  const premiumCallBack = (premiumData, userData) => {
+    callBackFunction({ ...userData, ...premiumData, priceID });
+  };
+  const docRef = db.collection('users').doc(user.uid);
+
+  docRef
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+        getPremiumUserData(doc.data(), premiumCallBack);
+      }
+    })
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
+};
