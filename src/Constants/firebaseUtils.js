@@ -8,7 +8,7 @@ export const createUserInDB = user => {
       isPremium: false
     })
     .then(() => {
-      console.log('Document successfully written!');
+      //  console.log('Document successfully written!');
     })
     .catch(error => {
       console.error('Error writing document: ', error);
@@ -55,7 +55,7 @@ export const getPremiumUserData = (userData, callBackFunction) => {
     .get()
     .then(doc => {
       if (doc.exists) {
-        console.log('Document data:', doc.data());
+        // console.log('Document data:', doc.data());
         callBackFunction(doc.data(), userData);
       }
     })
@@ -74,7 +74,7 @@ export const getUserData = (user, callBackFunction) => {
     .get()
     .then(doc => {
       if (doc.exists) {
-        console.log('Document data:', doc.data());
+        // console.log('Document data:', doc.data());
         getPremiumUserData(doc.data(), premiumCallBack);
       }
     })
@@ -93,7 +93,7 @@ export const getUserDataWithPriceID = (user, callBackFunction, priceID) => {
     .get()
     .then(doc => {
       if (doc.exists) {
-        console.log('Document data:', doc.data());
+        // console.log('Document data:', doc.data());
         getPremiumUserData(doc.data(), premiumCallBack);
       }
     })

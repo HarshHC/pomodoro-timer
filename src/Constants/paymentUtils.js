@@ -17,7 +17,7 @@ export const createCheckoutSession = (priceId, custID, currentUser) =>
   }).then(result => result.json());
 
 const handleResult = result => {
-  console.log(result);
+  // console.log(result);
 };
 
 export const openCustomerDashboard = customerID => {
@@ -51,6 +51,7 @@ export const processPayment = async (currentUser, priceID, custID) => {
 
   createCheckoutSession(priceID, custID, currentUser).then(data => {
     // Call Stripe.js method to redirect to the new Checkout page
+
     stripe
       .redirectToCheckout({
         sessionId: data.sessionId

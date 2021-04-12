@@ -49,7 +49,7 @@ function PremiumPopUp(props) {
 
   const recieveUserDataForPaymentSession = data => {
     setUserData(data);
-    processPayment(props.currentUser, props.priceID, data.custID);
+    processPayment(props.currentUser, data.priceID, data.custID);
   };
 
   const calculateDays = endDate => {
