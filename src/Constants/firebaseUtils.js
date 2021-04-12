@@ -57,6 +57,8 @@ export const getPremiumUserData = (userData, callBackFunction) => {
       if (doc.exists) {
         // console.log('Document data:', doc.data());
         callBackFunction(doc.data(), userData);
+      } else {
+        callBackFunction({}, userData);
       }
     })
     .catch(error => {
@@ -87,6 +89,7 @@ export const getUserDataWithPriceID = (user, callBackFunction, priceID) => {
   const premiumCallBack = (premiumData, userData) => {
     callBackFunction({ ...userData, ...premiumData, priceID });
   };
+  // console.log('herenow');
   const docRef = db.collection('users').doc(user.uid);
 
   docRef

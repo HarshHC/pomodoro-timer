@@ -2,8 +2,9 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const SERVER_URL = 'https://pomotimer-server.herokuapp.com';
 
-export const createCheckoutSession = (priceId, custID, currentUser) =>
-  fetch(`${SERVER_URL}/create-checkout-session`, {
+export const createCheckoutSession = (priceId, custID, currentUser) => {
+  console.log(custID);
+  return fetch(`${SERVER_URL}/create-checkout-session`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -12,9 +13,10 @@ export const createCheckoutSession = (priceId, custID, currentUser) =>
       priceId,
       email: currentUser.email,
       userID: currentUser.uid,
-      custID
+      custID: custID || undefined
     })
   }).then(result => result.json());
+};
 
 const handleResult = () => {
   // console.log(result);
@@ -34,8 +36,8 @@ export const openCustomerDashboard = customerID => {
     .then(data => {
       window.location.href = data.url;
     })
-    .catch(() => {
-      // console.error('Error:', error);
+    .catch(error => {
+      console.error('Error:', error);
     });
 };
 

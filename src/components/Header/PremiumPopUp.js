@@ -48,6 +48,7 @@ function PremiumPopUp(props) {
   };
 
   const recieveUserDataForPaymentSession = data => {
+    // console.log('yaha bhi aya hai');
     setUserData(data);
     processPayment(props.currentUser, data.priceID, data.custID);
   };
