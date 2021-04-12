@@ -16,7 +16,7 @@ export const createCheckoutSession = (priceId, custID, currentUser) =>
     })
   }).then(result => result.json());
 
-const handleResult = result => {
+const handleResult = () => {
   // console.log(result);
 };
 
