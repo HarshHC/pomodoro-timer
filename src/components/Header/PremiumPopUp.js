@@ -13,7 +13,8 @@ import {
   Button,
   useToast,
   Box,
-  Flex
+  Flex,
+  Spinner
 } from '@chakra-ui/react';
 import {
   openCustomerDashboard,
@@ -27,6 +28,7 @@ import {
 function PremiumPopUp(props) {
   const [value, setValue] = useState('1');
   const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
   const recieveUserData = data => {
@@ -48,7 +50,7 @@ function PremiumPopUp(props) {
   };
 
   const recieveUserDataForPaymentSession = data => {
-    // console.log('yaha bhi aya hai');
+    setIsLoading(true);
     setUserData(data);
     processPayment(props.currentUser, data.priceID, data.custID);
   };
@@ -101,44 +103,70 @@ function PremiumPopUp(props) {
               </Box>
               <Text>Select Plan</Text>
               <Stack>
-                <Flex flexDirection="row" my="4">
-                  <Button
-                    m="2"
-                    value="1"
-                    onClick={() => {
-                      getUserDataWithPriceID(
-                        props.currentUser,
-                        recieveUserDataForPaymentSession,
-                        'price_1If783Cis0IADyYOpyOyp5Hn'
-                      );
-                    }}>
-                    Monthly ~ €1
-                  </Button>
-                  <Button
-                    m="2"
-                    value="2"
-                    onClick={() => {
-                      getUserDataWithPriceID(
-                        props.currentUser,
-                        recieveUserDataForPaymentSession,
-                        'price_1If7AkCis0IADyYOvgdg8lHH'
-                      );
-                    }}>
-                    6 Months ~ €5{' '}
-                  </Button>
-                  <Button
-                    m="2"
-                    value="3"
-                    onClick={() => {
-                      getUserDataWithPriceID(
-                        props.currentUser,
-                        recieveUserDataForPaymentSession,
-                        'price_1If7COCis0IADyYOQlHgwn9i'
-                      );
-                    }}>
-                    1 Year ~ €8
-                  </Button>
-                </Flex>
+                {isLoading ? (
+                  <Flex m="2" alignItems="center" justifyContent="center">
+                    <Spinner
+                      thickness="4px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      color="blue.500"
+                      size="xl"
+                      m="2"
+                    />
+                    Loading...
+                  </Flex>
+                ) : (
+                  <Flex flexDirection="row" my="4">
+                    <Button
+                      m="2"
+                      value="1"
+                      onClick={() => {
+                        if (props.isUserSignedIn()) {
+                          getUserDataWithPriceID(
+                            props.currentUser,
+                            recieveUserDataForPaymentSession,
+                            'price_1If783Cis0IADyYOpyOyp5Hn'
+                          );
+                        } else {
+                          displayToast();
+                        }
+                      }}>
+                      Monthly ~ €1
+                    </Button>
+                    <Button
+                      m="2"
+                      value="2"
+                      onClick={() => {
+                        if (props.isUserSignedIn()) {
+                          getUserDataWithPriceID(
+                            props.currentUser,
+                            recieveUserDataForPaymentSession,
+                            'price_1If7AkCis0IADyYOvgdg8lHH'
+                          );
+                        } else {
+                          displayToast();
+                        }
+                      }}>
+                      6 Months ~ €5{' '}
+                    </Button>
+                    <Button
+                      m="2"
+                      value="3"
+                      onClick={() => {
+                        if (props.isUserSignedIn()) {
+                          getUserDataWithPriceID(
+                            props.currentUser,
+                            recieveUserDataForPaymentSession,
+                            'price_1If7COCis0IADyYOQlHgwn9i'
+                          );
+                        } else {
+                          displayToast();
+                        }
+                      }}>
+                      1 Year ~ €8
+                    </Button>
+                  </Flex>
+                )}
               </Stack>
             </RadioGroup>
           ) : (
@@ -156,12 +184,10 @@ function PremiumPopUp(props) {
               variant="ghost"
               onClick={() => {
                 if (props.isUserSignedIn() && props.isPremium) {
-                  if (props.isPremium) {
-                    getUserData(
-                      props.currentUser,
-                      recieveUserDataForCustomerPortal
-                    );
-                  }
+                  getUserData(
+                    props.currentUser,
+                    recieveUserDataForCustomerPortal
+                  );
                 } else {
                   displayToast();
                 }

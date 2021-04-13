@@ -41,7 +41,9 @@ export const createNotification = data => {
 };
 
 export const requestNotificationPermission = () => {
-  Notification.requestPermission();
+  Notification.requestPermission().then(() => {
+    // console.log(result);
+  });
 };
 
 export const isPermissionGranted = () => {
