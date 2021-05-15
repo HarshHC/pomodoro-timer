@@ -115,6 +115,16 @@ function RunningTimer(props) {
           // check the mode
           interval = startTimer(props.breakMins);
         }
+      } else if (props.oldMode !== props.mode) {
+        //  if timer is running and we switch mode
+        props.setOldMode(props.mode);
+        if (props.mode === SESSION) {
+          // check the mode
+          interval = startTimer(props.sessionMins);
+        } else if (props.mode === BREAK) {
+          // check the mode
+          interval = startTimer(props.breakMins);
+        }
       } else {
         //  if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
         interval = startTimer((updatedTime + 1) / 60);
@@ -125,11 +135,11 @@ function RunningTimer(props) {
 
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
-      <Container h="100%" bg="transparent" centerContent>
+      <Container flex="1" h="100%" bg="transparent" centerContent>
         <Text
           m="5"
-          fontSize="4xl"
-          letterSpacing="wide"
+          fontSize="3xl"
+          letterSpacing="normal"
           {...props.theme.styles.bgNoHover}
           textShadow={
             props.theme.colorMode === 'dark' && props.theme.bgImage
@@ -146,7 +156,7 @@ function RunningTimer(props) {
           {...(props.theme.bgImage
             ? props.theme.styles.imageModeContrastText
             : {})}
-          letterSpacing="wide"
+          letterSpacing="normal"
           fontSize="100px">
           {seconds < 10 ? `${mins}:0${seconds}` : `${mins}:${seconds}`}
         </Text>

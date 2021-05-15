@@ -64,7 +64,7 @@ export const generateGradientTheme = (
   return theme;
 };
 
-export const FONT_FAMILY = 'Teko, sans-serif';
+export const FONT_FAMILY = 'Secular One, sans-serif';
 
 export const saveThemeToStorage = newTheme => {
   window.localStorage.setItem('timer-theme', JSON.stringify(newTheme));

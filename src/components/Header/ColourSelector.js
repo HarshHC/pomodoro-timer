@@ -17,14 +17,14 @@ function ColourSelector(props) {
   return (
     <Flex flexDir="column" flex="1">
       <Text
-        letterSpacing="wide"
+        letterSpacing="normal"
         fontFamily={FONT_FAMILY}
         fontSize="xl"
-        ml="3"
+        mt="3"
         fontWeight="800">
         Colours
       </Text>
-      <Flex mt="4" maxW="40vw" flexWrap="wrap">
+      <Flex mt="2" maxW="40vw" flexWrap="wrap">
         {themesList.map((item, i) => {
           return (
             <Tooltip label={item.name.toUpperCase()} key={uuid()}>

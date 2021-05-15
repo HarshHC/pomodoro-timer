@@ -79,6 +79,7 @@ function App() {
       <Header
         theme={timerTheme}
         setTheme={setTimerTheme}
+        currentUser={currentUser}
         isPremium={isPremium}
       />
       <Timer theme={timerTheme} />

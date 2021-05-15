@@ -1,3 +1,4 @@
+import { RepeatIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -11,10 +12,11 @@ import {
   PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  useDisclosure
+  useDisclosure,
+  IconButton
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { SESSION } from '../../Constants/modes';
+import { BREAK, SESSION } from '../../Constants/modes';
 import { FONT_FAMILY } from '../../Constants/themes';
 import {
   isPermissionGranted,
@@ -28,6 +30,7 @@ function Timer(props) {
   const [breakMins, setBreakMins] = useState(10);
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState(SESSION);
+  const [oldMode, setOldMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
   const [updatedStart, setUpdatedStart] = useState(false);
   const initialFocusRef = React.useRef();
@@ -74,6 +77,8 @@ function Timer(props) {
         breakMins={breakMins}
         setUpdatedStart={setUpdatedStart}
         updatedStart={updatedStart}
+        oldMode={oldMode}
+        setOldMode={setOldMode}
       />
     );
   } else {
@@ -113,7 +118,7 @@ function Timer(props) {
         <Button
           {...props.theme.styles.bg}
           fontSize="2xl"
-          letterSpacing="wider"
+          letterSpacing="normal"
           p="6">
           {started ? 'STOP' : 'START'}
         </Button>
@@ -122,14 +127,14 @@ function Timer(props) {
         <PopoverHeader
           pt={4}
           fontSize="2xl"
-          letterSpacing="wide"
+          letterSpacing="normal"
           fontWeight="bold"
           border="0">
           Notification Request
         </PopoverHeader>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverBody fontSize="lg" letterSpacing="wide">
+        <PopoverBody fontSize="lg" letterSpacing="normal">
           Would you like to receive Notifications when the session ends?
         </PopoverBody>
         <PopoverFooter
@@ -163,7 +168,7 @@ function Timer(props) {
       rounded="xl"
       boxShadow="dark-lg"
       fontFamily={FONT_FAMILY}
-      letterSpacing="wide"
+      letterSpacing="normal"
       p="2"
       {...(props.theme.bgImage ? props.theme.styles.imageModeContrastBg : {})}>
       <Flex
@@ -171,16 +176,34 @@ function Timer(props) {
         h="100%"
         justify="center"
         align="center"
+        pos="relative"
         flexDir="column">
+        {started ? (
+          <IconButton
+            pos="absolute"
+            top="0"
+            right="0"
+            m="4"
+            icon={<RepeatIcon />}
+            onClick={() => {
+              setMode(mode === SESSION ? BREAK : SESSION);
+              // alert(mode);
+            }}
+          />
+        ) : (
+          <div />
+        )}
+
         <Center>{displayedTimer}</Center>
-        <Flex m="4" justify="center" align="center">
+        <Flex mt="2" justify="center" align="center">
           <Center m="20px">
             {isPermissionGranted() ? (
               <Button
                 {...props.theme.styles.bg}
-                fontSize="2xl"
-                letterSpacing="wider"
+                fontSize="xl"
+                letterSpacing="normal"
                 p="6"
+                w={started ? 'max-content' : '200px'}
                 onClick={startClicked}>
                 {started ? 'STOP' : 'START'}
               </Button>
@@ -193,8 +216,8 @@ function Timer(props) {
             <Center>
               <Button
                 {...props.theme.styles.bg}
-                fontSize="2xl"
-                letterSpacing="wider"
+                fontSize="xl"
+                letterSpacing="normal"
                 p="6"
                 onClick={() => setIsRunning(!isRunning)}>
                 {isRunning ? 'PAUSE' : 'RESUME'}

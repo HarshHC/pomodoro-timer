@@ -31,8 +31,8 @@ function TodoForm(props) {
         {...props.theme.styles.bgNoHover}
         bg="transparent"
         border="2px"
-        fontSize="xl"
-        letterSpacing="wide"
+        fontSize="lg"
+        letterSpacing="normal"
         borderRadius="4px 0 0 4px"
         p="10px 12px 10px 12px"
         borderColor={props.theme.startColor}
@@ -57,8 +57,8 @@ function TodoForm(props) {
         w="30%"
         border="2px"
         py="12px"
-        fontSize="lg"
-        letterSpacing="wide"
+        fontSize="md"
+        letterSpacing="normal"
         borderRadius="0 4px 4px 0"
         textAlign="center"
         {...props.theme.styles.bg}

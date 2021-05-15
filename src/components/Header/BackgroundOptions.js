@@ -33,15 +33,14 @@ function BackgroundOptions(props) {
   return (
     <Flex flexDir="column" flex="1" my="8">
       <Text
-        letterSpacing="wide"
+        letterSpacing="normal"
         fontFamily={FONT_FAMILY}
         fontSize="xl"
-        ml="3"
         fontWeight="800">
         Background
       </Text>
       <Flex m="2" flexDir="column">
-        <Flex m="2" w="90%" justify="space-between" align="center">
+        <Flex my="2" w="90%" justify="space-between" align="center">
           {props.isPremium ? (
             ''
           ) : (
@@ -54,8 +53,8 @@ function BackgroundOptions(props) {
           )}
           <Text
             fontFamily={FONT_FAMILY}
-            fontSize="xl"
-            letterSpacing="wide"
+            fontSize="md"
+            letterSpacing="normal"
             width="70%"
             mr="4"
             onClick={props.isPremium ? () => {} : showPremiumRequiredMsg}>
@@ -74,7 +73,7 @@ function BackgroundOptions(props) {
             }}
           />
         </Flex>
-        <Flex m="2" w="90%" justify="space-between">
+        <Flex my="2" w="90%" justify="space-between">
           {props.isPremium ? (
             ''
           ) : (
@@ -87,8 +86,8 @@ function BackgroundOptions(props) {
           )}
           <Text
             fontFamily={FONT_FAMILY}
-            fontSize="xl"
-            letterSpacing="wide"
+            fontSize="md"
+            letterSpacing="normal"
             width="70%"
             mr="4"
             onClick={props.isPremium ? () => {} : showPremiumRequiredMsg}>
@@ -113,8 +112,8 @@ function BackgroundOptions(props) {
           w="40%"
           p="6"
           fontFamily={FONT_FAMILY}
-          fontSize="xl"
-          letterSpacing="wider"
+          fontSize="md"
+          letterSpacing="normal"
           leftIcon={<Search2Icon />}
           onClick={
             props.isPremium

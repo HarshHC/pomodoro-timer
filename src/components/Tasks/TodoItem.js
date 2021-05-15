@@ -35,8 +35,8 @@ function TodoItem(props) {
       w={isOnmobile ? '42vw' : '100%'}
       borderRadius="4px"
       p={isOnmobile ? '2' : '4'}
-      fontSize="xl"
-      letterSpacing="wider"
+      fontSize="lg"
+      letterSpacing="normal"
       fontFamily={FONT_FAMILY}
       my="10px"
       key={props.index}>
@@ -51,7 +51,7 @@ function TodoItem(props) {
               p="4px 8px"
               borderColor="white"
               fontSize="xl"
-              letterSpacing="wider"
+              letterSpacing="normal"
               fontFamily={FONT_FAMILY}
               color={props.theme.colorMode === 'light' ? 'black' : 'white'}
               _placeholder={{
@@ -93,8 +93,8 @@ function TodoItem(props) {
       borderRadius="4px"
       p={isOnmobile ? '2' : '4'}
       my="10px"
-      fontSize="xl"
-      letterSpacing="wide"
+      fontSize="lg"
+      letterSpacing="normal"
       fontFamily={FONT_FAMILY}
       key={props.index}>
       <Flex justify="space-between">

@@ -125,9 +125,9 @@ function Tasks(props) {
           justifyContent="center"
           flexDirection="column">
           <Heading
-            fontSize="3xl"
+            fontSize="2xl"
             my="30px"
-            letterSpacing="wide"
+            letterSpacing="normal"
             fontFamily={FONT_FAMILY}
             textAlign="center"
             {...(props.theme.bgImage
@@ -164,10 +164,10 @@ function Tasks(props) {
           flexDirection="column">
           <Heading
             textAlign="center"
-            fontSize="3xl"
+            fontSize="2xl"
             fontFamily={FONT_FAMILY}
             my="30px"
-            letterSpacing="wide"
+            letterSpacing="normal"
             {...(props.theme.bgImage
               ? props.theme.styles.imageModeContrastText
               : {})}>
@@ -199,10 +199,10 @@ function Tasks(props) {
   return (
     <Flex w="100vw" flexDir="column" align="center">
       <Heading
-        fontSize="4xl"
+        fontSize="3xl"
         textAlign="center"
         fontFamily={FONT_FAMILY}
-        letterSpacing="wide"
+        letterSpacing="normal"
         mt="30px"
         {...(props.theme.bgImage
           ? props.theme.styles.imageModeContrastText

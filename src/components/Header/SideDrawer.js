@@ -10,12 +10,13 @@ import {
   DrawerOverlay,
   Flex,
   Text,
+  useColorMode,
   useDisclosure,
   useMediaQuery
 } from '@chakra-ui/react';
 import firebase from 'firebase/app';
 import { MdAttachMoney } from 'react-icons/md';
-import { StarIcon } from '@chakra-ui/icons';
+import { StarIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
@@ -28,6 +29,7 @@ function SideDrawer(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentUser, setCurrentUser] = useState(null);
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const isUserSignedIn = () => {
     return currentUser != null;
@@ -98,17 +100,27 @@ function SideDrawer(props) {
 
   const themeDrawer = (
     <DrawerContent>
-      <DrawerCloseButton />
       <DrawerHeader>
         <Text
-          ml="3"
-          letterSpacing="wide"
+          letterSpacing="normal"
           fontFamily={FONT_FAMILY}
-          fontSize="2xl"
+          fontSize="xl"
           fontWeight="800">
           Customize Theme
         </Text>
       </DrawerHeader>
+      <DrawerCloseButton />
+
+      <Button
+        leftIcon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+        color={colorMode === 'light' ? 'black' : 'white'}
+        {...(props.theme.bgImage ? props.theme.styles.imageModeContrastBg : {})}
+        onClick={toggleColorMode}
+        mx="8"
+        p="10px"
+        textAlign="left">
+        {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
+      </Button>
 
       <DrawerBody>
         <Flex flexDir="column">
@@ -139,9 +151,9 @@ function SideDrawer(props) {
       <DrawerHeader>
         <Text
           ml="3"
-          letterSpacing="wide"
+          letterSpacing="normal"
           fontFamily={FONT_FAMILY}
-          fontSize="2xl"
+          fontSize="xl"
           fontWeight="800">
           SETTINGS
         </Text>
@@ -153,8 +165,8 @@ function SideDrawer(props) {
             <Text
               my="2"
               fontWeight="semibold"
-              fontSize="2xl"
-              letterSpacing="wide"
+              fontSize="xl"
+              letterSpacing="normal"
               fontFamily={FONT_FAMILY}>
               {isUserSignedIn()
                 ? `Hi ${currentUser.displayName.split(' ')[0]}`

@@ -122,7 +122,7 @@ function ImageSearchDrawer(props) {
                 <Text
                   fontFamily={FONT_FAMILY}
                   fontSize="2xl"
-                  letterSpacing="wide"
+                  letterSpacing="normal"
                   ml="4"
                   fontWeight="bold">
                   Choose Background Image
@@ -154,8 +154,8 @@ function ImageSearchDrawer(props) {
                   pr="1vw"
                   value={searchInput}
                   fontFamily={FONT_FAMILY}
-                  fontSize="xl"
-                  letterSpacing="wider"
+                  fontSize="md"
+                  letterSpacing="normal"
                   onChange={e => {
                     setSearchInput(e.target.value);
                   }}
@@ -169,8 +169,8 @@ function ImageSearchDrawer(props) {
                   type="submit"
                   minW="max-content"
                   fontFamily={FONT_FAMILY}
-                  fontSize="xl"
-                  letterSpacing="wider"
+                  fontSize="lg"
+                  letterSpacing="normal"
                   borderRadius="0px 4px 4px 0px"
                   leftIcon={<Search2Icon />}
                   onClick={() => setSearchClicked(true)}>
