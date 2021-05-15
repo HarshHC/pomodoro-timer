@@ -21,13 +21,19 @@ import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
 import { provider } from '../../Constants/firebase';
-import { checkIfUserAlreadyExists } from '../../Constants/firebaseUtils';
+import {
+  checkIfUserAlreadyExists,
+  getUserData
+} from '../../Constants/firebaseUtils';
 import PremiumPopUp from './PremiumPopUp';
+import { openCustomerDashboard } from '../../Constants/paymentUtils';
+import { calculateDays, calculateHours } from '../../Constants/utils';
 
 function SideDrawer(props) {
   const [btnText, setBtnText] = useState('SIGN IN');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentUser, setCurrentUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [isOnmobile] = useMediaQuery('(max-width: 768px)');
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -36,13 +42,23 @@ function SideDrawer(props) {
   };
 
   useEffect(() => {
+    const receiveUserData = data => {
+      setUserData(data);
+    };
+
     firebase.auth().onAuthStateChanged(user => {
       setCurrentUser(user);
       if (user != null) {
         setBtnText('Log Out');
+        getUserData(currentUser, receiveUserData);
       }
     });
   }, []);
+
+  const recieveUserDataForCustomerPortal = data => {
+    setUserData(data);
+    openCustomerDashboard(data.custID);
+  };
 
   function signUserIn() {
     if (isOnmobile) {
@@ -191,6 +207,31 @@ function SideDrawer(props) {
             </Button>
           </Flex>
           <Button onClick={signInClicked}>{btnText}</Button>
+
+          {props.isPremium ? (
+            <Flex mt="8" flexDir="column">
+              <Text fontWeight="bold" fontSize="lg">
+                {userData != null
+                  ? `Your premium subscription ends in ${calculateDays(
+                      userData.endDate
+                    )} days and ${calculateHours(userData.endDate)} hours`
+                  : ''}
+              </Text>
+              <Button
+                my="4"
+                onClick={() => {
+                  if (userData == null) {
+                    getUserData(currentUser, recieveUserDataForCustomerPortal);
+                  } else {
+                    openCustomerDashboard(userData.custID);
+                  }
+                }}>
+                Manage Subscription
+              </Button>
+            </Flex>
+          ) : (
+            <div />
+          )}
         </Flex>
       </DrawerBody>
 

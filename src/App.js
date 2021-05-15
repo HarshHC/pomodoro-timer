@@ -3,6 +3,7 @@ import './App.css';
 import { Box, Container, useColorMode } from '@chakra-ui/react';
 import 'focus-visible/dist/focus-visible';
 import firebase from 'firebase/app';
+import { Helmet } from 'react-helmet';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import Timer from './components/Timer';
@@ -157,7 +158,23 @@ function App() {
   } else {
     displayedTimer = noBgImage;
   }
-  return displayedTimer;
+  return (
+    <div>
+      <Helmet>
+        <title>Pomodoro Timer</title>
+        <meta
+          name="description"
+          content="A simple online Pomodoro Timer App to help you focus in your studies and other activities by dividing the time into sessions and breaks. Free Web App with timer and task list."
+        />
+        <meta
+          name="keywords"
+          content="Study, Pomodoro, Timer, Online, Technique, Focus, Break"
+        />
+      </Helmet>
+
+      {displayedTimer}
+    </div>
+  );
 }
 
 export default App;

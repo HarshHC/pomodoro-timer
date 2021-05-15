@@ -1,5 +1,6 @@
 import { Container, Flex, Text, useColorMode } from '@chakra-ui/react';
 import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet';
 import { SESSION, BREAK } from '../../Constants/modes';
 import { createNotification } from '../../Constants/utils';
 
@@ -135,6 +136,12 @@ function RunningTimer(props) {
 
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
+      <Helmet>
+        <title>
+          Pomodoro Timer -{' '}
+          {seconds < 10 ? `${mins}:0${seconds}` : `${mins}:${seconds}`}
+        </title>
+      </Helmet>
       <Container flex="1" h="100%" bg="transparent" centerContent>
         <Text
           m="5"

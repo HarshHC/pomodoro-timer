@@ -24,6 +24,7 @@ import {
   getUserData,
   getUserDataWithPriceID
 } from '../../Constants/firebaseUtils';
+import { calculateDays, calculateHours } from '../../Constants/utils';
 
 function PremiumPopUp(props) {
   const [value, setValue] = useState('1');
@@ -55,22 +56,6 @@ function PremiumPopUp(props) {
     processPayment(props.currentUser, data.priceID, data.custID);
   };
 
-  const calculateDays = endDate => {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const difference = endDate - currentTime;
-
-    const daysDifference = Math.floor(difference / 60 / 60 / 24);
-    return daysDifference;
-  };
-
-  const calculateHours = endDate => {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const difference = endDate - currentTime;
-
-    const hoursDiff = Math.floor((difference / 60 / 60) % 24);
-    return hoursDiff;
-  };
-
   useEffect(() => {
     if (props.currentUser && props.isPremium && props.isOpen) {
       getUserData(props.currentUser, recieveUserData);
@@ -94,12 +79,10 @@ function PremiumPopUp(props) {
               mb="1rem"
               fontSize="lg">
               <Box direction="inline" margin="20px">
-                <Text margin="2px">BackGround Images</Text>
-                <Text margin="2px"> Custom BackGround Images</Text>
-                <Text margin="2px">Diffent Colour Thems</Text>
-                <Text margin="2px">
-                  All the future features implemented ...
-                </Text>
+                <Text margin="2px">Background Images</Text>
+                <Text margin="2px"> Custom Background Images</Text>
+                <Text margin="2px">Different Colour Themes</Text>
+                <Text margin="2px">All future features ...</Text>
               </Box>
               <Text>Select Plan</Text>
               <Stack>

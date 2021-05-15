@@ -70,6 +70,7 @@ export const getUserData = (user, callBackFunction) => {
   const premiumCallBack = (premiumData, userData) => {
     callBackFunction({ ...userData, ...premiumData });
   };
+
   const docRef = db.collection('users').doc(user.uid);
 
   docRef
