@@ -65,7 +65,6 @@ export const isPermissionGranted = () => {
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
     !window.MSStream;
 
-  console.log('test');
   if (isIOS) return true;
   return Notification.permission !== 'default';
 };

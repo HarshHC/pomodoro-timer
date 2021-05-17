@@ -9,6 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
+  Icon,
   Text,
   useColorMode,
   useDisclosure,
@@ -17,6 +18,7 @@ import {
 import firebase from 'firebase/app';
 import { MdAttachMoney } from 'react-icons/md';
 import { StarIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { FcGoogle } from 'react-icons/fc';
 import BackgroundOptions from './BackgroundOptions';
 import ColourSelector from './ColourSelector';
 import { FONT_FAMILY } from '../../Constants/themes';
@@ -206,7 +208,14 @@ function SideDrawer(props) {
               {props.isPremium && isUserSignedIn() ? 'Premium' : 'Buy Premium'}
             </Button>
           </Flex>
-          <Button onClick={signInClicked}>{btnText}</Button>
+          <Button
+            bg="blackAlpha.800"
+            color="white"
+            onClick={signInClicked}
+            pos="relative">
+            <Icon pos="absolute" as={FcGoogle} left="2" fontSize="xl" />{' '}
+            {btnText}
+          </Button>
 
           {props.isPremium ? (
             <Flex mt="8" flexDir="column">
@@ -236,7 +245,7 @@ function SideDrawer(props) {
       </DrawerBody>
 
       <DrawerFooter>
-        <Button letiant="outline" mr={3} onClick={onClose}>
+        <Button letiant="outline" mr={3} onClick={props.onClose}>
           Close
         </Button>
       </DrawerFooter>

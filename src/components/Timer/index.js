@@ -208,7 +208,6 @@ function Timer(props) {
                 {...props.theme.styles.bg}
                 fontSize="xl"
                 letterSpacing="normal"
-                p="6"
                 w={started ? 'max-content' : '200px'}
                 onClick={startClicked}>
                 {started ? 'STOP' : 'START'}
@@ -224,7 +223,6 @@ function Timer(props) {
                 {...props.theme.styles.bg}
                 fontSize="xl"
                 letterSpacing="normal"
-                p="6"
                 onClick={() => setIsRunning(!isRunning)}>
                 {isRunning ? 'PAUSE' : 'RESUME'}
               </Button>

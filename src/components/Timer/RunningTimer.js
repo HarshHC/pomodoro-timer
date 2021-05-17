@@ -74,7 +74,7 @@ function RunningTimer(props) {
 
       // play the sound
       const audio = new Audio(
-        'https://firebasestorage.googleapis.com/v0/b/study-pomodoro.appspot.com/o/goes-without-saying-608.mp3?alt=media&token=8fd892c7-aea0-4bb1-ab2a-046823dabb74'
+        `https://firebasestorage.googleapis.com/v0/b/study-pomodoro.appspot.com/o/goes-without-saying-608.mp3?alt=media&token=8fd892c7-aea0-4bb1-ab2a-046823dabb74`
       );
       audio.play();
       // send a notification
