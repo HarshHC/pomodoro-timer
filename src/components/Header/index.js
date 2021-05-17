@@ -26,7 +26,7 @@ function Header(props) {
     <>
       <Flex justify="center" align="center" p="5" m="4">
         <Flex mr="8" alignItems="center">
-          <Image w="40px" h="40px" src={logo} mr="2" />
+          <Image width="40px" height="40px" src={logo} mr="2" />
           <Heading
             color={colorMode === 'light' ? 'black' : 'white'}
             size="lg"

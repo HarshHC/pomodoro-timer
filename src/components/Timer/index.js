@@ -33,6 +33,10 @@ function Timer(props) {
   const [oldMode, setOldMode] = useState(SESSION);
   const [isRunning, setIsRunning] = useState(true);
   const [updatedStart, setUpdatedStart] = useState(false);
+  const [
+    isNotificationPersmissionGranted,
+    setNotificationPermisision
+  ] = useState(false);
   const initialFocusRef = React.useRef();
 
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -50,6 +54,8 @@ function Timer(props) {
       setBreakMins(timerProp.breakMins ? timerProp.breakMins : 10);
       setSessionMins(timerProp.sessionMins ? timerProp.sessionMins : 25);
     }
+
+    setNotificationPermisision(isPermissionGranted());
   }, []);
 
   // useEffect to save Mode to local storage
@@ -197,7 +203,7 @@ function Timer(props) {
         <Center>{displayedTimer}</Center>
         <Flex mt="2" justify="center" align="center">
           <Center m="20px">
-            {isPermissionGranted() ? (
+            {isNotificationPersmissionGranted ? (
               <Button
                 {...props.theme.styles.bg}
                 fontSize="xl"

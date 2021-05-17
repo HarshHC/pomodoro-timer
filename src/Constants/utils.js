@@ -1,4 +1,11 @@
 export const createNotification = data => {
+  const isIOS =
+    (/iPad|iPhone|iPod/.test(navigator.platform) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+    !window.MSStream;
+
+  if (isIOS) return true;
+
   if (data == null || !data) {
     return false;
   }
@@ -41,12 +48,25 @@ export const createNotification = data => {
 };
 
 export const requestNotificationPermission = () => {
+  const isIOS =
+    (/iPad|iPhone|iPod/.test(navigator.platform) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+    !window.MSStream;
+
+  if (isIOS) return;
   Notification.requestPermission().then(() => {
     // console.log(result);
   });
 };
 
 export const isPermissionGranted = () => {
+  const isIOS =
+    (/iPad|iPhone|iPod/.test(navigator.platform) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+    !window.MSStream;
+
+  console.log('test');
+  if (isIOS) return true;
   return Notification.permission !== 'default';
 };
 

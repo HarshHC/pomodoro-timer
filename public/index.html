@@ -44,13 +44,12 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Teko&display=swap"
-      rel="stylesheet"
-    />
-    <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
