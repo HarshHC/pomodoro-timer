@@ -53,9 +53,9 @@ function TodoItem(props) {
               fontSize="xl"
               letterSpacing="normal"
               fontFamily={FONT_FAMILY}
-              color={props.theme.colorMode === 'light' ? 'black' : 'white'}
+              color={props.theme.color.textColor}
               _placeholder={{
-                color: props.theme.colorMode === 'light' ? 'black' : 'white',
+                color: props.theme.color.textColor,
                 ...(props.theme.bgImage
                   ? props.theme.styles.imageModeContrastText
                   : {})

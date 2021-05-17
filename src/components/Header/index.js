@@ -4,13 +4,12 @@ import {
   Flex,
   Heading,
   IconButton,
-  Image,
   useColorMode,
   useDisclosure
 } from '@chakra-ui/react';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IoMdBrush } from 'react-icons/io';
-import SideDrawer from './SideDrawer';
+import loadable from '@loadable/component';
 import logo from '../../assets/images/logo512.png';
 import { FONT_FAMILY } from '../../Constants/themes';
 
@@ -22,14 +21,17 @@ function Header(props) {
 
   const btnRef = React.useRef();
 
+  const SideDrawer = loadable(() => import('./SideDrawer'));
+
   return (
     <>
       <Flex justify="center" align="center" p="5" m="4">
         <Flex mr="8" alignItems="center">
-          <Image width="40px" height="40px" src={logo} mr="2" />
+          <img width="40px" height="40px" src={logo} alt="logo" />
           <Heading
             color={colorMode === 'light' ? 'black' : 'white'}
             size="lg"
+            ml="2"
             letterSpacing="normal"
             fontFamily={FONT_FAMILY}
             {...(props.theme.bgImage
@@ -74,6 +76,7 @@ function Header(props) {
         )}
       </Flex>
       <SideDrawer
+        fallback={<div>Loading...</div>}
         isOpen={isOpen}
         onClose={onClose}
         btnRef={btnRef}

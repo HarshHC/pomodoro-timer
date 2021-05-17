@@ -50,7 +50,7 @@ function SideDrawer(props) {
       setCurrentUser(user);
       if (user != null) {
         setBtnText('Log Out');
-        getUserData(currentUser, receiveUserData);
+        getUserData(user, receiveUserData);
       }
     });
   }, []);
@@ -220,7 +220,7 @@ function SideDrawer(props) {
               <Button
                 my="4"
                 onClick={() => {
-                  if (userData == null) {
+                  if (userData == null && currentUser != null) {
                     getUserData(currentUser, recieveUserDataForCustomerPortal);
                   } else {
                     openCustomerDashboard(userData.custID);

@@ -72,6 +72,11 @@ function RunningTimer(props) {
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
 
+      // play the sound
+      const audio = new Audio(
+        'https://firebasestorage.googleapis.com/v0/b/study-pomodoro.appspot.com/o/goes-without-saying-608.mp3?alt=media&token=8fd892c7-aea0-4bb1-ab2a-046823dabb74'
+      );
+      audio.play();
       // send a notification
       createNotification({
         title: `${props.mode.toUpperCase()}'s Over! `,
