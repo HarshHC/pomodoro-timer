@@ -71,8 +71,7 @@ function Header(props) {
             }}
             fontFamily={FONT_FAMILY}
             fontSize="sm"
-            mx="10px"
-            p="4">
+            mx="10px">
             Themes
           </Button>
         )}
