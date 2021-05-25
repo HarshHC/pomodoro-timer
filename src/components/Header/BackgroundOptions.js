@@ -110,7 +110,6 @@ function BackgroundOptions(props) {
           my="4"
           minW="max-content"
           w="40%"
-          p="6"
           fontFamily={FONT_FAMILY}
           fontSize="md"
           letterSpacing="normal"

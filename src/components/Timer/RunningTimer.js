@@ -71,6 +71,8 @@ function RunningTimer(props) {
       setUpdatedTime(
         props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60
       );
+      time.current =
+        props.mode === !SESSION ? props.sessionMins * 60 : props.breakMins * 60;
 
       // play the sound
       const audio = new Audio(

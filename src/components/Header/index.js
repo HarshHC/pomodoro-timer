@@ -5,23 +5,26 @@ import {
   Heading,
   IconButton,
   useColorMode,
-  useDisclosure
+  useDisclosure,
+  useMediaQuery
 } from '@chakra-ui/react';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IoMdBrush } from 'react-icons/io';
-import loadable from '@loadable/component';
+// import loadable from '@loadable/component';
 import logo from '../../assets/images/logo512.png';
 import { FONT_FAMILY } from '../../Constants/themes';
+import SideDrawer from './SideDrawer';
 
 function Header(props) {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOnmobile] = useMediaQuery('(max-width: 768px)');
 
   const [mode, setMode] = useState('THEME');
 
   const btnRef = React.useRef();
 
-  const SideDrawer = loadable(() => import('./SideDrawer'));
+  // const SideDrawer = loadable(() => import('./SideDrawer'));
 
   return (
     <>
@@ -41,22 +44,39 @@ function Header(props) {
           </Heading>
         </Flex>
 
-        <Button
-          leftIcon={<IoMdBrush />}
-          color={colorMode === 'light' ? 'black' : 'white'}
-          {...(props.theme.bgImage
-            ? props.theme.styles.imageModeContrastBg
-            : {})}
-          onClick={() => {
-            setMode('THEME');
-            onOpen();
-          }}
-          fontFamily={FONT_FAMILY}
-          fontSize="sm"
-          mx="10px"
-          p="4">
-          Themes
-        </Button>
+        {isOnmobile ? (
+          <IconButton
+            color={colorMode === 'light' ? 'black' : 'white'}
+            icon={<IoMdBrush />}
+            {...(props.theme.bgImage
+              ? props.theme.styles.imageModeContrastBg
+              : {})}
+            onClick={() => {
+              setMode('THEME');
+              onOpen();
+            }}
+            ml="12"
+            fill="red"
+          />
+        ) : (
+          <Button
+            leftIcon={<IoMdBrush />}
+            color={colorMode === 'light' ? 'black' : 'white'}
+            {...(props.theme.bgImage
+              ? props.theme.styles.imageModeContrastBg
+              : {})}
+            onClick={() => {
+              setMode('THEME');
+              onOpen();
+            }}
+            fontFamily={FONT_FAMILY}
+            fontSize="sm"
+            mx="10px"
+            p="4">
+            Themes
+          </Button>
+        )}
+
         {props.currenUser != null ? (
           <div>hi</div>
         ) : (

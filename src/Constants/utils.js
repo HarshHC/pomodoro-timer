@@ -10,25 +10,34 @@ export const createNotification = data => {
     return false;
   }
 
-  const title = data.title === undefined ? 'Notification' : data.title;
-  const { clickCallback } = data;
-  const message = data.message === undefined ? 'null' : data.message;
-  const icon =
-    data.icon === undefined
-      ? 'https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/hourglass-64.png'
-      : data.icon;
+  // const title = data.title === undefined ? 'Notification' : data.title;
+  // const { clickCallback } = data;
+  // const message = data.message === undefined ? 'null' : data.message;
+  // const icon =
+  //   data.icon === undefined
+  //     ? 'https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/hourglass-64.png'
+  //     : data.icon;
 
   const sendNotification = () => {
-    const notification = new Notification(title, {
-      icon,
-      body: message
-    });
-    if (clickCallback !== undefined) {
-      notification.onclick = () => {
-        // clickCallback();
-        notification.close();
-      };
-    }
+    // navigator.serviceWorker.getRegistration().then(reg => {
+    //   reg.showNotification(title, {
+    //     icon,
+    //     body: message
+    //   });
+    // });
+    // const notification = window.serviceWorkerRegistration.showNotification(
+    //   title,
+    //   {
+    //     icon,
+    //     body: message
+    //   }
+    // );
+    // if (clickCallback !== undefined) {
+    //   notification.onclick = () => {
+    //     // clickCallback();
+    //     notification.close();
+    //   };
+    // }
   };
 
   if (!window.Notification) {
