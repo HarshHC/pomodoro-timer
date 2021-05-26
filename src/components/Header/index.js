@@ -10,10 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IoMdBrush } from 'react-icons/io';
-// import loadable from '@loadable/component';
+import loadable from '@loadable/component';
 import logo from '../../assets/images/logo512.png';
 import { FONT_FAMILY } from '../../Constants/themes';
-import SideDrawer from './SideDrawer';
+// import SideDrawer from './SideDrawer';
 
 function Header(props) {
   const { colorMode } = useColorMode();
@@ -24,7 +24,7 @@ function Header(props) {
 
   const btnRef = React.useRef();
 
-  // const SideDrawer = loadable(() => import('./SideDrawer'));
+  const SideDrawer = loadable(() => import('./SideDrawer'));
 
   return (
     <>

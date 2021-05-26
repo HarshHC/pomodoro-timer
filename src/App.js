@@ -4,6 +4,7 @@ import { Box, Container, useColorMode } from '@chakra-ui/react';
 import 'focus-visible/dist/focus-visible';
 import firebase from 'firebase/app';
 import { Helmet } from 'react-helmet';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import Timer from './components/Timer';
@@ -14,6 +15,10 @@ import {
   toggleBackgroundImageInGradientTheme
 } from './Constants/themes';
 import { checkIfUserIsPremium } from './Constants/firebaseUtils';
+import Description from './pages/Description';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TnC from './pages/TnC';
+import Footer from './components/Footer';
 
 function App() {
   const { colorMode } = useColorMode();
@@ -172,9 +177,21 @@ function App() {
         />
       </Helmet>
 
-      {displayedTimer}
+      <Switch>
+        <Route path="/description">
+          <Description theme={timerTheme} />
+        </Route>
+        <Route path="/privacy">
+          <PrivacyPolicy theme={timerTheme} />
+        </Route>
+        <Route path="/terms">
+          <TnC theme={timerTheme} />
+        </Route>
+        <Route path="/">{displayedTimer}</Route>
+      </Switch>
+      <Footer theme={timerTheme} />
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
