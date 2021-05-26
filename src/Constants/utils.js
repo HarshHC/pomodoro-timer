@@ -10,21 +10,21 @@ export const createNotification = data => {
     return false;
   }
 
-  // const title = data.title === undefined ? 'Notification' : data.title;
+  const title = data.title === undefined ? 'Notification' : data.title;
   // const { clickCallback } = data;
-  // const message = data.message === undefined ? 'null' : data.message;
-  // const icon =
-  //   data.icon === undefined
-  //     ? 'https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/hourglass-64.png'
-  //     : data.icon;
+  const message = data.message === undefined ? 'null' : data.message;
+  const icon =
+    data.icon === undefined
+      ? 'https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/hourglass-64.png'
+      : data.icon;
 
   const sendNotification = () => {
-    // navigator.serviceWorker.getRegistration().then(reg => {
-    //   reg.showNotification(title, {
-    //     icon,
-    //     body: message
-    //   });
-    // });
+    navigator.serviceWorker.getRegistration().then(reg => {
+      reg.showNotification(title, {
+        icon,
+        body: message
+      });
+    });
     // const notification = window.serviceWorkerRegistration.showNotification(
     //   title,
     //   {
