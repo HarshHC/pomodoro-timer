@@ -178,7 +178,7 @@ function App() {
       </Helmet>
 
       <Switch>
-        <Route path="/description">
+        <Route path="/about">
           <Description theme={timerTheme} />
         </Route>
         <Route path="/privacy">

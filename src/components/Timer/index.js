@@ -208,7 +208,7 @@ function Timer(props) {
                 {...props.theme.styles.bg}
                 fontSize="xl"
                 letterSpacing="normal"
-                w={started ? 'max-content' : '200px'}
+                w={started ? '100px' : '200px'}
                 onClick={startClicked}>
                 {started ? 'STOP' : 'START'}
               </Button>

@@ -1,11 +1,14 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Nav from '../components/Nav';
 import { FONT_FAMILY } from '../Constants/themes';
 
 function Description({ theme }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <Flex flexDir="column" align="center" minH="90vh">
+    <Flex flexDir="column" align="center" minH="90vh" mb="4">
       <Nav theme={theme} page="Description" />
       <Flex
         m="4"

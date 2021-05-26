@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, Button } from '@chakra-ui/react';
+import { Flex, Heading, Text, Button, useMediaQuery } from '@chakra-ui/react';
 import { FiInstagram } from 'react-icons/fi';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -7,15 +7,16 @@ import { FONT_FAMILY } from '../Constants/themes';
 
 function Footer({ theme }) {
   const history = useHistory();
+  const [isOnmobile] = useMediaQuery('(max-width: 768px)');
+
   return (
     <Flex
-      mt="4"
       p="4"
       minH="10vh"
       w="100%"
       flexWrap="wrap"
       bg={theme.startColor}
-      justify="space-between">
+      justify={isOnmobile ? 'center' : 'space-between'}>
       <Flex
         my="2"
         alignItems="center"
@@ -34,9 +35,14 @@ function Footer({ theme }) {
           Study Pomodoro
         </Heading>
       </Flex>
-      <Flex color={theme.color.textColor} align="center" fontWeight="semibold">
+      <Flex
+        color={theme.color.textColor}
+        justify="center"
+        align="center"
+        fontWeight="semibold"
+        flexWrap="wrap">
         <Button
-          mr="1"
+          m="2"
           leftIcon={<FiInstagram fontSize="xl" />}
           color={theme.color.textColor}
           onClick={() => {
@@ -46,15 +52,17 @@ function Footer({ theme }) {
         </Button>
 
         <Text
-          mx="2"
+          m="2"
+          cursor="pointer"
           _hover={{ opacity: '50%' }}
           onClick={() => {
-            history.push('/description');
+            history.push('/about');
           }}>
-          Description
+          About
         </Text>
         <Text
-          mx="2"
+          m="2"
+          cursor="pointer"
           _hover={{ opacity: '50%' }}
           onClick={() => {
             history.push('/privacy');
@@ -62,7 +70,8 @@ function Footer({ theme }) {
           Privacy Policy
         </Text>
         <Text
-          mx="2"
+          m="2"
+          cursor="pointer"
           _hover={{ opacity: '50%' }}
           onClick={() => {
             history.push('/terms');

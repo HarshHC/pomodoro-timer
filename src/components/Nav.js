@@ -8,7 +8,7 @@ function Nav({ theme, page }) {
   const history = useHistory();
 
   return (
-    <Flex justify="center" align="center" p="5" m="4" flexDir="column">
+    <Flex w="95%" justify="center" align="center" p="5" m="4" flexDir="column">
       <Flex
         mr="8"
         alignItems="center"
@@ -26,7 +26,7 @@ function Nav({ theme, page }) {
           {...(theme.bgImage ? theme.styles.imageModeContrastText : {})}>
           Study Pomodoro
         </Heading>
-        <Text ml="4" fontFamily={FONT_FAMILY} fontSize="lg">
+        <Text ml="4" textAlign="right" fontFamily={FONT_FAMILY} fontSize="lg">
           - {page}
         </Text>
       </Flex>

@@ -116,7 +116,7 @@ function Tasks(props) {
   // function to run the Tasks
   const desktopTodos = (
     <DragDropContext onDragEnd={onEnd}>
-      <Flex mx="10px" w="95vw" justifyContent="center" h="100%">
+      <Flex mb="4" mx="10px" w="95vw" justifyContent="center" h="100%">
         <Flex
           mx="10px"
           w="1/3"
