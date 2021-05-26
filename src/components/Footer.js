@@ -19,6 +19,7 @@ function Footer({ theme }) {
       <Flex
         my="2"
         alignItems="center"
+        cursor="pointer"
         onClick={() => {
           history.push('/');
         }}>

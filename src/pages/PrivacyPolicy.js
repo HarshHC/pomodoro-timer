@@ -1,7 +1,13 @@
 import React from 'react';
+import Nav from '../components/Nav';
 
-function PrivacyPolicy() {
-  return <div>hi</div>;
+function PrivacyPolicy({ theme }) {
+  return (
+    <div>
+      <Nav theme={theme} page="Privacy Policy" />
+      hi
+    </div>
+  );
 }
 
 export default PrivacyPolicy;
