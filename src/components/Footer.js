@@ -26,7 +26,7 @@ function Footer({ theme }) {
         }}>
         <img width="30px" height="30px" src={logo} alt="logo" />
         <Heading
-          color="white"
+          color={theme.color.textColor}
           size="md"
           ml="2"
           letterSpacing="normal"
@@ -45,6 +45,10 @@ function Footer({ theme }) {
           m="2"
           leftIcon={<FiInstagram fontSize="xl" />}
           color={theme.color.textColor}
+          bg="transparent"
+          borderColor={theme.color.textColor}
+          variant="outline"
+          _hover={{ opacity: '70%' }}
           onClick={() => {
             window.open('https://www.instagram.com/studypomodoro/', '_blank');
           }}>
@@ -54,7 +58,7 @@ function Footer({ theme }) {
         <Text
           m="2"
           cursor="pointer"
-          _hover={{ opacity: '50%' }}
+          _hover={{ opacity: '70%' }}
           onClick={() => {
             history.push('/about');
           }}>
@@ -63,7 +67,7 @@ function Footer({ theme }) {
         <Text
           m="2"
           cursor="pointer"
-          _hover={{ opacity: '50%' }}
+          _hover={{ opacity: '70%' }}
           onClick={() => {
             history.push('/privacy');
           }}>
@@ -72,7 +76,7 @@ function Footer({ theme }) {
         <Text
           m="2"
           cursor="pointer"
-          _hover={{ opacity: '50%' }}
+          _hover={{ opacity: '70%' }}
           onClick={() => {
             history.push('/terms');
           }}>
