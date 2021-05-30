@@ -1,4 +1,3 @@
-import { RepeatIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -12,17 +11,17 @@ import {
   PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  useDisclosure,
-  IconButton
+  useDisclosure
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { BREAK, SESSION } from '../../Constants/modes';
+import { SESSION } from '../../Constants/modes';
 import { FONT_FAMILY } from '../../Constants/themes';
 import {
   isPermissionGranted,
   requestNotificationPermission
 } from '../../Constants/utils';
 import RunningTimer from './RunningTimer';
+import SwitchMode from './SwitchMode';
 import TimerEditMode from './TimerEditMode';
 
 function Timer(props) {
@@ -184,21 +183,7 @@ function Timer(props) {
         align="center"
         pos="relative"
         flexDir="column">
-        {started ? (
-          <IconButton
-            pos="absolute"
-            top="0"
-            right="0"
-            m="4"
-            icon={<RepeatIcon />}
-            onClick={() => {
-              setMode(mode === SESSION ? BREAK : SESSION);
-              // alert(mode);
-            }}
-          />
-        ) : (
-          <div />
-        )}
+        {started ? <SwitchMode mode={mode} setMode={setMode} /> : <div />}
 
         <Center>{displayedTimer}</Center>
         <Flex mt="2" justify="center" align="center">

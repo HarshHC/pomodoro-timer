@@ -69,7 +69,11 @@ function Footer({ theme }) {
           cursor="pointer"
           _hover={{ opacity: '70%' }}
           onClick={() => {
-            history.push('/privacy');
+            window.open(
+              'https://portal.termshub.io/studypomodoro.com/',
+              '_blank'
+            );
+            // history.push('/privacy');
           }}>
           Privacy &amp; Terms
         </Text>
@@ -78,7 +82,7 @@ function Footer({ theme }) {
           cursor="pointer"
           _hover={{ opacity: '70%' }}
           onClick={() => {
-            history.push('/terms');
+            history.push('/contact');
           }}>
           Contact
         </Text>

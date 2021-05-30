@@ -17,8 +17,8 @@ import {
 import { checkIfUserIsPremium } from './Constants/firebaseUtils';
 import Description from './pages/Description';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import TnC from './pages/TnC';
 import Footer from './components/Footer';
+import Contact from './pages/Contact';
 
 function App() {
   const { colorMode } = useColorMode();
@@ -184,8 +184,8 @@ function App() {
         <Route path="/privacy">
           <PrivacyPolicy theme={timerTheme} />
         </Route>
-        <Route path="/terms">
-          <TnC theme={timerTheme} />
+        <Route path="/contact">
+          <Contact theme={timerTheme} />
         </Route>
         <Route path="/">{displayedTimer}</Route>
       </Switch>
