@@ -71,7 +71,7 @@ function Footer({ theme }) {
           onClick={() => {
             history.push('/privacy');
           }}>
-          Privacy Policy
+          Privacy &amp; Terms
         </Text>
         <Text
           m="2"
@@ -80,7 +80,7 @@ function Footer({ theme }) {
           onClick={() => {
             history.push('/terms');
           }}>
-          T&amp;C
+          Contact
         </Text>
       </Flex>
     </Flex>
