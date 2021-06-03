@@ -1,8 +1,17 @@
+/* eslint-disable no-param-reassign */
 import { Container, Flex, Text, useColorMode } from '@chakra-ui/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
+import {
+  createWorkerFactory,
+  useWorker,
+  terminate
+} from '@shopify/react-web-worker';
 import { SESSION, BREAK } from '../../Constants/modes';
 import { createNotification } from '../../Constants/utils';
+import { reset } from './timerWorker';
+
+const createWorker = createWorkerFactory(() => import('./timerWorker'));
 
 function RunningTimer(props) {
   // useStates defined here
@@ -22,6 +31,7 @@ function RunningTimer(props) {
   );
 
   // variables defined here
+  const worker = useWorker(createWorker);
   const time = useRef(null);
 
   //  useEffect to store data in local storage
@@ -98,19 +108,31 @@ function RunningTimer(props) {
   };
 
   // function that takes anammout of minutes as a parameter and starts the timer
-  const startTimer = startingMins => {
-    time.current = startingMins * 60 - 1;
-    const runningInterval = window.setInterval(() => {
-      setSeconds(time.current % 60);
-      setMins(Math.floor(time.current / 60));
-      time.current -= 1;
-      countdownHandler();
-    }, 1000);
-    return runningInterval;
+  // const startTimer = startingMins => {
+  // };
+
+  function updateUI(currentTime) {
+    if (currentTime >= 0) {
+      setSeconds(currentTime % 60);
+      setMins(Math.floor(currentTime / 60));
+    }
+    time.current = currentTime;
+    countdownHandler();
+  }
+
+  const runWorker = async startMins => {
+    time.current = startMins * 60;
+
+    const result = await worker.backgroundTimer(time.current, updateUI);
+    return result;
   };
 
   // useEffects defined here
   useEffect(() => {
+    if (!props.isRunning) {
+      reset();
+    }
+
     let interval;
     if (props.isRunning) {
       // when start is clicked state is changed
@@ -118,35 +140,39 @@ function RunningTimer(props) {
         // checking if timer is starting again or just starting
         if (props.mode === SESSION) {
           // check the mode
-          interval = startTimer(props.sessionMins);
+          interval = runWorker(props.sessionMins);
         } else if (props.mode === BREAK) {
           // check the mode
-          interval = startTimer(props.breakMins);
+          interval = runWorker(props.breakMins);
         }
       } else if (props.oldMode !== props.mode) {
         //  if timer is running and we switch mode
         props.setOldMode(props.mode);
         if (props.mode === SESSION) {
           // check the mode
-          interval = startTimer(props.sessionMins);
+          interval = runWorker(props.sessionMins);
         } else if (props.mode === BREAK) {
           // check the mode
-          interval = startTimer(props.breakMins);
+          interval = runWorker(props.breakMins);
         }
       } else {
         //  if timer is running and we pause, when unpaused we pass updated time.current back into startTimer
-        interval = startTimer((updatedTime + 1) / 60);
+
+        interval = runWorker(updatedTime / 60);
       }
     }
-    return () => clearInterval(interval);
+    return () => {
+      terminate(worker);
+      clearInterval(interval);
+    };
   }, [props.mode, props.isRunning]);
 
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
-      <Helmet>
+      <Helmet defer={false}>
         <title>
-          Pomodoro Timer -{' '}
-          {seconds < 10 ? `${mins}:0${seconds}` : `${mins}:${seconds}`}
+          {seconds < 10 ? `${mins}:0${seconds} ` : `${mins}:${seconds} `} -
+          Pomodoro Timer
         </title>
       </Helmet>
       <Container flex="1" h="100%" bg="transparent" centerContent>

@@ -23,6 +23,7 @@ import {
 import RunningTimer from './RunningTimer';
 import SwitchMode from './SwitchMode';
 import TimerEditMode from './TimerEditMode';
+import { reset } from './timerWorker';
 
 function Timer(props) {
   const [sessionMins, setSessionMins] = useState(25);
@@ -59,6 +60,9 @@ function Timer(props) {
 
   // useEffect to save Mode to local storage
   useEffect(() => {
+    if (!started) {
+      reset();
+    }
     const timerProp = JSON.parse(localStorage.getItem('timerProps'));
     if (timerProp) {
       timerProp.started = started;
