@@ -105,6 +105,8 @@ function Timer(props) {
   }
 
   const startClicked = () => {
+    setNotificationPermisision(isPermissionGranted());
+
     if (!isPermissionGranted()) {
       requestNotificationPermission();
     }
@@ -113,6 +115,8 @@ function Timer(props) {
     setStarted(!started);
     setIsRunning(true);
     setUpdatedStart(!updatedStart);
+
+    setNotificationPermisision(isPermissionGranted());
   };
 
   const buttonWithPopOver = (
