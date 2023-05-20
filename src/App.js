@@ -95,7 +95,7 @@ function App() {
 
   const noBgImage = (
     <Box
-      width="100vw"
+      width="100%"
       height="maxContent"
       overflowX="hidden"
       minH="100vh"
@@ -110,7 +110,8 @@ function App() {
 
   const withBgRandomImage = (
     <Box
-      width="100vw"
+      width="100%"
+      overflowX="hidden"
       minH="100vh"
       _before={{
         bgImage: `url('${timerTheme.bgInfo.random_url}')`,
@@ -132,7 +133,8 @@ function App() {
 
   const withBgCustomImage = (
     <Box
-      width="100vw"
+      width="100%"
+      overflowX="hidden"
       height="maxContent"
       minH="100vh"
       _before={{

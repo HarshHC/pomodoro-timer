@@ -12,7 +12,6 @@ function Contact({ theme }) {
       <Nav theme={theme} page="Contact" />
       <iframe
         title="Contact Form"
-        allowTransparency="true"
         allowFullScreen="true"
         allow="geolocation; microphone; camera"
         src="https://my.forms.app/form/60b37001b42c292b4c68585d"

@@ -115,6 +115,7 @@ function Tasks(props) {
 
   // function to run the Tasks
   const desktopTodos = (
+    // eslint-disable-next-line react/jsx-no-bind
     <DragDropContext onDragEnd={onEnd}>
       <Flex mb="4" mx="10px" w="95vw" justifyContent="center" h="100%">
         <Flex
