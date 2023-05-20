@@ -2,12 +2,12 @@
   "hosting": {
     "public": "build",
     "site": "study-pomodoro",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
+      {
+        "source": "/about",
+        "destination": "/about.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"
