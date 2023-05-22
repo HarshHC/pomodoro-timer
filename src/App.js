@@ -190,6 +190,7 @@ function App() {
           <Contact theme={timerTheme} />
         </Route>
         <Route path="/">{displayedTimer}</Route>
+        <Route component={displayedTimer} />
       </Switch>
       <Footer theme={timerTheme} />
     </div>

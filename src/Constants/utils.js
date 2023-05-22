@@ -20,10 +20,14 @@ export const createNotification = data => {
 
   const sendNotification = () => {
     navigator.serviceWorker.getRegistration().then(reg => {
-      reg.showNotification(title, {
-        icon,
-        body: message
-      });
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      } else {
+        reg.showNotification(title, {
+          icon,
+          body: message
+        });
+      }
     });
     // const notification = window.serviceWorkerRegistration.showNotification(
     //   title,

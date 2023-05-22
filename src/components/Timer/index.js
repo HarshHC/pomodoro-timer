@@ -24,6 +24,7 @@ import RunningTimer from './RunningTimer';
 import SwitchMode from './SwitchMode';
 import TimerEditMode from './TimerEditMode';
 import { reset } from './timerWorker';
+import clickAudio from '../../assets/click_sound.wav';
 
 function Timer(props) {
   const [sessionMins, setSessionMins] = useState(25);
@@ -105,6 +106,10 @@ function Timer(props) {
   }
 
   const startClicked = () => {
+    // play sound
+    const audio = new Audio(clickAudio);
+    audio.play();
+
     setNotificationPermisision(isPermissionGranted());
 
     if (!isPermissionGranted()) {
@@ -126,6 +131,7 @@ function Timer(props) {
       isOpen={isOpen}
       onOpen={onOpen}
       onClose={onClose}
+      fontFamily={FONT_FAMILY}
       closeOnBlur>
       <PopoverTrigger>
         <Button
@@ -156,13 +162,12 @@ function Timer(props) {
           alignItems="center"
           justifyContent="space-between"
           pb={4}>
-          <Flex w="100%" justify="flex-end" size="lg" fontFamily="Roboto">
+          <Flex w="100%" justify="flex-end" size="lg">
             <Button bg="green.500" fontSize="sm" onClick={startClicked}>
               YES
             </Button>
             <Button
               ml="2"
-              bg="red.500"
               fontSize="sm"
               onClick={startClicked}
               ref={initialFocusRef}>
@@ -216,7 +221,13 @@ function Timer(props) {
                 {...props.theme.styles.bg}
                 fontSize="xl"
                 letterSpacing="normal"
-                onClick={() => setIsRunning(!isRunning)}>
+                onClick={() => {
+                  // play sound
+                  const audio = new Audio(clickAudio);
+                  audio.play();
+
+                  setIsRunning(!isRunning);
+                }}>
                 {isRunning ? 'PAUSE' : 'RESUME'}
               </Button>
             </Center>

@@ -1,4 +1,4 @@
-import { loadStripe } from '@stripe/stripe-js';
+// import { loadStripe } from '@stripe/stripe-js';
 
 const SERVER_URL = 'https://pomotimer-server.herokuapp.com';
 
@@ -18,9 +18,9 @@ export const createCheckoutSession = (priceId, custID, currentUser) => {
   }).then(result => result.json());
 };
 
-const handleResult = () => {
-  // console.log(result);
-};
+// const handleResult = () => {
+//   // console.log(result);
+// };
 
 export const openCustomerDashboard = customerID => {
   fetch(`${SERVER_URL}/customer-portal`, {
@@ -41,21 +41,25 @@ export const openCustomerDashboard = customerID => {
     });
 };
 
-export const processPayment = async (currentUser, priceID, custID) => {
-  //   if (isUserPremium) {
-  //     openCustomerDashboard();
-  //     return;
-  //   }
-
-  const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
-
-  createCheckoutSession(priceID, custID, currentUser).then(data => {
-    // Call Stripe.js method to redirect to the new Checkout page
-
-    stripe
-      .redirectToCheckout({
-        sessionId: data.sessionId
-      })
-      .then(handleResult);
-  });
+export const processPayment = async () => {
+  alert('This feature is currently unavailable');
 };
+
+// export const processPayment = async (currentUser, priceID, custID) => {
+//   //   if (isUserPremium) {
+//   //     openCustomerDashboard();
+//   //     return;
+//   //   }
+
+//   const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+
+//   createCheckoutSession(priceID, custID, currentUser).then(data => {
+//     // Call Stripe.js method to redirect to the new Checkout page
+
+//     stripe
+//       .redirectToCheckout({
+//         sessionId: data.sessionId
+//       })
+//       .then(handleResult);
+//   });
+// };
